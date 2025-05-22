@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".TrailorFragment"
+    android:background="?backgroundColor">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/trailor_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:cardCornerRadius="13dp"
+                app:cardBackgroundColor="?attr/backgroundColor"
+                android:background="?attr/backgroundColor"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="16dp"
+               >
+
+                <ImageView
+                    android:id="@+id/trailerimage"
+                    android:layout_width="152dp"
+                    android:layout_height="115dp"
+                    android:scaleType="fitXY"
+                    android:adjustViewBounds="true"
+                    android:layout_marginStart="-10dp"
+                     />
+
+            </androidx.cardview.widget.CardView>
+
+
+
+            <TextView
+                android:id="@+id/trailor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trailer: "
+                android:fontFamily="@font/urbanist_bold"
+                android:textSize="18dp"
+                android:textFontWeight="700"
+                android:textColor="?attr/textcolor"
+                app:layout_constraintStart_toEndOf="@id/trailor_card"
+                app:layout_constraintTop_toTopOf="@id/trailor_card"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="13dp"
+                />
+            <TextView
+                android:id="@+id/trailorname"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:fontFamily="@font/urbanist_bold"
+                android:textSize="18dp"
+                android:textFontWeight="700"
+                android:gravity="left"
+                android:textColor="?attr/textcolor"
+                app:layout_constraintStart_toEndOf="@id/trailor"
+                app:layout_constraintTop_toTopOf="@id/trailor"
+                />
+
+            <TextView
+                android:id="@+id/trailorduration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:fontFamily="@font/urbanist_medium"
+                android:textSize="14dp"
+                android:textFontWeight="500"
+                app:layout_constraintStart_toStartOf="@id/trailor"
+                app:layout_constraintTop_toBottomOf="@id/trailorname"
+                android:textColor="?attr/textcolor"
+                android:layout_marginTop="10dp"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

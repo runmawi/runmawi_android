@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
+    tools:context=".SearchActivity"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                    <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        layout_height="?actionBarSize"
+                        layout_width="wrap_content"
+                        android:background="@color/toolbar_color"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:minHeight="?attr/actionBarSize"
+                        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+                        tools:ignore="MissingClass">
+
+                    </androidx.appcompat.widget.Toolbar>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:text="@string/comingsoon"
+                        android:textColor="?attr/textcolor"
+                        android:textSize="20sp" />
+
+                    <ImageView
+                        android:id="@+id/searchpage"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_weight="4"
+                        android:layout_gravity="center"
+                        android:src="@drawable/searchhome"
+
+                        />
+
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_weight="4"
+                        android:id="@+id/profiledp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_baseline_account_circle_24"
+
+                        />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/comingsoonlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/commingsoonrecycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible" />
+
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

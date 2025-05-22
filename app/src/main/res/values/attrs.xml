@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="dark">
+        <attr name="edittextcolor" format="color"/>
+        <attr name="buttoncolor" format="color"/>
+        <attr name="cardviewbackround" format="color"/>
+        <attr name="linearlayoutcolor" format="color"/>
+        <attr name="textcolor" format="color"/>
+        <attr name="card_color" format="color"/>
+        <attr name="back_card_color" format="color"/>
+        <attr name="menutextcolor" format="color"/>
+        <attr name="colorPrimary" format="color"/>
+        <attr name="colorAccent" format="color"/>
+        <attr name="colorPrimaryDark" format="color"/>
+        <attr name="backgroundColor" format="color"/>
+        <attr name="background" format="reference"/>
+        <attr name="edittextwhite" format="color"/>
+        <attr name="viewcolor" format="color"/>
+        <attr name="buttontextcolor" format="color"/>
+        <attr name="buttonface_picture" format="reference"/>
+        <attr name="facebook" format="reference"/>
+        <attr name="twitter" format="reference"/>
+        <attr name="appsettings" format="reference"/>
+        <attr name="arrowcircle" format="reference"/>
+        <attr name="signout" format="reference"/>
+        <attr name="account" format="reference"/>
+        <attr name="googleplus" format="reference"/>
+        <attr name="homemenu" format="reference"/>
+        <attr name="ediitextstylecolor" format="color"/>
+        <attr name="myacccolor" format="color"/>
+        <attr name="myaccountcolor" format="color"/>
+        <attr name="helpcenter" format="reference"/>
+        <attr name="adduser" format="reference"/>
+        <attr name="iconcolor" format="color"></attr>
+        <attr name="bghelp" format="color"></attr>
+        <attr name="tabcolor" format="color"></attr>
+        <attr format="reference" name="cardStyle"/>
+        <attr name="blackshadow" format="color"/>
+        <attr name="viewmy" format="color"/>
+        <attr name="wishlist" format="reference"/>
+        <attr name="watchlater" format="reference"/>
+        <attr name="share" format="reference"/>
+        <attr name="like" format="reference"/>
+        <attr name="dislike" format="reference"/>
+        <attr name="fav" format="reference"/>
+        <attr name="views" format="reference"/>
+        <attr name="downloads" format="reference"/>
+
+
+    </declare-styleable>
+</resources>

@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:background="?attr/backgroundColor"
+    android:layout_width="match_parent"
+    android:id="@+id/welcome"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
+    app:ignore="NamespaceTypo">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/card_view"
+        app:cardBackgroundColor="@color/black"
+        app:cardUseCompatPadding="true"
+        android:layout_margin="10dp"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:id="@+id/linear"
+            android:padding="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:background="@color/black"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:background="@color/colorPrimary"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/pricee"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="?attr/buttontextcolor"
+                        android:textSize="15dp" />
+
+
+                    <TextView
+                        android:text=""
+                        android:layout_gravity="center"
+                        android:textColor="?attr/buttontextcolor"
+                        android:layout_width="match_parent"
+                        android:gravity="center"
+                        android:textSize="18dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/amountt"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="0.5"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <LinearLayout
+                        android:padding="5dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:background="@color/black"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:text=""
+                            android:layout_gravity="center_horizontal"
+                            android:gravity="center"
+                            android:textSize="12dp"
+                            android:background="@color/black"
+                            android:textColor="?attr/textcolor"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/resoultion"/>
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:text=""
+                            android:layout_gravity="center_horizontal"
+                            android:gravity="center"
+                            android:textSize="12dp"
+                            android:background="@color/black"
+                            android:textColor="?attr/textcolor"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/devices"/>
+
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_gravity="top"
+                            android:id="@+id/radio"
+                            android:visibility="gone"
+                            android:layout_height="wrap_content"/>
+
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:text=""
+                            android:layout_gravity="center_horizontal"
+                            android:gravity="center"
+                            android:textSize="12dp"
+                            android:background="@color/black"
+                            android:textColor="?attr/textcolor"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/quality"/>
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="@color/black"
+            android:layout_width="match_parent"
+            android:id="@+id/lin"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_weight="2"
+                    android:padding="10dp"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/interval"
+                        android:textSize="12dp"
+                        android:text="Yearly"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="?attr/textcolor"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <View
+                        android:background="#101010"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="2"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/planamount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/urbanist_bold"
+                            android:gravity="center"
+                            android:text="Plan"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:textColor="?attr/textcolor"
+                            android:textSize="10dp"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_name"
+                            android:textSize="12dp"
+                            android:text="plan"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:visibility="gone"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorPrimary"
+                            android:fontFamily="@font/urbanist_bold"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:padding="5dp"
+                            android:textSize="10dp"
+                            android:text=""
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:id="@+id/billing_intervel"
+                            android:visibility="gone"
+                            android:textColor="?attr/textcolor"
+                            android:fontFamily="@font/urbanist_bold"
+                            android:layout_marginBottom="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_version"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+                <LinearLayout
+                    android:layout_weight="2"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tv_api_level"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:layout_width="wrap_content"
+                        android:textColor="?attr/textcolor"
+                        android:padding="5dp"
+                        android:visibility="gone"
+                        android:layout_weight="1"
+                        android:text="hii"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/aa"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:layout_width="wrap_content"
+                        android:textColor="?attr/textcolor"
+                        android:padding="5dp"
+                        android:text="hii"
+                        android:visibility="gone"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+                    <!--
+                                    <TextView
+                                        android:id="@+id/description"
+                                        android:fontFamily="@font/urbanist_bold"
+                                        android:layout_width="wrap_content"
+                                        android:textColor="@color/black"
+                                        android:padding="5dp"
+                                        android:textSize="14dp"
+                                        android:layout_margin="5dp"
+                                        android:text="Grab this plan for your best Movies to Watch."                    android:visibility="visible"
+                                        android:layout_height="wrap_content" />-->
+
+
+                    <LinearLayout
+                        android:layout_margin="15dp"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:id="@+id/paynow_button"
+                            android:text="Pay Now"
+                            android:gravity="center"
+                            android:visibility="gone"
+                            android:textSize="10dp"
+                            android:layout_weight="1"
+                            android:background="#e50914"
+                            android:textColor="?attr/textcolor"
+                            android:layout_gravity="right"
+                            android:textAllCaps="false"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

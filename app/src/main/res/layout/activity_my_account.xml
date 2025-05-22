@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="?attr/backgroundColor"
+    android:layout_height="match_parent"
+    tools:context=".MyAccountActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            layout_height="?actionBarSize"
+            layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@color/toolbar_color"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:gravity="center"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"
+                    >
+                    <TextView
+                        android:id="@+id/videotitle"
+                        android:textColor="?attr/textcolor"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textSize="15dp"
+                        android:text="My Profile"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/editicon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:visibility="visible"
+                    android:layout_weight="2"
+                    >
+                    <ImageView
+                        android:visibility="invisible"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/edit"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+        <FrameLayout
+            android:id="@+id/profilelayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:visibility="gone"
+                android:id="@+id/progresslayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <ProgressBar
+                    android:id="@+id/pb_home"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true" />
+
+            </RelativeLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/myaccountlayout"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_margin="10dp"
+                    android:visibility="visible"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:padding="15dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/image"
+                                android:layout_width="match_parent"
+                                android:layout_height="65dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/avatar"/>
+
+                            <TextView
+
+                                android:id="@+id/username"
+                                android:textSize="14dp"
+                                android:textStyle="bold"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="User Name"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:textColor="?attr/textcolor"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+
+                            <TextView
+                                android:id="@+id/useremail"
+                                android:textSize="14dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:visibility="gone"
+                                android:padding="5dp"
+                                android:text="User Email"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:textColor="?attr/textcolor"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_margin="5dp"
+                            android:visibility="gone"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Country"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:textSize="14dp"
+                                android:padding="5dp"
+                                android:textColor="?attr/textcolor"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:id="@+id/countryprofile"
+                                android:layout_weight="1"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="State"
+                                android:textSize="14dp"
+                                android:padding="5dp"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:textColor="?attr/textcolor"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:id="@+id/stateprofile"
+                                android:layout_weight="1"/>
+
+                            <TextView
+
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="city"
+                                android:textSize="14dp"
+                                android:padding="5dp"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:textColor="?attr/textcolor"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:id="@+id/cityprofile"
+                                android:layout_weight="1"/>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/subscriber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:text="MEMBERSHIP"
+                                android:textColor="?attr/textcolor"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:layout_width="match_parent"
+                                android:layout_marginLeft="15dp"
+                                android:layout_height="wrap_content"
+                                android:textSize="14dp"/>
+
+                            <LinearLayout
+                                android:id="@+id/subscribe"
+                                android:layout_margin="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="?attr/blackshadow"
+                                android:visibility="visible"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="18dp"
+                                    android:orientation="vertical">
+
+
+
+                                    <TextView
+                                        android:id="@+id/planvalue"
+                                        android:textSize="14dp"
+                                        android:text="Monthly Premium Ends At"
+                                        android:layout_width="match_parent"
+                                        android:textColor="?attr/textcolor"
+                                        android:fontFamily="@font/urbanist_bold"
+                                        android:layout_height="wrap_content"/>
+
+
+                                    <TextView
+                                        android:id="@+id/period"
+                                        android:textSize="14dp"
+                                        android:text="Monthly Premium Ends At"
+                                        android:layout_width="match_parent"
+                                        android:textColor="?attr/textcolor"
+                                        android:fontFamily="@font/urbanist_bold"
+                                        android:layout_height="wrap_content"/>
+
+                                    <TextView
+                                        android:id="@+id/billing_date"
+                                        android:textSize="14dp"
+                                        android:fontFamily="@font/urbanist_bold"
+                                        android:textColor="?attr/textcolor"
+                                        android:text="Next Billing Date:"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"/>
+
+                                </LinearLayout>
+                               <!-- <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="@color/white"/>-->
+
+
+                                <LinearLayout
+                                    android:visibility="gone"
+                                    android:id="@+id/cancelpayment"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_weight="0.5"
+                                        android:padding="18dp"
+                                        android:fontFamily="@font/urbanist_bold"
+                                        android:text="Cancel Membership"
+                                        android:textColor="?attr/textcolor"
+                                        android:layout_height="wrap_content"/>
+                                    <ImageView
+                                        android:layout_weight="4"
+                                        android:layout_gravity="left"
+                                        android:src="@drawable/backright"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"/>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:visibility="gone"
+                                    android:id="@+id/upgradepayment"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_weight="0.5"
+                                        android:padding="18dp"
+                                        android:fontFamily="@font/urbanist_bold"
+                                        android:text="Upgrade Membership"
+                                        android:textColor="?attr/textcolor"
+                                        android:layout_height="wrap_content"/>
+                                    <ImageView
+                                        android:layout_weight="4"
+                                        android:layout_gravity="left"
+                                        android:src="@drawable/backright"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"/>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/renewmembership"
+                                    android:orientation="horizontal"
+                                    android:visibility="gone"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_weight="0.5"
+                                        android:padding="18dp"
+                                        android:fontFamily="@font/urbanist_bold"
+                                        android:text="Renew Membership"
+                                        android:textColor="?attr/textcolor"
+                                        android:layout_height="wrap_content"/>
+                                    <ImageView
+                                        android:layout_weight="4"
+                                        android:layout_gravity="left"
+                                        android:src="@drawable/backright"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"/>
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+                       <!--     <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="?attr/viewcolor"/>-->
+
+                        </LinearLayout>
+
+                        <LinearLayout
+
+                            android:id="@+id/register"
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:text="MEMBERSHIP"
+                                android:textColor="?attr/textcolor"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:layout_width="match_parent"
+                                android:layout_margin="5dp"
+                                android:layout_height="wrap_content"
+                                android:textSize="14dp"/>
+
+                            <LinearLayout
+                                android:id="@+id/nonsubscribe"
+                                android:layout_margin="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="?attr/blackshadow"
+                                android:visibility="visible"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="18dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:textSize="14dp"
+                                        android:text="Get More Videos And Audios with"
+                                        android:layout_width="match_parent"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        android:textColor="?attr/textcolor"
+                                        android:fontFamily="@font/urbanist_bold"
+                                        android:layout_height="wrap_content"/>
+
+                                    <TextView
+                                        android:textSize="14dp"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        android:fontFamily="@font/urbanist_bold"
+                                        android:textColor="?attr/textcolor"
+                                        android:text="Yearly and Monthly Plans"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"/>
+
+
+                                    <Button
+                                        android:id="@+id/getsubscription"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginTop="15dp"
+                                        android:background="@drawable/buttonbackgroun"
+                                        android:gravity="center"
+                                        android:text="Get Subscription"
+                                        android:fontFamily="@font/urbanist_bold"
+                                        android:textSize="19dp"
+                                        android:textAllCaps="false"
+                                        android:textColor="?attr/buttontextcolor" />
+
+
+                                </LinearLayout>
+
+                       <!--         <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="?attr/viewcolor"/>-->
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:text="Manage Profile"
+                                android:textColor="?attr/textcolor"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="14dp"/>
+
+                            <LinearLayout
+                                android:layout_margin="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="?attr/myaccountcolor"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:id="@+id/editprofile"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="18dp"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:textSize="14dp"
+                                        android:layout_weight="0.5"
+                                        android:text="Edit Profile"
+                                        android:layout_width="match_parent"
+                                        android:textColor="?attr/textcolor"
+                                        android:fontFamily="@font/urbanist_bold"
+                                        android:layout_height="wrap_content"/>
+
+                                    <ImageView
+                                        android:layout_weight="4"
+                                        android:layout_gravity="left"
+                                        android:src="@drawable/backright"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"/>
+
+
+                                </LinearLayout>
+                              <!--  <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="@color/white"/>
+-->
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:text="ACCOUNT AND SECURITY"
+                                android:textColor="?attr/textcolor"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="14dp"/>
+
+                            <LinearLayout
+                                android:layout_margin="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="?attr/myaccountcolor"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:id="@+id/changepassword"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="18dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:textSize="14dp"
+                                        android:text="Change Password"
+                                        android:layout_width="match_parent"
+                                        android:textColor="?attr/textcolor"
+                                        android:fontFamily="@font/urbanist_bold"
+                                        android:layout_height="wrap_content"/>
+
+
+                                </LinearLayout>
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="?attr/viewmy"/>
+
+                                <LinearLayout
+                                    android:id="@+id/logout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="18dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:textSize="14dp"
+                                        android:text="Log out"
+                                        android:layout_width="match_parent"
+                                        android:textColor="?attr/textcolor"
+                                        android:fontFamily="@font/urbanist_bold"
+                                        android:layout_height="wrap_content"/>
+
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+
+                </LinearLayout>
+            </ScrollView>
+
+
+
+
+        </FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>

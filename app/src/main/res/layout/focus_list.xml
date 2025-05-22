@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/black"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:id="@+id/layout"
+        android:background="#00FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="350dp">
+
+
+        <ImageView
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:id="@+id/image"/>
+
+        <VideoView
+            android:id="@+id/textureView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0"
+            android:visibility="visible" />
+
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_centerInParent="true"
+            android:layout_width="45dp"
+            android:layout_height="45dp"/>
+
+
+
+        <LinearLayout
+            android:layout_marginBottom="5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:text="Text tile"
+                android:layout_marginBottom="10dp"
+                android:textColor="?attr/textcolor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/title"/>
+
+
+            <TextView
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="14dp"
+                android:text="Text tile"
+                android:layout_marginBottom="10dp"
+                android:textColor="?attr/textcolor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ratings"
+                android:id="@+id/title_desc"/>
+
+            <Button
+                android:text="Watch Now"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/textcolor"
+                android:textAllCaps="false"
+                android:background="@color/colorPrimary"
+                android:textSize="14dp"
+                android:layout_gravity="center"
+                android:id="@+id/watch"/>
+
+
+            <TextView
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="14dp"
+                android:visibility="gone"
+                android:text="Close"
+                android:layout_margin="5dp"
+                android:textColor="?attr/textcolor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/close"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>

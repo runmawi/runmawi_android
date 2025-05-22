@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:background="?attr/backgroundColor"
+    tools:context=".BecomeSubscriberPaymentActivity"
+    android:orientation="vertical">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        layout_height="?actionBarSize"
+        layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/toolbar_color"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        tools:ignore="MissingClass">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Upgrade Subscription"
+            android:fontFamily="@font/urbanist_bold"
+            android:textColor="?attr/textcolor"
+            android:id="@+id/namee" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <LinearLayout
+        android:layout_margin="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:text="Select your coupon"
+            android:textSize="15dp"
+            android:textColor="?attr/textcolor"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:fontFamily="@font/urbanist_bold"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <LinearLayout
+            android:id="@+id/couponlist"
+            android:layout_marginBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/Coupons"
+            android:padding="15dp"
+            android:text="Coupons"
+            android:fontFamily="@font/urbanist_bold"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="?attr/textcolor"
+            android:textSize="18dp"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:src="@drawable/downarrow"
+                />
+
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:id="@+id/usercouponcode"/>
+
+    <TextView
+        android:text="If You have a Coupon Code"
+        android:textSize="15dp"
+        android:textColor="?attr/textcolor"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <EditText
+        android:id="@+id/couponcode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="15dp"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:textColor="?attr/textcolor"
+        android:padding="15dp"
+        android:textColorHint="#848587"
+        android:hint="@string/coupon_code"
+        android:background="?attr/editTextColor"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+        <Button
+
+            android:layout_weight="1"
+            android:id="@+id/submit"
+            android:visibility="visible"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/urbanist_bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/buttonbackgroun"
+            android:textColor="?attr/buttontextcolor"
+            android:text="Submit"/>
+
+            <TextView
+
+                android:layout_weight="1.8"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        <Button
+            android:id="@+id/skip"
+            android:layout_weight="1"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/urbanist_bold"
+            android:background="@drawable/buttonbackgroun"
+            android:textColor="?attr/buttontextcolor"
+            android:text="Skip"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

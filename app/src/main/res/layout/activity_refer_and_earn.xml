@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
+    tools:context=".ReferAndEarnActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:background="?attr/backgroundColor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            layout_height="?actionBarSize"
+            layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/toolbar_color"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+            tools:ignore="MissingClass">
+
+
+            <TextView
+                android:id="@+id/videotitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/urbanist_bold"
+                android:gravity="center"
+                android:text="Refer and Earn"
+                android:textColor="?attr/textcolor"
+                android:textSize="15dp" />
+
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+        <LinearLayout
+            android:background="?attr/backgroundColor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:visibility="visible"
+                android:id="@+id/progresslayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <ProgressBar
+                    android:id="@+id/pb_home"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true" />
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/referlayout"
+                android:visibility="gone"
+                android:background="?attr/backgroundColor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.1"
+                    android:background="?attr/colorPrimary"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_margin="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:padding="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:text="Invite Your Friends To Elite Club"
+                        android:textColor="?attr/textcolor"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginLeft="5dp"
+                        android:padding="5dp"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:text="You will Earn reward from us!"
+                        android:textColor="?attr/textcolor"
+                        android:textSize="16dp" />
+
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:fontFamily="@font/urbanist_bold"
+                            android:text="Coupons Earned"
+                            android:layout_marginLeft="5dp"
+                            android:textColor="?attr/textcolor"
+                            android:textSize="14dp" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                        <TextView
+                            android:layout_weight="1"
+                            android:id="@+id/couponearned"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:fontFamily="@font/urbanist_bold"
+                            android:text="0"
+                            android:layout_gravity="center"
+                            android:textColor="?attr/backgroundColor"
+                            android:textSize="60dp" />
+
+                        <TextView
+                            android:layout_weight="0.3"
+                            android:id="@+id/couponearned1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="@font/urbanist_bold"
+                            android:text="10"
+                            android:visibility="invisible"
+                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="center"
+                            android:textColor="?attr/textcolor"
+                            android:textSize="50sp" />
+
+                    </LinearLayout>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="?attr/viewcolor"
+                            />
+
+                    <LinearLayout
+                        android:layout_margin="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/username"
+                            android:fontFamily="@font/urbanist_bold"
+                            android:textColor="?attr/textcolor"
+                            android:textSize="14dp"
+                            android:text=""
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/referralcode"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:text=""
+                                android:textColor="?attr/textcolor"
+                                android:textSize="12dp" />
+
+                            <TextView
+                                android:id="@+id/referralcode1"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:textColor="?attr/textcolor"
+                                android:textSize="14dp"
+                                android:visibility="gone"
+                                android:layout_gravity="center"
+                                android:text="12345678"
+                                android:layout_marginBottom="10dp"
+                                android:gravity="center_vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+
+                        </LinearLayout>
+
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:fontFamily="@font/urbanist_bold"
+                            android:text="Share"
+                            android:textSize="14dp"
+                            android:background="@drawable/buttonborder"
+                            android:layout_gravity="center"
+                            android:id="@+id/refshare"
+                            android:textAllCaps="false"
+                            android:padding="5dp"
+                            android:gravity="center"
+                            android:textColor="?attr/buttontextcolor" />
+
+                        <!--<ImageView
+                            android:layout_weight="5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:src="@drawable/share"
+                            />-->
+
+                    </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+
+
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        <TextView
+
+                            android:text="Email"
+                            android:layout_gravity="center"
+                            android:layout_weight="2.5"
+                            android:padding="5dp"
+                            android:textColor="?attr/textcolor"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                            <TextView
+
+                                android:text=""
+                                android:padding="5dp"
+                                android:id="@+id/email"
+                                android:textColor="?attr/textcolor"
+                                android:layout_gravity="center"
+                                android:layout_weight="1.5"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+
+
+                    </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+
+                                android:text="Referrer"
+                                android:layout_gravity="center"
+                                android:layout_weight="1.5"
+                                android:padding="5dp"
+                                android:textColor="?attr/textcolor"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+
+                                android:text=""
+                                android:padding="5dp"
+                                android:id="@+id/referrer"
+                                android:textColor="?attr/textcolor"
+                                android:layout_gravity="center"
+                                android:layout_weight="1.5"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+
+                                android:text="Referral Count"
+                                android:layout_gravity="center"
+                                android:layout_weight="1.5"
+                                android:padding="5dp"
+                                android:textColor="?attr/textcolor"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+
+                                android:text=""
+                                android:id="@+id/referralcount"
+                                android:padding="5dp"
+                                android:textColor="?attr/textcolor"
+                                android:layout_gravity="center"
+                                android:layout_weight="1.5"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+
+                                android:text="Used Coupon Count"
+                                android:layout_gravity="center"
+                                android:layout_weight="1.5"
+                                android:padding="5dp"
+                                android:textColor="?attr/textcolor"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+
+                                android:text=""
+                                android:padding="5dp"
+                                android:textColor="?attr/textcolor"
+                                android:layout_gravity="center"
+                                android:layout_weight="1.5"
+                                android:id="@+id/usedrreferal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+
+                                android:text="Available Coupon Count"
+                                android:layout_gravity="center"
+                                android:layout_weight="1.5"
+                                android:padding="5dp"
+                                android:textColor="?attr/textcolor"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+
+                                android:id="@+id/availablereferral"
+                                android:text=""
+                                android:padding="5dp"
+                                android:textColor="?attr/textcolor"
+                                android:layout_gravity="center"
+                                android:layout_weight="1.5"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/yourreferral"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/buttonbackgroun"
+                            android:text="Your Referral"
+                            android:layout_marginTop="10dp"
+                            android:textColor="?attr/buttontextcolor"
+                            android:layout_gravity="center"
+                            android:textAllCaps="false"/>
+
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:scaleType="centerCrop"
+                            android:visibility="gone"
+                            android:src="@drawable/bgs"/>
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+</LinearLayout>

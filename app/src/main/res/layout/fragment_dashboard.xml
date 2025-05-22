@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="60dp">
+
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:layout_margin="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                        android:orientation="vertical"
+                        >
+
+                        <androidx.appcompat.widget.Toolbar
+                            android:id="@+id/toolbar"
+                            layout_height="?actionBarSize"
+                            layout_width="wrap_content"
+                            android:background="@color/toolbar_color"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:minHeight="?attr/actionBarSize"
+                            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+                            tools:ignore="MissingClass"
+                            android:layout_marginTop="@dimen/tool_top">
+
+                        </androidx.appcompat.widget.Toolbar>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:visibility="gone"
+                            android:background="?attr/backgroundColor"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/search"
+                                android:visibility="gone"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:textColor="?attr/textcolor"
+                                android:drawablePadding="10dp"
+                                android:textAlignment="textStart"
+                                android:textSize="18dp"
+                                tools:ignore="RtlCompat" />
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/profiledp"
+                                android:visibility="gone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="6"
+                                android:gravity="center"
+                                android:src="@drawable/ic_baseline_account_circle_24" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_marginStart="10dp"
+                            android:background="@drawable/borderstyle"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/search"
+                                android:layout_width="match_parent"
+                                android:layout_weight="4"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:inputType="text"
+                                android:visibility="visible"
+                                android:padding="5dp"
+                                android:textColorHint="#848587"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/ic_baseline_search_24"/>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:layout_weight="1">
+
+                                <EditText
+                                    android:id="@+id/searchtext"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@null"
+                                    android:fontFamily="@font/urbanist_medium"
+                                    android:hint="@string/favoritemovie"
+                                    android:inputType="text"
+                                    android:textSize="15sp"
+                                    android:padding="5dp"
+                                    android:textColor="?attr/textcolor"
+                                    android:textColorHint="#848587"
+                                    android:textCursorDrawable="@null" />
+
+                                <!--  <ProgressBar
+                                      android:id="@+id/searchprogress"
+                                      style="?android:attr/progressBarStyleSmall"
+                                      android:layout_width="3dp"
+                                      android:layout_height="match_parent"
+                                      android:layout_alignTop="@id/searchtext"
+                                      android:layout_alignEnd="@id/searchtext"
+                                      android:layout_alignBottom="@id/searchtext"
+                                      android:visibility="gone"
+                                      tools:ignore="RtlCompat" />-->
+                            </RelativeLayout>
+
+
+                            <ImageView
+                                android:id="@+id/cross"
+                                android:layout_width="match_parent"
+                                android:layout_weight="4"
+                                android:visibility="gone"
+                                android:padding="5dp"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/cross"/>
+
+                            <ImageView
+                                android:id="@+id/mic"
+                                android:layout_width="match_parent"
+                                android:layout_weight="4"
+                                android:visibility="visible"
+                                android:padding="5dp"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/ic_baseline_mic_24"/>
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:visibility="gone"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/cat"
+                                android:layout_margin="5dp"
+                                android:padding="5dp"
+                                android:background="@drawable/border"
+                                android:textSize="14dp"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:textColor="?attr/textcolor"
+                                android:text="Categories"/>
+
+                            <TextView
+                                android:id="@+id/artist"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:background="@drawable/borderstyle"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:padding="5dp"
+                                android:text="Artist"
+                                android:visibility="gone"
+                                android:textColor="?attr/textcolor"
+                                android:textSize="14dp" />
+
+
+                            <TextView
+                                android:textColor="?attr/textcolor"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:visibility="gone"
+                                android:text="15"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/storecat"/>
+
+
+                            <TextView
+                                android:textColor="?attr/textcolor"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:visibility="gone"
+                                android:text="15"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/storeart"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:visibility="gone"
+                            android:id="@+id/artsitlayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_marginTop="20dp"
+                                android:text="Artist"
+                                android:textSize="14dp"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:textColor="?attr/textcolor"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:layout_margin="10dp"
+                                android:id="@+id/artistrecycler"
+                                android:layout_width="match_parent"
+                                android:divider="@null"
+                                android:visibility="visible"
+                                android:layout_height="match_parent"
+                                android:background="?attr/backgroundColor" />
+
+
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:visibility="gone"
+                            android:id="@+id/generlayout1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_marginTop="20dp"
+                                android:text="Categories"
+                                android:textSize="14dp"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:textColor="?attr/textcolor"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:layout_margin="10dp"
+                                android:id="@+id/channelistrecycler1"
+                                android:layout_width="match_parent"
+                                android:divider="@null"
+                                android:visibility="visible"
+                                android:layout_height="match_parent"
+                                android:background="?attr/backgroundColor" />
+
+
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/detailslayout"
+                            android:layout_width="match_parent"
+                            android:visibility="visible"
+                            android:layout_marginTop="25dp"
+                            android:orientation="vertical"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/not_found"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/nodata_image"
+                                android:visibility="gone"
+                                />
+
+
+                            <TextView
+                                android:textColor="?attr/textcolor"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:text="Categories"
+                                android:visibility="gone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                />
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/searchdetails3"
+                                android:visibility="visible"
+                                android:overScrollMode="never"
+                                android:nestedScrollingEnabled="false"
+                                android:layout_width="match_parent"
+                                android:layout_marginBottom="10dp"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:textColor="?attr/textcolor"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:text="Videos"
+                                android:visibility="gone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                />
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/searchdetails"
+                                android:visibility="gone"
+                                android:overScrollMode="never"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:visibility="gone"
+                            android:id="@+id/generlayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_marginTop="20dp"
+                                android:text="Genre"
+                                android:textSize="14dp"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:textColor="?attr/textcolor"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:layout_margin="10dp"
+                                android:id="@+id/channelistrecycler"
+                                android:layout_width="match_parent"
+                                android:divider="@null"
+                                android:visibility="visible"
+                                android:layout_height="match_parent"
+                                android:background="?attr/backgroundColor" />
+
+
+
+                        </LinearLayout>
+                        <EditText
+                            android:text="text"
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/edit"/>
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>
+
+
+
+

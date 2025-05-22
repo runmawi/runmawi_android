@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
+    android:padding="16dp"
+    tools:context=".CheckoutActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_payment_prompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pay Per view"
+        android:textSize="16dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="?attr/textcolor" />
+
+
+
+    <LinearLayout
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_card_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Card Number"
+            android:background="@drawable/edittextstyle10"
+            android:textColorHint="@color/hintcolor"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="text"
+                android:layout_marginStart="10dp"
+                android:textColor="?attr/textcolor">
+
+            </com.google.android.material.textfield.TextInputEditText>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_card_expiry"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="Expiry year"
+                android:textColorHint="@color/hintcolor"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/edittextstyle10"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:layout_marginStart="10dp"
+                    android:textColor="?attr/textcolor">
+
+                </com.google.android.material.textfield.TextInputEditText>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_card_cvv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:hint="CVV"
+                android:textColorHint="@color/hintcolor"
+                android:background="@drawable/edittextstyle10"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:layout_marginStart="10dp"
+                    android:textColor="?attr/textcolor">
+
+                </com.google.android.material.textfield.TextInputEditText>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        >
+        <ProgressBar
+            android:id="@+id/payment_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:visibility="gone"
+            />
+        <Button
+            android:id="@+id/btn_make_payment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/textcolor"
+            android:text="Pay Now"
+            android:background="@color/colorAccent"
+            android:textStyle="bold"
+            android:visibility="visible"/>
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

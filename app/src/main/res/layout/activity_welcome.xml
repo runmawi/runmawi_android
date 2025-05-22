@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WelcomeActivity"
+    android:backgroundTintMode="screen"
+    android:background="@drawable/welcome"
+    >
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/welcome_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="21dp"
+        android:text="@string/welcome_to_flicknexs"
+        android:textColor="?attr/textcolor"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toTopOf="@id/wel"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:fontFamily="@font/urbanist_bold"
+        android:textFontWeight="700"/>
+
+
+    <LinearLayout
+        android:id="@+id/wel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/get_start_layout"
+        android:layout_marginBottom="34dp"
+        android:gravity="center"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        >
+        <TextView
+            android:id="@+id/welcome_para"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome_para"
+            android:textColor="?attr/textcolor"
+            android:textSize="18dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:fontFamily="@font/urbanist_medium"
+            android:textFontWeight="500"
+            />
+
+    </LinearLayout>
+
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/get_start_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="36dp"
+        android:backgroundTint="@color/colorAccent"
+        app:cardCornerRadius="45dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginLeft="24dp">
+
+        <TextView
+            android:id="@+id/get_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Get Started"
+            android:layout_gravity="center"
+            android:textColor="?attr/textcolor"
+            android:layout_marginTop="17dp"
+            android:layout_marginBottom="17dp"
+            android:fontFamily="@font/urbanist_bold"
+            android:textFontWeight="700"
+            android:textSize="18dp"
+            />
+
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

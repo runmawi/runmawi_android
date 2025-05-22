@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MoviesActivity">
+
+
+    <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/white"
+               >
+
+            <LinearLayout
+                android:layout_weight="2"
+                android:id="@+id/playerlayout"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:visibility="visible"
+                android:background="@color/white"
+                android:layout_height="match_parent">
+
+
+                <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+                    android:id="@+id/exoplayer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:keepScreenOn="true"
+                    />
+
+            </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:id="@+id/hidelayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/backgroundColor"
+                    android:orientation="vertical">
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/backgroundColor"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:layout_gravity="center"
+                                android:background="?attr/backgroundColor"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/videotitle"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:visibility="visible"
+                                    android:layout_margin="5dp"
+                                    android:fontFamily="@font/urbanist_bold"
+                                    android:text="Sample title"
+                                    android:textColor="?attr/textcolor"
+                                    android:textSize="14sp" />
+
+
+                                <TextView
+                                    android:id="@+id/videoduration"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:visibility="visible"
+                                    android:layout_margin="5dp"
+                                    android:fontFamily="@font/urbanist_bold"
+                                    android:text="Sample title"
+                                    android:textColor="?attr/textcolor"
+                                    android:textSize="14sp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_margin="5dp"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:layout_margin="5dp"
+                                        android:orientation="horizontal"
+                                        >
+                                        <TextView
+                                            android:id="@+id/movieyear"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:visibility="visible"
+                                            android:layout_weight="1"
+                                            android:fontFamily="@font/urbanist_bold"
+                                            android:text="Sample title"
+                                            android:textColor="?attr/textcolor"
+                                            android:textSize="14sp" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_weight="2"
+                                            android:layout_height="match_parent"
+                                            android:visibility="visible"
+                                            android:layout_gravity="center"
+                                            android:gravity="center"
+                                            android:fontFamily="@font/urbanist_bold"
+                                            android:text="|"
+                                            android:textColor="?attr/textcolor"
+                                            android:textSize="14sp" />
+
+
+                                    </LinearLayout>
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="1"
+                                        android:layout_margin="5dp"
+                                        android:layout_gravity="center"
+                                        android:orientation="horizontal">
+                                        <TextView
+                                            android:id="@+id/genre"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:visibility="visible"
+                                            android:layout_weight="1"
+                                            android:fontFamily="@font/urbanist_bold"
+                                            android:text="genre"
+                                            android:textColor="?attr/textcolor"
+                                            android:textSize="14sp" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_weight="2"
+                                            android:layout_gravity="center"
+                                            android:gravity="center"
+                                            android:layout_height="match_parent"
+                                            android:visibility="visible"
+                                            android:fontFamily="@font/urbanist_bold"
+                                            android:text="|"
+                                            android:textColor="?attr/textcolor"
+                                            android:textSize="14sp" />
+
+
+                                    </LinearLayout>
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:orientation="horizontal"
+                                        android:layout_margin="5dp"
+                                        android:layout_weight="1">
+                                        <TextView
+                                            android:id="@+id/language"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:visibility="visible"
+                                            android:layout_weight="1"
+                                            android:fontFamily="@font/urbanist_bold"
+                                            android:text="Sample title"
+                                            android:textColor="?attr/textcolor"
+                                            android:textSize="14sp" />
+
+
+                                    </LinearLayout>
+                                </LinearLayout>
+
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/id"
+                                    android:text="Image"
+                                    android:visibility="gone"
+                                    android:textColor="#000"
+                                    android:textSize="18sp" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:id="@+id/views"
+                                    android:fontFamily="@font/urbanist_bold"
+                                    android:text="Image"
+                                    android:visibility="gone"
+                                    android:padding="5dp"
+                                    android:textColor="#000"
+                                    android:textSize="14sp" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+<!--
+                    <androidx.recyclerview.widget.RecyclerView
+                         android:id="@+id/videodetail"
+                         android:background="#000000"
+                         android:layout_margin="5dp"
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent"/>
+-->
+
+                    <LinearLayout
+                      android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+                        android:layout_margin="8dp"
+                        android:visibility="gone"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:id="@+id/watchlist"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+
+                                <ImageView
+                                    android:layout_weight="1"
+                                    android:id="@+id/watchlistimg"
+                                    android:src="@drawable/add"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"/>
+                                <ImageView
+                                    android:layout_weight="1"
+                                    android:id="@+id/watchlistaddimg"
+                                    android:src="@drawable/added"
+                                    android:visibility="gone"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"/>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_gravity="center"
+                                    android:textColor="?attr/textcolor"
+                                    android:gravity="center"
+                                    android:padding="5dp"
+                                    android:textSize="12dp"
+                                    android:fontFamily="@font/urbanist_bold"
+                                    android:layout_height="wrap_content"
+                                    android:text="Wishlist"/>
+
+                            </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/watchlater"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+
+                            <ImageView
+                                android:layout_weight="1"
+                                android:id="@+id/watchlateradd"
+                                android:src="@drawable/watchlater"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"/>
+                            <ImageView
+                                android:layout_weight="1"
+                                android:id="@+id/watchlateraddedimg"
+                                android:src="@drawable/watchlateradded"
+                                android:visibility="gone"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_gravity="center"
+                                android:textColor="?attr/textcolor"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:textSize="12dp"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:layout_height="wrap_content"
+                                android:text="Watchlater"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                                android:id="@+id/share"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+
+                                <ImageView
+                                    android:layout_weight="1"
+                                    android:src="@drawable/share"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    tools:ignore="NestedWeights" />
+
+                                <TextView
+
+                                    android:layout_width="match_parent"
+                                    android:layout_gravity="center"
+                                    android:textColor="?attr/textcolor"
+                                    android:gravity="center"
+                                    android:padding="5dp"
+                                    android:textSize="12dp"
+                                    android:fontFamily="@font/urbanist_bold"
+                                    android:layout_height="wrap_content"
+                                    android:text="Share"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+
+                        <TextView
+                            android:id="@+id/videotext"
+                            android:textColor="?attr/textcolor"
+                            android:textSize="15dp"
+                            android:fontFamily="@font/urbanist_bold"
+                            android:layout_margin="10dp"
+                            android:lineSpacingExtra="1.2dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            android:orientation="vertical">
+                            <TextView
+                                android:text="Trailer"
+                                android:textColor="?attr/textcolor"
+                                android:textSize="14dp"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/videotrailer"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="15dp"
+                            android:orientation="vertical">
+                            <TextView
+                                android:textSize="14dp"
+                                android:textColor="?attr/textcolor"
+                                android:text="You may also like this"
+                                android:layout_width="match_parent"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:layout_height="wrap_content"/>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:layout_marginTop="10dp"
+                                android:id="@+id/thismayalsolike"
+                                android:visibility="gone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/norecommanded"
+                                android:textColor="?attr/textcolor"
+                                android:textSize="12dp"
+                                android:visibility="gone"
+                                android:layout_marginTop="10dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="No Recommend videos"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    </ScrollView>
+                </LinearLayout>
+
+            </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+
+
+

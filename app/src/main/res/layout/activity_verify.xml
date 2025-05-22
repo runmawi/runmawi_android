@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    tools:context=".VerifyActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                layout_height="?actionBarSize"
+                layout_width="wrap_content"
+                android:background="@color/toolbar_color"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark"
+                tools:ignore="MissingClass">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/back_arrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/back_arrow"
+                        android:padding="10dp"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/forgot_head"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:text="Forgot Password"
+                        android:textColor="?attr/textcolor"
+                        android:textFontWeight="700"
+                        android:textSize="25dp" />
+
+                </LinearLayout>
+            </androidx.appcompat.widget.Toolbar>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="100dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/urbanist_regular"
+                        android:text="Code has been send to "
+                        android:textColor="?attr/textcolor"
+                        android:textFontWeight="400"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/via"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/urbanist_regular"
+                        android:text="+91 97*******8"
+                        android:textColor="@color/colorAccent"
+                        android:textFontWeight="400"
+                        android:textSize="18dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="70dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        app:cardBackgroundColor="@color/cardbackground_color"
+                        app:cardCornerRadius="15dp">
+
+                        <FrameLayout
+                            android:id="@+id/FrameLayout1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/edittextstyle15">
+
+                        <EditText
+                            android:id="@+id/otp1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginTop="11dp"
+                            android:layout_marginEnd="25dp"
+                            android:layout_marginBottom="11dp"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:fontFamily="@font/urbanist_bold"
+                            android:digits="1234567890"
+                            android:textColor="?attr/textcolor" />
+                        </FrameLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        app:cardBackgroundColor="@color/cardbackground_color"
+                        app:cardCornerRadius="15dp">
+
+                        <FrameLayout
+                            android:id="@+id/FrameLayout2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/edittextstyle15">
+
+                        <EditText
+                            android:id="@+id/otp2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginTop="11dp"
+                            android:layout_marginEnd="25dp"
+                            android:layout_marginBottom="11dp"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:digits="1234567890"
+                            android:fontFamily="@font/urbanist_bold"
+                            android:textColor="?attr/textcolor" />
+                        </FrameLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardBackgroundColor="@color/cardbackground_color"
+                        app:cardCornerRadius="15dp">
+
+                        <FrameLayout
+                            android:id="@+id/FrameLayout3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/edittextstyle15">
+
+                        <EditText
+                            android:id="@+id/otp3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginTop="11dp"
+                            android:layout_marginEnd="25dp"
+                            android:layout_marginBottom="11dp"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:fontFamily="@font/urbanist_bold"
+                            android:digits="1234567890"
+                            android:textColor="?attr/textcolor" />
+                        </FrameLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        app:cardBackgroundColor="@color/cardbackground_color"
+                        app:cardCornerRadius="15dp">
+
+                        <FrameLayout
+                            android:id="@+id/FrameLayout4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/edittextstyle15">
+
+                        <EditText
+                            android:id="@+id/otp4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginTop="11dp"
+                            android:layout_marginEnd="25dp"
+                            android:layout_marginBottom="11dp"
+                            android:inputType="number"
+                            android:fontFamily="@font/urbanist_bold"
+                            android:maxLength="1"
+                            android:digits="1234567890"
+                            android:textColor="?attr/textcolor" />
+                        </FrameLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="37dp"
+                    android:gravity="center"
+                   android:visibility="gone"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/urbanist_regular"
+                        android:text="Resend code in "
+                        android:textColor="?attr/textcolor"
+                        android:textFontWeight="400"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/urbanist_regular"
+                        android:text="44 "
+                        android:textColor="@color/colorAccent"
+                        android:textFontWeight="400"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/urbanist_regular"
+                        android:text=" s"
+                        android:textColor="?attr/textcolor"
+                        android:textFontWeight="400"
+                        android:textSize="18dp" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/verify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:backgroundTint="@color/colorAccent"
+        app:cardCornerRadius="45dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="17dp"
+            android:fontFamily="@font/urbanist_bold"
+            android:text="Verify"
+            android:textColor="#FFFFFF"
+            android:textFontWeight="700"
+            android:textSize="18dp" />
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
+    android:orientation="vertical"
+    >
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/toolbar_color" >
+
+        <ImageView
+            android:id="@+id/backarrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/backarrow"
+            android:layout_marginStart="20dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Notification"
+            android:textSize="25dp"
+            android:fontFamily="@font/urbanist_bold"
+            android:textColor="?attr/textcolor"
+            android:textFontWeight="700"
+            android:layout_marginStart="16dp"
+            android:id="@+id/toolbar_title" />
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="20dp">
+
+        <LinearLayout
+            android:id="@+id/general_notification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            >
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="General Notification"
+                android:fontFamily="@font/urbanist_medium"
+                android:textSize="18sp"
+                android:textFontWeight="500"
+                android:textColor="?attr/textcolor"/>
+
+            <Switch
+                android:id="@+id/dark_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:thumb="@drawable/thumb"
+                android:track="@drawable/track"
+                />
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/new_arrival"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            >
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="New Arrival"
+                android:fontFamily="@font/urbanist_medium"
+                android:textSize="18sp"
+                android:textFontWeight="500"
+                android:textColor="?attr/textcolor"/>
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:thumb="@drawable/thumb"
+                android:track="@drawable/track"
+                />
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/new_service"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            >
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="New Service available"
+                android:fontFamily="@font/urbanist_medium"
+                android:textSize="18sp"
+                android:textFontWeight="500"
+                android:textColor="?attr/textcolor"/>
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:thumb="@drawable/thumb"
+                android:track="@drawable/track"
+                />
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/new_release"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            >
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="New Releases Movie"
+                android:fontFamily="@font/urbanist_medium"
+                android:textSize="18sp"
+                android:textFontWeight="500"
+                android:textColor="?attr/textcolor"/>
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:thumb="@drawable/thumb"
+                android:track="@drawable/track"
+                />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/app_updates"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            >
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="App Updates"
+                android:fontFamily="@font/urbanist_medium"
+                android:textSize="18sp"
+                android:textFontWeight="500"
+                android:textColor="?attr/textcolor"/>
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:thumb="@drawable/thumb"
+                android:track="@drawable/track"
+                />
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/subscription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            >
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Subscription"
+                android:fontFamily="@font/urbanist_medium"
+                android:textSize="18sp"
+                android:textFontWeight="500"
+                android:textColor="?attr/textcolor"/>
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:thumb="@drawable/thumb"
+                android:track="@drawable/track"
+                />
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

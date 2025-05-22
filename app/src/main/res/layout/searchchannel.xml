@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="5dp"
+    android:orientation="horizontal"
+    android:background="?attr/backgroundColor"
+    app:cardBackgroundColor="?attr/backgroundColor"
+    app:cardUseCompatPadding="true"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+
+    <LinearLayout
+        android:visibility="visible"
+        android:layout_weight="4"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:id="@+id/newuploadimg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:visibility="visible"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+
+
+    </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_margin="10dp"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/newuploadname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:layout_gravity="center"
+            android:visibility="visible"
+            android:text="Sample title"
+            android:textColor="?attr/textcolor"
+            android:textSize="14sp" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/newuploadid"
+            android:gravity="left"
+            android:text="Image"
+            android:visibility="visible"
+            android:textColor="?attr/textcolor"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ppvstatus"
+            android:text="Image"
+            android:gravity="left"
+            android:visibility="gone"
+            android:padding="5dp"
+            android:textColor="?attr/textcolor"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/id"
+            android:gravity="left"
+            android:text="Image"
+            android:visibility="gone"
+            android:textColor="?attr/textcolor"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/views"
+            android:layout_weight="3"
+            android:text="Image"
+            android:visibility="gone"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="?attr/textcolor"
+            android:textSize="14sp" />
+
+
+
+        <ImageView
+            android:id="@+id/ii"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:layout_weight="4.8"
+            android:padding="10dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_baseline_play_circle_24"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>
+
+

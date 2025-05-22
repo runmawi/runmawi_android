@@ -1,0 +1,222 @@
+package com.atbuys.runmawi.Adapter;
+
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.atbuys.runmawi.ChannalPageActivity1;
+import com.atbuys.runmawi.Model.HomeCategoryData;
+import com.atbuys.runmawi.Model.data;
+import com.atbuys.runmawi.R;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+/*import android.support.annotation.NonNull;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;*/
+/*import com.example.bop.Model.HomeData;
+import com.example.bop.Model.videos;
+import com.example.bop.R;*/
+
+
+public class CategoryhomepageAdopter extends RecyclerView.Adapter<CategoryhomepageAdopter.HomeViewHolder> {
+
+
+    private Context context;
+    private List<HomeCategoryData> Home_page;
+    private List<HomeCategoryData> data;
+    private List<data> data1;
+
+
+    private VideoCategoryHomePageAdapter videoAdapter;
+    ProgressDialog progressDialog;
+
+    private RecyclerView.RecycledViewPool recycledViewPool;
+    public CategoryhomepageAdopter(ArrayList<HomeCategoryData> genre_movies, Context context) {
+        this.data = genre_movies;
+        this.context = context;
+        recycledViewPool = new RecyclerView.RecycledViewPool();
+        progressDialog = new ProgressDialog(context);
+    }
+
+
+    @NonNull
+    @Override
+    public HomeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        View theView = LayoutInflater.from(context).inflate(R.layout.row_layout_channel, parent, false);
+        return new HomeViewHolder(theView);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull HomeViewHolder holder, final int position) {
+
+        if (data.get(position).getSource().equalsIgnoreCase("category_videos")) {
+
+            holder.textViewCategoryid.setText(data.get(position).getSource());
+            ArrayList<HomeCategoryData> categoryData = new ArrayList<>();
+            if (data.get(position).getData() != null) {
+                for (data row1 : data.get(position).getData()) {
+                    HomeCategoryData row2 = new HomeCategoryData();
+                    row2.setData(row1.getCategory_videos());
+                    row2.setHeader_name(row1.getName());
+                    row2.setSource(row1.getName());
+                    row2.setSource_type(row1.getSource());
+                    row2.setHeader_name_IOS(row1.getId1());
+                    categoryData.add(row2);
+                }
+            }
+            data.remove(position);
+            if (categoryData.size() > 0) {
+                data.addAll(position, categoryData);
+                holder.textViewCategory.setText(data.get(position).getHeader_name());
+                holder.textViewCategoryid.setText(data.get(position).getSource());
+                holder.id.setText(data.get(position).getSource_type());
+                holder.id1.setText(data.get(position).getHeader_name_IOS());
+                videoAdapter = new VideoCategoryHomePageAdapter(Arrays.asList(data.get(position).getData()), context,false);
+                holder.recyclerViewHorizontal.setAdapter(videoAdapter);
+                holder.nodata.setVisibility(View.GONE);
+                holder.recyclerViewHorizontal.setVisibility(View.VISIBLE);
+            }
+        } if (data.get(position).getSource().equalsIgnoreCase("live_category")) {
+            ArrayList<HomeCategoryData> categoryData = new ArrayList<>();
+
+            if (data.get(position).getData() != null) {
+                for (data row1 : data.get(position).getData()) {
+                    HomeCategoryData row2 = new HomeCategoryData();
+                    row2.setData(row1.getCategory_livestream());
+                    row2.setHeader_name(row1.getName());
+                    row2.setSource(row1.getName());
+                    row2.setSource_type(row1.getSource());
+                    row2.setHeader_name_IOS(row1.getId1());
+                    categoryData.add(row2);
+                }
+            }
+            data.remove(position);
+            if (categoryData.size() > 0) {
+                data.addAll(position, categoryData);
+                holder.textViewCategory.setText(data.get(position).getHeader_name());
+                holder.textViewCategoryid.setText(data.get(position).getSource());
+                holder.id.setText(data.get(position).getSource_type());
+                holder.id1.setText(data.get(position).getHeader_name_IOS());
+                videoAdapter = new VideoCategoryHomePageAdapter(Arrays.asList(data.get(position).getData()), context,false);
+                holder.recyclerViewHorizontal.setAdapter(videoAdapter);
+                holder.nodata.setVisibility(View.GONE);
+                holder.recyclerViewHorizontal.setVisibility(View.VISIBLE);
+            }
+        } else {
+            List<data> dataList = Arrays.asList(data.get(position).getData());
+            String idValue = "";
+
+            for (data item : dataList) {
+                int id = Integer.parseInt(item.getId1());
+                idValue = String.valueOf(id);
+                break;
+            }
+            holder.textViewCategory.setText(data.get(position).getHeader_name());
+            holder.textViewCategoryid.setText(data.get(position).getSource());
+            holder.id.setText(data.get(position).getSource_type());
+            holder.id1.setText(data.get(position).getHeader_name_IOS());
+            holder.id3.setText(idValue);
+            if (data.get(position).getSource().equalsIgnoreCase("videoCategories")){
+                videoAdapter = new VideoCategoryHomePageAdapter(Arrays.asList(data.get(position).getData()), context,false);
+            }else {
+                videoAdapter = new VideoCategoryHomePageAdapter(Arrays.asList(data.get(position).getData()), context,false);
+            }
+            holder.recyclerViewHorizontal.setAdapter(videoAdapter);
+            holder.nodata.setVisibility(View.GONE);
+            holder.recyclerViewHorizontal.setVisibility(View.VISIBLE);
+        }
+    }
+    @Override
+    public int getItemCount() {
+        return data.size();
+
+    }
+
+    public class HomeViewHolder extends RecyclerView.ViewHolder {
+
+        private RecyclerView recyclerViewHorizontal;
+        private TextView textViewCategory, id, id1, id3;
+        private TextView textViewCategoryid, nodata;
+
+        private LinearLayoutManager horizontalManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+
+        public HomeViewHolder(View itemView) {
+            super(itemView);
+
+            recyclerViewHorizontal = itemView.findViewById(R.id.home_recycler_view_horizontal);
+            recyclerViewHorizontal.setHasFixedSize(true);
+            recyclerViewHorizontal.setNestedScrollingEnabled(false);
+            recyclerViewHorizontal.setLayoutManager(horizontalManager);
+            recyclerViewHorizontal.setItemAnimator(new DefaultItemAnimator());
+            textViewCategory = itemView.findViewById(R.id.tv_movie_category);
+            textViewCategoryid = itemView.findViewById(R.id.tv_movie_category_id);
+            nodata = itemView.findViewById(R.id.nodata);
+            id = itemView.findViewById(R.id.id);
+            id1 = itemView.findViewById(R.id.id1);
+            id3 = itemView.findViewById(R.id.id3);
+
+
+            textViewCategory.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Intent in = new Intent(context, ChannalPageActivity1.class);
+
+                    if (id.getText().toString().equalsIgnoreCase("category_videos")) {
+                        in.putExtra("id", id1.getText().toString());
+                        in.putExtra("name", id.getText().toString());
+                        in.putExtra("name1", textViewCategory.getText().toString());
+                        in.putExtra("number", "z");
+                    } else if (id.getText().toString().equalsIgnoreCase("live_category")) { //check this line
+                        in.putExtra("id", id.getText().toString());
+                        in.putExtra("name", textViewCategory.getText().toString());
+                        in.putExtra("number", "x");
+                    } else if (id.getText().toString().equalsIgnoreCase("liveCategories")) { //check this line
+                        in.putExtra("id", id3.getText().toString());
+                        in.putExtra("name", id.getText().toString());
+                        in.putExtra("name1", textViewCategory.getText().toString());
+                        in.putExtra("number", "z");
+                    } else if (id.getText().toString().equalsIgnoreCase("Audio_Genre_audios")) {
+                        in.putExtra("id", id3.getText().toString());
+                        in.putExtra("name", id.getText().toString());
+                        in.putExtra("name1", textViewCategory.getText().toString());
+                        in.putExtra("number", "z");
+                    } else if (id.getText().toString().equalsIgnoreCase("Series_Genre_videos")) {
+                        in.putExtra("id", id3.getText().toString());
+                        in.putExtra("name", id.getText().toString());
+                        in.putExtra("name1", textViewCategory.getText().toString());
+                        in.putExtra("number", "z");
+                    } else if(id.getText().toString().equalsIgnoreCase("videoCategories")){
+                        in.putExtra("id", textViewCategoryid.getText().toString());
+                        in.putExtra("name", textViewCategory.getText().toString());
+                        in.putExtra("number", "a");
+                    }else {
+                        in.putExtra("id", textViewCategoryid.getText().toString());
+                        in.putExtra("name", textViewCategory.getText().toString());
+                        in.putExtra("number", "x");
+                    }
+                    context.startActivity(in);
+
+
+                }
+            });
+
+
+        }
+
+    }
+}

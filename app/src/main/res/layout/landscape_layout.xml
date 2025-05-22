@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="?attr/backgroundColor"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view_home"
+        android:layout_width="190dp"
+        android:layout_height="120dp"
+        app:cardBackgroundColor="?attr/backgroundColor"
+        android:layout_centerHorizontal="true"
+        app:cardCornerRadius="13dp"
+        android:background="?attr/backgroundColor"
+        app:cardUseCompatPadding="true">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/ratingcard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                app:cardCornerRadius="3dp"
+                app:cardBackgroundColor="@color/colorAccent">
+
+                <TextView
+                    android:id="@+id/rating"
+                    android:layout_width="39dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/urbanistregular"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="?attr/textcolor"
+                    android:textFontWeight="700"
+                    android:textSize="14dp"
+
+                    />
+            </androidx.cardview.widget.CardView>
+
+
+            <ImageView
+                android:id="@+id/image_view_movie"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/favicon2"
+                android:scaleType="fitXY"
+                />
+
+            <TextView
+                android:id="@+id/channal_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/urbanist_bold"
+                android:maxLines="3"
+                android:textColor="?attr/textcolor"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:text="Action,Comedy..."
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/channal_slug"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/urbanist_bold"
+                android:maxLines="3"
+                android:textColor="?attr/textcolor"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:text="Action,Comedy..."
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/channal_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/urbanist_bold"
+                android:maxLines="3"
+                android:textColor="?attr/textcolor"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:text="Action,Comedy..."
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/ch_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/urbanist_bold"
+                android:maxLines="3"
+                android:textColor="?attr/textcolor"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:text="Action,Comedy..."
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_genre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/urbanist_bold"
+                android:maxLines="3"
+                android:textColor="?attr/textcolor"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:text="Action,Comedy..."
+                android:textSize="12sp" />
+
+
+            <LinearLayout
+                android:id="@+id/layout_mov"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/image_view_movie"
+                android:layout_margin="1dp"
+                android:paddingLeft="5dp"
+                android:visibility="gone"
+                android:paddingRight="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:maxLines="1"
+                    android:text="Mission"
+                    android:fontFamily="@font/urbanist_bold"
+                    android:visibility="visible"
+                    android:textSize="12sp" />
+
+
+                <TextView
+                    android:id="@+id/tv_trailerurl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/urbanist_bold"
+                    android:maxLines="1"
+                    android:textColor="?attr/textcolor"
+                    android:visibility="visible"
+                    android:layout_gravity="center"
+                    android:text="Action,Comedy..."
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_sub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/urbanist_bold"
+                    android:maxLines="1"
+                    android:textColor="?attr/textcolor"
+                    android:visibility="gone"
+                    android:layout_gravity="center"
+                    android:text=""
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>
+

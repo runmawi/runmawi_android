@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
+    tools:context=".ChannalPageActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:background="?attr/backgroundColor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        layout_height="?actionBarSize"
+        layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/toolbar_color"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        tools:ignore="MissingClass">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Movies"
+            android:fontFamily="@font/urbanist_bold"
+            android:textColor="@color/white"
+            android:id="@+id/namee" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout
+            android:background="?attr/backgroundColor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:visibility="visible"
+                android:id="@+id/progresslayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+            <ProgressBar
+                android:id="@+id/pb_home"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true" />
+
+            </RelativeLayout>
+            <LinearLayout
+                android:background="?attr/backgroundColor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_main"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/novideoscat"
+            android:background="?attr/backgroundColor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="No Videos"
+            android:gravity="center"
+            android:visibility="visible"
+            android:textColor="?attr/textcolor"
+            android:fontFamily="@font/urbanist_bold"
+            android:textSize="18dp"
+            />
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+        </LinearLayout>
+</LinearLayout>
+</LinearLayout>

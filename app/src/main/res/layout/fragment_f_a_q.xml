@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FAQFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?attr/backgroundColor">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginEnd="10dp">
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/que_flick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp"
+                android:layout_marginTop="10dp"
+                app:cardBackgroundColor="?attr/backgroundColor"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/edittextstyle10"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="19dp"
+                        android:paddingBottom="19dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="25dp"
+                            android:fontFamily="@font/urbanist_bold"
+                            android:text="Why do we have to relogin again and again?"
+                            android:textColor="?attr/textcolor"
+                            android:textFontWeight="700"
+                            android:textSize="18dp" />
+
+                        <ImageView
+                            android:id="@+id/down_arrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/baseline_arrow_drop_down_24"
+                            app:tint="@color/colorAccent"
+                            android:layout_marginEnd="30dp"
+                            />
+                        <ImageView
+                            android:id="@+id/up_arrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/arrow_drop_up"
+                            app:tint="@color/colorAccent"
+                            android:layout_marginEnd="30dp"
+                            android:visibility="gone"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="20dp"
+                        android:id="@+id/ans_flick">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/textcolor"
+                            android:text="One user can login only from one device at a time. If a user account is logged in from another device, the other device will logout and will have to relogin to access the app."
+                            android:fontFamily="@font/urbanist_regular"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/que_wish"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp"
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="?attr/backgroundColor"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/edittextstyle10">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="19dp"
+                        android:paddingBottom="19dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="25dp"
+                            android:fontFamily="@font/urbanist_bold"
+                            android:text="I cannot receive OTP"
+                            android:textColor="?attr/textcolor"
+                            android:textFontWeight="700"
+                            android:textSize="18dp" />
+
+                        <ImageView
+                            android:id="@+id/sec_down_arrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/baseline_arrow_drop_down_24"
+                            app:tint="@color/colorAccent"
+                            android:layout_marginEnd="30dp"
+                            />
+                        <ImageView
+                            android:id="@+id/sec_up_arrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/arrow_drop_up"
+                            app:tint="@color/colorAccent"
+                            android:layout_marginEnd="30dp"
+                            android:visibility="gone"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="20dp"
+                        android:id="@+id/ans_wish"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Our OTP service is working fine but there may be a time you may not be able to receive OTP due to network issues. If you have issues receiving OTP reach out to us by calling our support number or by email."
+                            android:textColor="?attr/textcolor"
+                            android:fontFamily="@font/urbanist_regular"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/que_pre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="?attr/backgroundColor"
+                app:cardCornerRadius="10dp"
+                android:layout_marginTop="20dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/edittextstyle10">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="19dp"
+                        android:paddingBottom="19dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="25dp"
+                            android:fontFamily="@font/urbanist_bold"
+                            android:text="Can I receive OTP in countries apart from India?"
+                            android:textColor="?attr/textcolor"
+                            android:textFontWeight="700"
+                            android:textSize="18dp" />
+
+                        <ImageView
+                            android:id="@+id/thi_down_arrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/baseline_arrow_drop_down_24"
+                            app:tint="@color/colorAccent"
+                            android:layout_marginEnd="30dp"
+                            />
+                        <ImageView
+                            android:id="@+id/thi_up_arrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/arrow_drop_up"
+                            app:tint="@color/colorAccent"
+                            android:layout_marginEnd="30dp"
+                            android:visibility="gone"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="20dp"
+                        android:id="@+id/ans_pre"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="International OTP is supported for these countries: Australia, China, Israel, Japan, Malaysia, Myanmar, Singapore, UAE, UK, USA."
+                            android:textColor="?attr/textcolor"
+                            android:fontFamily="@font/urbanist_regular"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/que_down"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp"
+                app:cardBackgroundColor="?attr/backgroundColor"
+                android:layout_marginTop="20dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/edittextstyle10">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="19dp"
+                        android:paddingBottom="19dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="25dp"
+                            android:fontFamily="@font/urbanist_bold"
+                            android:text="After payment is completed I still cannot watch the content"
+                            android:textColor="?attr/textcolor"
+                            android:textFontWeight="700"
+                            android:textSize="18dp" />
+
+                        <ImageView
+                            android:id="@+id/four_down_arrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/baseline_arrow_drop_down_24"
+                            app:tint="@color/colorAccent"
+                            android:layout_marginEnd="30dp"
+                            />
+                        <ImageView
+                            android:id="@+id/four_up_arrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/arrow_drop_up"
+                            app:tint="@color/colorAccent"
+                            android:layout_marginEnd="30dp"
+                            android:visibility="gone"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="20dp"
+                        android:id="@+id/ans_down"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="After you have made a successful payment wait for the screen to reload/redirect itself. Refrain from pushing refresh / back button and it will be automatically update payment info. Apart from this if you still face any issue please reach out to us on support."
+                            android:textColor="?attr/textcolor"
+                            android:fontFamily="@font/urbanist_regular"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/que_unsub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="?attr/backgroundColor"
+                app:cardCornerRadius="10dp"
+                android:layout_marginTop="20dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/edittextstyle10">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="19dp"
+                        android:paddingBottom="19dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="25dp"
+                            android:fontFamily="@font/urbanist_bold"
+                            android:text="I cannot make a payment"
+                            android:textColor="?attr/textcolor"
+                            android:textFontWeight="700"
+                            android:textSize="18dp" />
+
+                        <ImageView
+                            android:id="@+id/five_down_arrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/baseline_arrow_drop_down_24"
+                            app:tint="@color/colorAccent"
+                            android:layout_marginEnd="30dp"
+                            />
+                        <ImageView
+                            android:id="@+id/five_up_arrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/arrow_drop_up"
+                            app:tint="@color/colorAccent"
+                            android:layout_marginEnd="30dp"
+                            android:visibility="gone"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="20dp"
+                        android:id="@+id/ans_unsub"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="This is beyond our control. It may be due to ur banking server or other technical issues. Reach out to us if you have any issues regarding payment."
+                            android:textColor="?attr/textcolor"
+                            android:fontFamily="@font/urbanist_regular"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

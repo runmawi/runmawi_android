@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
+    tools:context=".SearchActivity"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                        <androidx.appcompat.widget.Toolbar
+                            android:id="@+id/toolbar"
+                            layout_height="?actionBarSize"
+                            layout_width="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:background="@color/toolbar_color"
+                            android:minHeight="?attr/actionBarSize"
+                            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+                            tools:ignore="MissingClass">
+
+                            <ImageView
+                                android:id="@+id/logo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/back_arrow" />
+                        </androidx.appcompat.widget.Toolbar>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="286dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="0.5"
+                            android:fontFamily="@font/urbanist_bold"
+                            android:text="@string/comingsoon"
+                            android:textColor="?attr/textcolor"
+                            android:textSize="20sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:src="@drawable/searchhome"
+
+                            />
+
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.3"
+                            android:src="@drawable/ic_baseline_account_circle_24"
+
+                        />
+
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/detailslayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+
+                        <TextView
+                            android:id="@+id/storecat"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/urbanist_bold"
+                            android:textColor="?attr/textcolor"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/urbanist_bold"
+                            android:text="Categories"
+                            android:textColor="?attr/textcolor"
+                            android:visibility="gone" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/searchdetails3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:nestedScrollingEnabled="false"
+                            android:overScrollMode="never"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/urbanist_bold"
+                            android:text="Videos"
+                            android:textColor="?attr/textcolor" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/searchdetails"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="15dp"
+                            android:overScrollMode="never"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="178dp"
+                        android:src="@drawable/legobat"
+                        android:visibility="visible" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="286dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="0.5"
+                            android:fontFamily="@font/urbanist_bold"
+                            android:text="SHAZAM"
+                            android:textColor="?attr/textcolor"
+                            android:textSize="15sp" />
+
+                        <ImageView
+                            android:layout_width="63dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0"
+                            android:src="@drawable/notificationicon"
+
+                            />
+
+
+                        <ImageView
+                            android:layout_width="63dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:src="@drawable/ic_baseline_screen_share_24"
+
+                            />
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, seddo eiusm od tempor incididunt ut labore et dolore."
+                        android:textColor="?attr/textcolor"
+                        android:padding="10dp"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+
+
+
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

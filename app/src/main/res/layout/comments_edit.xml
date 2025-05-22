@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/background_color"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    >
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:id="@+id/edittxt1"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <EditText
+                android:id="@+id/edittextcomment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittextstyle10"
+                android:fontFamily="@font/urbanist_bold"
+                android:hint="Enter Your Edit Comment"
+                android:layout_weight="0.2"
+                android:focusableInTouchMode="true"
+                android:padding="15dp"
+                android:textFontWeight="700"
+                android:textColor="?attr/textcolor"
+                android:textColorHint="@color/hintcolor"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:layout_weight="1.8"
+                android:src="@drawable/commentsend"
+                android:id="@+id/editecoment"
+                android:visibility="visible"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+            <ProgressBar
+                android:id="@+id/comment_progress1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/textcolor"
+            android:text="Edit"
+            android:textSize="18dp"
+            android:padding="15dp"
+            android:drawableLeft="@drawable/comment_edit"
+            android:drawablePadding="15dp"
+            android:layout_gravity="center"
+            />
+
+        <TextView
+            android:id="@+id/delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/textcolor"
+            android:text="Delete"
+            android:textSize="18dp"
+            android:padding="15dp"
+            android:layout_gravity="center"
+            android:drawablePadding="15dp"
+            android:drawableLeft="@drawable/comment_delete"
+            />
+
+
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

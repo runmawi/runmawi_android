@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".CommentFragment"
+    android:background="?attr/backgroundColor">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="20dp">
+
+
+            <LinearLayout
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                >
+
+                <!--<EditText
+                    android:id="@+id/commenttext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:background="@drawable/edittextstyle"
+                    android:focusableInTouchMode="true"
+                    android:padding="10dp"
+                    android:textColor="?attr/textcolor" />-->
+
+                <EditText
+                    android:id="@+id/commenttext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittextstyle10"
+                    android:fontFamily="@font/urbanist_bold"
+                    android:hint="Enter Your Comment"
+                    android:layout_weight="0.2"
+                    android:focusableInTouchMode="true"
+                    android:padding="15dp"
+                    android:textFontWeight="700"
+                    android:textColor="?attr/textcolor"
+                    android:textColorHint="@color/hintcolor"
+                    android:textSize="15dp" />
+
+                <ImageView
+                    android:layout_weight="1.8"
+                    android:src="@drawable/commentsend"
+                    android:id="@+id/sendcomment"
+                    android:visibility="visible"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+                <ProgressBar
+                    android:id="@+id/comment_progress"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:visibility="gone"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                >
+
+                <TextView
+                    android:id="@+id/count_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=" "
+                    android:textColor="?attr/textcolor"
+                    android:textSize="18dp"
+                    android:fontFamily="@font/urbanist_bold"
+                    android:layout_weight="1"
+                    android:textFontWeight="700"
+                    android:layout_marginStart="5dp"
+
+                    />
+                <TextView
+                    android:id="@+id/see_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="See all"
+                    android:visibility="gone"
+                    android:textColor="?attr/colorAccent"
+                    android:textSize="15dp"
+                    android:fontFamily="@font/urbanist_bold"
+                    android:textFontWeight="700"
+                    android:layout_marginEnd="5dp"
+                    />
+
+            </LinearLayout>
+
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/usercomments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:visibility="visible" />
+            <TextView
+                android:id="@+id/nocomment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No Comments..!"
+                android:textColor="?attr/textcolor"
+                android:textSize="18dp"
+                android:fontFamily="@font/urbanist_medium"
+                android:textFontWeight="700"
+                app:layout_constraintTop_toBottomOf="@id/count_comment"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="gone"
+                android:layout_marginTop="50dp"
+                android:layout_gravity="center"
+                />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</FrameLayout>

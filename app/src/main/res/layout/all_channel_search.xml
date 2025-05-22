@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/backgroundColor"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+        <TextView
+            android:id="@+id/newuploadname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:padding="8dp"
+            android:visibility="visible"
+            android:text="Sample title"
+            android:fontFamily="@font/urbanist_bold"
+            android:drawableRight="@drawable/backright"
+            android:textColor="?attr/textcolor"
+            android:textSize="13dp" />
+
+        <View
+            android:background="@color/gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            />
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/newuploadurl"
+        android:gravity="center"
+        android:text="Image"
+        android:visibility="gone"
+        android:textColor="?attr/textcolor"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/newuploadid"
+        android:gravity="center"
+        android:text="Image"
+        android:visibility="gone"
+        android:textColor="?attr/textcolor"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/ppvstatus"
+        android:layout_weight="3"
+        android:text="Image"
+        android:gravity="center"
+        android:visibility="gone"
+        android:padding="5dp"
+        android:textColor="?attr/textcolor"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/id"
+        android:gravity="center"
+        android:text="Image"
+        android:visibility="gone"
+        android:textColor="?attr/textcolor"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/views"
+        android:layout_weight="3"
+        android:text="Image"
+        android:visibility="gone"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textColor="?attr/textcolor"
+        android:textSize="14sp" />
+
+
+
+</LinearLayout>

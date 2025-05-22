@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="?attr/backgroundColor"
+    android:layout_height="match_parent"
+    tools:context=".Main3Activity">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="?attr/backgroundColor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            layout_height="?actionBarSize"
+            layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/toolbar_color"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+            tools:ignore="MissingClass">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Refer N Earn"
+                android:fontFamily="@font/urbanist_bold"
+                android:textColor="?attr/textcolor"
+                android:id="@+id/namee" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+            android:background="?attr/backgroundColor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:background="?attr/backgroundColor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:id="@+id/novideoscat"
+                    android:background="?attr/backgroundColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+
+                    <TextView
+                        android:text="Refer 'N' Earn withRunmawi"
+                        android:textColor="?attr/textcolor"
+                        android:textSize="20dp"
+                        android:padding="15dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:src="@drawable/ref"/>
+
+                    <TextView
+                        android:textSize="15dp"
+                        android:textColor="?attr/textcolor"
+                        android:text="Elite Club Refer'N'Earn offer for Coupon Codes. Each user can earn a coupon code after your get subscribed with us. The offer provides Coupon Code on every successful referral Subscriptions."
+                        android:padding="15dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:lineSpacingExtra="7dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+
+                    <TextView
+                        android:textSize="15dp"
+                        android:textColor="?attr/textcolor"
+                        android:text="Here is a chance to become a Referrer."
+                        android:padding="15dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:lineSpacingExtra="7dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <Button
+                        android:id="@+id/getsubscription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/buttonbackgroun"
+                        android:gravity="center"
+                        android:text="Get Subscription"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:textSize="19dp"
+                        android:textAllCaps="false"
+                        android:textColor="#e7e8ea" />
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        </ScrollView>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

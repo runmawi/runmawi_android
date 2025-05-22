@@ -1,0 +1,155 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Runmawi</string>
+    <string name="app_id">com.atbuys.runmawi</string>
+    <string name="app_id_cast">04772689</string>
+    <string name="username"><font size="11">UserName</font></string>
+    <string name="name"><font size="11">Name</font></string>
+    <string name="password"><font size="11">Password</font></string>
+    <string name="Confirm_Password"><font size="11">Confirm Password</font></string>
+    <string name="Referral_Code"><font size="11">Referral Code</font></string>
+    <string name="coupon_code"><font size="11">Coupon Code(Optional)</font></string>
+    <string name="countrycode"><font size="11">code</font></string>
+    <string name="Mobile"><font size="11">Mobile Number</font></string>
+    <string name="your_string_here"> <u>Close</u>.</string>
+    <string name="Email"><font size="11">E-Mail </font></string>
+    <string name="Email_signup"><font size="11">Email  </font></string>
+    <string name="country"><font size="11">Country</font></string>
+    <string name="state"><font size="11">State</font></string>
+    <string name="city"><font size="11">City</font></string>
+    <string name="verification"><font size="11">Verification Code</font></string>
+    <string name="newpass"><font size="11">New Password</font></string>
+    <string name="fogotemail"><font size="11">Enter E-mail</font></string>
+    <string name="oldpass"><font size="11">Old Password</font></string>
+    <string name="confirmnewpass"><font size="11">Confirm New Password</font></string>
+    <string name="track_selection_title">Select Tracks</string>
+    <string name="unexpected_intent_action">Unexpected intent action: <xliff:g id="action">%1$s</xliff:g></string>
+
+    <string name="error_cleartext_not_permitted">Cleartext Traffic Not Permitted</string>
+
+    <string name="error_generic">Playback Failed</string>
+
+    <string name="error_unrecognized_abr_algorithm">Unrecognized ABR algorithm</string>
+
+    <string name="error_unrecognized_stereo_mode">Unrecognized Stereo Mode</string>
+
+    <string name="error_drm_not_supported">Protected Content Not Supported On API Levels Below 18</string>
+
+    <string name="error_drm_unsupported_scheme">This device does not support the required DRM scheme</string>
+
+    <string name="error_drm_unknown">An unknown DRM error occurred</string>
+
+    <string name="error_no_decoder">This device does not provide a decoder for <xliff:g id="mime_type">%1$s</xliff:g></string>
+
+    <string name="error_no_secure_decoder">This device does not provide a secure decoder for <xliff:g id="mime_type">%1$s</xliff:g></string>
+
+    <string name="error_querying_decoders">Unable to query device decoders</string>
+
+    <string name="error_instantiating_decoder">Unable to instantiate decoder <xliff:g id="decoder_name">%1$s</xliff:g></string>
+
+    <string name="error_unsupported_video">Media includes video tracks, but none are playable by this device</string>
+
+    <string name="error_unsupported_audio">Media includes audio tracks, but none are playable by this device</string>
+
+    <string name="storage_permission_denied">Permission to access storage was denied</string>
+
+    <string name="sample_list_load_error">One or more sample lists failed to load</string>
+
+    <string name="ima_not_loaded">Playing sample without ads, as the IMA extension was not loaded</string>
+
+    <string name="download_start_error">Failed to start download</string>
+
+    <string name="download_playlist_unsupported">This demo app does not support downloading playlists</string>
+
+    <string name="download_drm_unsupported">This demo app does not support downloading protected content</string>
+
+    <string name="download_scheme_unsupported">This demo app only supports downloading http streams</string>
+
+    <string name="download_ads_unsupported">IMA does not support offline ads</string>
+
+    <string name="prefer_extension_decoders">Prefer extension decoders</string>
+
+    <string name="random_abr">Enable random ABR</string>
+
+    <string name="facebook_app_id" translatable="false">61570293064217</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb61570293064217</string>
+    <string name="signupnow"><u>Sign up now</u></string>
+    <string name="texts">Enter Your Email to Reset your password.</string>
+    <string name="textss">PAYMENT SETUP</string>
+    <string name="chooseplan">Choose Ur Plan</string>
+    <string name="steps">Step 2/3</string>
+    <string name="Rs">\u20B9</string>
+    <string name="change"><u>change</u></string>
+    <string name="Rememberme">Remember me</string>
+    <string name="newtoflicknexs">New to Runmawi ?</string>
+    <string name="SIGNIN">SIGN IN</string>
+    <string name="QR">SCAN QR</string>
+    <string name="forgotpassword">FORGOT PASSWORD</string>
+    <string name="CONTINUE">Continue</string>
+    <string name="proceedtopay">Proceed to Pay</string>
+    <string name="title_activity_welcome">Home Screen</string>
+    <string name="next">NEXT</string>
+    <string name="skip"><u>SKIP</u></string>
+    <string name="start"></string>
+    <string name="slide_1_title">\t \t \t \t \t Unlimited \n entertainment, one \n \t \t \t \t \tLow Price.</string>
+    <string name="slide_1_desc">Everything on Runmawi, Starting from very Low Price.</string>
+    <string name="slide_2_title">Movie Tickets</string>
+    <string name="slide_2_desc">Book movie tickets for your family and friends!</string>
+    <string name="slide_3_title">Great Discounts</string>
+    <string name="slide_3_desc">Best discounts on every single service we offer!</string>
+    <string name="slide_4_title">World Travel</string>
+    <string name="slide_4_desc">Book tickets of any transportation and travel the world!</string>
+    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
+    <string name="banner_image">Banner Image</string>
+    <string name="play_again">Play Again</string>
+    <string name="rs">\u20B9199/month</string>
+    <string name="Notroublesomecontracts">No Troublesome \n Contracts</string>
+    <string name="Contracts">Contracts</string>
+    <string name="letsgetstart">LETS GET START</string>
+    <string name="downloadandwatch">Download and </string>
+    <string name="watchoffline">Watch Offline</string>
+    <string name="downlod">Always have something to watch OFFLINE</string>
+    <string name="Join">Join today, cancel anytime</string>
+    <string name="moviename">Shazam</string>
+    <string name="movieyear">2019</string>
+    <string name="moviedescription">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</string>
+    <string name="play">Play Now</string>
+    <string name="play_begin">Start Over</string>
+    <string name="resume">Resume </string>
+    <string name="dows">Start Download</string>
+    <string name="pay">Pay Now</string>
+    <string name="subscribe">Subscribe</string>
+    <string name="terms"><u>I agree to the Terms of Use and Privacy Policy</u></string>
+    <string name="download">Download</string>
+    <string name="rent">Rent</string>
+    <string name="helpcenter">\tHelp Centre</string>
+    <string name="paymentchanges">Plan Changes</string>
+    <string name="passwordupdate">Change Password</string>
+    <string name="privacy">Privacy</string>
+    <string name="cancelaccount">Deactivate Account</string>
+    <string name="search">Search</string>
+    <string name="comingsoon">Coming Soon</string>
+    <string name="favoritemovie">Search</string>
+
+    <string name="OTP"><font size="13">Code</font></string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="termsandcondition">I have read, understood and accept the <u> terms and condition </u></string>
+    <string name="exo_track_selection_title_text">text</string>
+    <string name="exo_track_selection_title_video">video</string>
+    <string name="exo_track_selection_title_audio">audio</string>
+
+    <string name="welcome_para">The best movie streaming app of the century to make your days great!</string>
+    <string name="welcome_to_flicknexs">Welcome to Runmawi</string>
+    <string name="forgot_para">Select which contact details should we use to reset your password</string>
+    <string name="response_code">Rate limit exceeded. Please try again later.</string>
+
+    <string-array name="currency">
+        <item>CDF</item>
+        <item>GNF</item>
+        <item>USD</item>
+        <item>XOF</item>
+        <item>XAF</item>
+    </string-array>
+
+</resources>

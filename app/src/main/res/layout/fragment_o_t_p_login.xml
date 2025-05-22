@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical"
+    tools:context=".OTPLoginFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginEnd="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/logo"
+                    android:layout_width="200dp"
+                    android:layout_height="93dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="40dp"/>
+
+                <TextView
+                    android:id="@+id/lets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Login with Mobile OTP"
+                    android:textSize="30dp"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/urbanist_bold"
+                    android:textFontWeight="700"
+                    android:layout_marginTop="38dp"
+                    android:textColor="?attr/textcolor"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="30dp"
+                    android:visibility="gone"
+                    android:background="@drawable/otp_edittext_layout">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="15dp"
+                        android:src="@drawable/outline_person_24"/>
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="#363A42"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        />
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="?attr/textcolor"
+                        android:paddingStart="20dp"
+                        android:background="?attr/card_color"
+                        android:textColorHint="@color/hintcolor"
+                        android:hint="Name"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:inputType="textPersonName"
+                        android:textSize="15dp"
+                        android:layout_marginEnd="10dp"
+                        android:textFontWeight="700"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/otp_edittext_layout"
+                    android:gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <com.hbb20.CountryCodePicker
+                        android:id="@+id/country_picker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:ccp_autoDetectCountry="false"
+                        app:ccp_showFlag="true"
+                        app:ccp_showNameCode="false"
+                        app:ccp_showPhoneCode="false"
+                        android:paddingTop="10dp"
+                        android:paddingStart="8dp"
+                        android:paddingBottom="10dp"
+                        app:ccp_textSize="15dp"
+                        app:ccp_showFullName="false"
+                        app:ccp_showArrow="false"
+                        app:ccp_arrowColor="?attr/textcolor"
+                        app:ccp_contentColor="?attr/textcolor"
+                        />
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="#363A42"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        />
+
+                    <EditText
+                        android:id="@+id/mobile_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:textColor="?attr/textcolor"
+                        android:paddingStart="20dp"
+                        android:background="?attr/card_color"
+                        android:textColorHint="@color/hintcolor"
+                        android:hint="@string/Mobile"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginTop="2dp"
+                        android:inputType="number"
+                        android:textSize="15dp"
+                        android:layout_marginEnd="10dp"
+                        android:textFontWeight="700"/>
+
+                </LinearLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/request_otp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:backgroundTint="@color/colorAccent"
+                    app:cardCornerRadius="45dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="17dp"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:textFontWeight="700"
+                        android:text="Request OTP"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18dp" />
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:id="@+id/orContinue_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="24dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_weight="1"
+                        android:background="#363A42" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.8"
+                        android:fontFamily="@font/urbanist_medium"
+                        android:textFontWeight="500"
+                        android:gravity="center"
+                        android:text="Or continue with"
+                        android:textColor="?attr/textcolor"
+                        android:textSize="16dp"
+                        />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_weight="1"
+                        android:background="#363A42" />
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="24dp"
+                    android:gravity="center">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/facebook_layout"
+                        android:layout_width="82dp"
+                        android:layout_height="61dp"
+                        android:layout_marginEnd="40dp"
+                        app:cardCornerRadius="15dp"
+                        app:cardBackgroundColor="@color/cardbackground_color"
+                        android:background="@drawable/edittextstyle"
+                        android:onClick="onClick"
+                        android:visibility="gone"
+                        >
+                        <FrameLayout
+                            android:id="@+id/FrameLayout1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/edittextstyle15">
+
+                            <com.facebook.login.widget.LoginButton
+                                android:id="@+id/login_button"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:visibility="gone" />
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/facebook_icon"
+                                android:layout_gravity="center" />
+
+                        </FrameLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/google_layout"
+                        android:layout_width="82dp"
+                        android:layout_height="61dp"
+                        app:cardCornerRadius="15dp"
+                        app:cardBackgroundColor="@color/cardbackground_color"
+                        android:background="@drawable/edittextstyle"
+                        android:visibility="gone"
+                        >
+                        <FrameLayout
+                            android:id="@+id/FrameLayout2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/edittextstyle15">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/google_icon"
+                                android:layout_gravity="center"/>
+
+                        </FrameLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/apple_layout"
+                        android:layout_width="82dp"
+                        android:layout_height="61dp"
+                        android:layout_marginStart="40dp"
+                        app:cardCornerRadius="15dp"
+                        android:visibility="gone">
+                        <FrameLayout
+                            android:id="@+id/FrameLayout3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/edittextstyle15">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/apple_icon"
+                                android:layout_gravity="center"/>
+                        </FrameLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

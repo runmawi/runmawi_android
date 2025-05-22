@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/black"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="2dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            layout_height="?actionBarSize"
+            layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/toolbar_color"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="left"
+                    android:layout_weight="0.5">
+
+                    <TextView
+                        android:id="@+id/videotitle"
+                        android:layout_width="344dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:gravity="center"
+                        android:text="My Account"
+                        android:textColor="?attr/textcolor"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/editicon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:visibility="visible"
+                    android:layout_weight="2"
+                    >
+                    <ImageView
+                        android:visibility="invisible"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/edit"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+        <FrameLayout
+            android:id="@+id/profilelayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp">
+
+            <RelativeLayout
+                android:id="@+id/progresslayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+
+                <ProgressBar
+                    android:id="@+id/pb_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center" />
+
+            </RelativeLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:paddingRight="16dp">
+
+                <LinearLayout
+                    android:id="@+id/myaccountlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="3dp"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="0dp"
+                        android:layout_marginRight="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="15dp">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/image"
+                                android:layout_width="344dp"
+                                android:layout_height="51dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/avatar" />
+
+                            <TextView
+
+                                android:id="@+id/username"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:autoSizeMaxTextSize="40sp"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="USER NAME"
+                                android:textColor="?attr/textcolor"
+                                android:textSize="14dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/useremail"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="User Email"
+                                android:textColor="?attr/textcolor"
+                                android:textSize="14dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+
+                            <TextView
+                                android:id="@+id/countryprofile"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="Country"
+                                android:textColor="?attr/textcolor"
+                                android:textSize="14dp" />
+
+                            <TextView
+                                android:id="@+id/stateprofile"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="State"
+                                android:textColor="?attr/textcolor"
+                                android:textSize="14dp" />
+
+                            <TextView
+                                android:id="@+id/cityprofile"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="city"
+                                android:textColor="?attr/textcolor"
+                                android:textSize="14dp" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginEnd="2dp"
+                            android:layout_marginRight="10dp"
+                            android:orientation="vertical"
+                            android:visibility="visible">
+
+
+                            <LinearLayout
+                                android:id="@+id/subscriber"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:visibility="visible">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="1dp"
+                                    android:fontFamily="@font/urbanist_bold"
+                                    android:text="MEMBERSHIP"
+                                    android:textColor="?attr/textcolor"
+                                    android:textSize="14dp" />
+
+                                <LinearLayout
+                                    android:id="@+id/subscribe"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="#272525"
+                                    android:orientation="vertical"
+                                    android:visibility="visible"
+                                    android:layout_marginTop="10dp">
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="2dp"
+                                        android:background="#272525"
+                                        android:orientation="vertical"
+                                        android:padding="18dp">
+
+                                        <TextView
+                                            android:layout_width="309dp"
+                                            android:layout_height="wrap_content"
+                                            android:text="Premium annual subscription"
+                                            android:textColor="?attr/textcolor" />
+
+                                        <TextView
+                                            android:layout_width="309dp"
+                                            android:layout_height="wrap_content"
+                                            android:text="Next Billing date"
+                                            android:textColor="#D1CECE" />
+
+
+                                    </LinearLayout>
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:layout_marginStart="20dp"
+                                        android:layout_marginEnd="40dp"
+                                        android:background="@color/white" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="5dp"
+                                        android:background="#272525"
+                                        android:orientation="horizontal">
+
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.5"
+                                            android:fontFamily="@font/urbanist_bold"
+                                            android:padding="15dp"
+                                            android:text="Cancel Membership"
+                                            android:textColor="?attr/textcolor" />
+
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_gravity="left"
+                                            android:layout_weight="4"
+                                            android:src="@drawable/backright" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:id="@+id/renewmembership"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:visibility="gone">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.5"
+                                            android:fontFamily="@font/urbanist_bold"
+                                            android:padding="18dp"
+                                            android:text="Renew Membership"
+                                            android:textColor="?attr/textcolor" />
+
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_gravity="left"
+                                            android:layout_weight="4"
+                                            android:src="@drawable/backright" />
+                                    </LinearLayout>
+
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:id="@+id/register"
+                                android:layout_width="match_parent"
+                                android:layout_height="27dp"
+                                android:orientation="vertical"
+                                android:layout_marginTop="10dp">
+
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:fontFamily="@font/urbanist_bold"
+                                    android:text="SAVE CARD"
+                                    android:textColor="?attr/textcolor"
+                                    android:textSize="14dp" />
+
+                                <LinearLayout
+                                    android:id="@+id/nonsubscribe"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/black"
+                                    android:orientation="vertical"
+                                    android:visibility="gone">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:padding="18dp">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/urbanist_bold"
+                                            android:text="Get More Videos And Audios"
+                                            android:textColor="?attr/textcolor"
+                                            android:textSize="14dp" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/urbanist_bold"
+                                            android:text="With Yearly and Monthly Plans"
+                                            android:textColor="?attr/textcolor"
+                                            android:textSize="14dp" />
+
+
+                                        <Button
+                                            android:id="@+id/getsubscription"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center_vertical"
+                                            android:layout_marginTop="15dp"
+                                            android:background="@drawable/buttonbackgroun"
+                                            android:fontFamily="@font/urbanist_bold"
+                                            android:gravity="center"
+                                            android:text="Get Subscription"
+                                            android:textAllCaps="false"
+                                            android:textColor="#e7e8ea"
+                                            android:textSize="19dp" />
+
+
+                                    </LinearLayout>
+
+
+                                </LinearLayout>
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="#272525"
+                                android:orientation="vertical"
+                                android:layout_marginTop="10dp">
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="#272525"
+                                    android:orientation="vertical"
+                                    android:layout_marginTop="10dp">
+
+                                    <LinearLayout
+                                        android:id="@+id/editprofile"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:background="#272525"
+                                        android:orientation="vertical"
+                                        android:padding="18dp"
+                                        >
+
+                                        <TextView
+                                            android:layout_width="347dp"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/urbanist_bold"
+                                            android:text="DEBIT CARD"
+                                            android:textColor="?attr/textcolor"
+                                            android:textSize="14dp" />
+
+                                        <LinearLayout
+                                            android:layout_width="278dp"
+                                            android:layout_height="26dp"
+                                            android:orientation="horizontal">
+
+                                            <ImageView
+                                                android:layout_width="38dp"
+                                                android:layout_height="34dp"
+                                                android:layout_gravity="left"
+                                                android:layout_marginStart="1dp"
+                                                android:src="@drawable/ic_credit_card" />
+
+                                            <TextView
+                                                android:layout_width="158dp"
+                                                android:layout_height="26dp"
+                                                android:layout_marginStart="10dp"
+                                                android:layout_marginTop="20px"
+                                                android:fontFamily="@font/urbanist_bold"
+                                                android:text="2424 2424 2424 2424"
+                                                android:textColor="?attr/textcolor"
+                                                android:textSize="14dp" />
+                                        </LinearLayout>
+                                    </LinearLayout>
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:layout_marginStart="20dp"
+                                        android:layout_marginEnd="40dp"
+                                        android:background="@color/white" />
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:background="#595555"
+                                        android:orientation="horizontal">
+
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.5"
+                                            android:background="#272525"
+                                            android:fontFamily="@font/urbanist_bold"
+                                            android:padding="18dp"
+                                            android:text="Update card details"
+                                            android:textColor="?attr/textcolor" />
+
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_gravity="left"
+                                            android:layout_weight="4"
+                                            android:background="#272525"
+                                            android:src="@drawable/backright" />
+                                    </LinearLayout>
+
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_marginTop="10dp">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/urbanist_bold"
+                                    android:text="ACCOUNT AND SECURITY"
+                                    android:textColor="?attr/textcolor"
+                                    android:textSize="14dp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="5dp"
+                                    android:background="#272525"
+                                    android:orientation="vertical"
+                                    android:layout_marginTop="10dp">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+
+                                        android:background="#272525"
+                                        android:orientation="vertical">
+
+                                        <LinearLayout
+                                            android:id="@+id/changepassword"
+                                            android:layout_width="351dp"
+                                            android:layout_height="wrap_content"
+                                            android:background="#272525"
+                                            android:orientation="vertical"
+
+                                            android:padding="18dp">
+
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:fontFamily="@font/urbanist_bold"
+                                                android:text="Change Password"
+                                                android:textColor="?attr/textcolor"
+                                                android:textSize="14dp" />
+
+
+                                        </LinearLayout>
+
+                                        <View
+                                            android:layout_width="291dp"
+                                            android:layout_height="1dp"
+                                            android:layout_marginStart="20dp"
+                                            android:layout_marginEnd="10dp"
+                                            android:background="@color/white" />
+
+                                        <LinearLayout
+                                            android:id="@+id/logout"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+
+                                            android:background="#272525"
+                                            android:orientation="vertical"
+                                            android:padding="18dp">
+
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:fontFamily="@font/urbanist_bold"
+                                                android:text="Log out"
+                                                android:textColor="?attr/textcolor"
+                                                android:textSize="14dp" />
+
+
+                                        </LinearLayout>
+
+                                        <View
+                                            android:layout_width="291dp"
+                                            android:layout_height="1dp"
+                                            android:layout_marginStart="20dp"
+                                            android:layout_marginEnd="10dp"
+                                            android:background="@color/white" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:background="#272525"
+                                            android:orientation="vertical"
+                                            android:padding="18dp">
+
+                                            <TextView
+                                                android:layout_width="308dp"
+                                                android:layout_height="32dp"
+                                                android:fontFamily="@font/urbanist_bold"
+                                                android:text="Verify profile"
+                                                android:textColor="?attr/textcolor"
+                                                android:textSize="14dp" />
+
+
+                                        </LinearLayout>
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+        </FrameLayout>
+    </LinearLayout>
+</LinearLayout>

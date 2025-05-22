@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:facebook="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity"
+    android:orientation="vertical"
+    android:background="@color/background_color">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                layout_height="?actionBarSize"
+                layout_width="wrap_content"
+                android:background="@color/toolbar_color"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark"
+                tools:ignore="MissingClass">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/back_arrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/back_arrow"
+                        android:padding="10dp"
+                        android:visibility="gone"/>
+
+                </LinearLayout>
+            </androidx.appcompat.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:src="@drawable/door_image"
+        android:layout_gravity="center"
+        android:layout_marginTop="32dp"
+        />
+    <TextView
+        android:id="@+id/lets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Let’s you in"
+        android:textSize="50dp"
+        android:fontFamily="@font/urbanist_bold"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:layout_marginTop="30dp"
+        android:textFontWeight="700"
+        />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/facebook_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="45dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="30dp"
+        app:cardBackgroundColor="@color/cardbackground_color"
+        android:background="@drawable/edittextstyle"
+        android:onClick="onClick"
+        android:visibility="gone">
+        <FrameLayout
+            android:id="@+id/FrameLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittextstyle">
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/login_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:src="@drawable/facebook_icon"
+                    android:layout_gravity="center_vertical"
+
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/urbanist_medium"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="17dp"
+                    android:text="Continue with Facebook"
+                    android:textFontWeight="500"
+                    android:textColor="@color/white"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
+        </FrameLayout>
+
+
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/google_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="45dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="20dp"
+        app:cardBackgroundColor="@color/cardbackground_color"
+        android:background="@drawable/edittextstyle"
+        android:visibility="gone">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@drawable/edittextstyle">
+            <ImageView
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:src="@drawable/google_icon"
+                android:layout_gravity="center_vertical"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/urbanist_medium"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginBottom="17dp"
+                android:text="Continue with Google"
+                android:textFontWeight="500"
+                android:textColor="@color/white"
+                android:textSize="18dp" />
+        </LinearLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/apple_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="45dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        >
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/edittextstyle"
+            >
+            <ImageView
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:src="@drawable/apple_icon"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="70dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Continue with Apple"
+                android:textColor="@color/white"
+                android:textFontWeight="500"
+                android:textSize="18dp"
+                android:fontFamily="@font/urbanist_medium"
+                android:layout_marginTop="17dp"
+                android:layout_marginBottom="17dp"
+                android:layout_marginStart="5dp"/>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+    <LinearLayout
+        android:id="@+id/orContinue_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="34dp"
+        android:gravity="center"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="#363A42" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.6"
+            android:fontFamily="@font/urbanist_medium"
+            android:gravity="center"
+            android:text="Or"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:textFontWeight="500"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="#363A42" />
+
+    </LinearLayout>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/sign_in_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorAccent"
+        app:cardCornerRadius="45dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="34dp">
+
+        <TextView
+            android:id="@+id/get_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="17dp"
+            android:textFontWeight="700"
+            android:textStyle="bold"
+            android:fontFamily="@font/urbanist_bold"
+            android:text="Sign in with password"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
+
+
+    </androidx.cardview.widget.CardView>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
+        >
+
+        <TextView
+            android:id="@+id/sitename"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/urbanist_medium"
+            android:text="Don’t have an account ?"
+            android:textFontWeight="600"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/signup"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:fontFamily="@font/urbanist_semibold"
+            android:paddingLeft="10dp"
+            android:text="Sign up"
+            android:textColor="@color/colorAccent"
+            android:textFontWeight="600" />
+
+    </LinearLayout>
+
+
+
+        </LinearLayout>
+    </ScrollView>
+  </LinearLayout>

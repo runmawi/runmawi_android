@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/toolbar_color" >
+
+        <ImageView
+            android:id="@+id/backarrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/backarrow"
+            android:layout_marginStart="20dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Download"
+            android:textSize="25dp"
+            android:fontFamily="@font/urbanist_bold"
+            android:textColor="?attr/textcolor"
+            android:textFontWeight="700"
+            android:layout_marginStart="16dp"
+            android:id="@+id/toolbar_title" />
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="20dp">
+
+        <LinearLayout
+            android:id="@+id/dark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:visibility="visible"
+            >
+
+
+            <ImageView
+                android:layout_weight="6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:src="@drawable/wifivector" />
+
+            <TextView
+                android:layout_weight="1.4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Wi-Fi Only"
+                android:maxLines="1"
+                android:layout_gravity="left"
+                android:gravity="left"
+                android:fontFamily="@font/urbanist_medium"
+                android:textSize="18sp"
+                android:layout_marginStart="10dp"
+                android:textFontWeight="500"
+                android:padding="10dp"
+                android:textStyle="bold"
+                android:textColor="?attr/textcolor"/>
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:thumb="@drawable/thumb"
+                android:track="@drawable/track"
+                android:layout_marginEnd="2dp"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/download"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            >
+            <ImageView
+                android:layout_weight="6"
+                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/downloadvector1" />
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Downloads"
+                android:layout_gravity="center"
+                android:fontFamily="@font/urbanist_medium"
+                android:maxLines="1"
+                android:gravity="left"
+                android:textSize="18sp"
+                android:padding="10dp"
+                android:textFontWeight="500"
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"
+                android:textColor="?attr/textcolor"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/video_quality"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            >
+            <ImageView
+                android:layout_weight="6"
+                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/videiqualityvector" />
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Video Quality"
+                android:layout_gravity="center"
+                android:fontFamily="@font/urbanist_medium"
+                android:maxLines="1"
+                android:gravity="left"
+                android:textSize="18sp"
+                android:padding="10dp"
+                android:textFontWeight="500"
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"
+                android:textColor="?attr/textcolor"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/audio_quality"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            >
+            <ImageView
+                android:layout_weight="6"
+                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/audioqualityvector" />
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Audio Quality"
+                android:layout_gravity="center"
+                android:fontFamily="@font/urbanist_medium"
+                android:maxLines="1"
+                android:gravity="left"
+                android:textSize="18sp"
+                android:padding="10dp"
+                android:textFontWeight="500"
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"
+                android:textColor="?attr/textcolor"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/deleteall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            >
+            <ImageView
+                android:layout_weight="9.5"
+                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/deletevector" />
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Delete All Downloads"
+                android:layout_gravity="center"
+                android:fontFamily="@font/urbanist_medium"
+                android:maxLines="1"
+                android:gravity="left"
+                android:textSize="18sp"
+                android:padding="10dp"
+                android:textFontWeight="500"
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"
+                android:textColor="?attr/textcolor"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            >
+            <ImageView
+                android:layout_weight="9.5"
+                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/deletevector" />
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Delete Cache"
+                android:layout_gravity="center"
+                android:fontFamily="@font/urbanist_medium"
+                android:maxLines="1"
+                android:gravity="left"
+                android:textSize="18sp"
+                android:padding="10dp"
+                android:textFontWeight="500"
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"
+                android:textColor="?attr/textcolor"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+    </LinearLayout>

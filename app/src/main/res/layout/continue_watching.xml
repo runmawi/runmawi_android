@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="120dp"
+    app:cardCornerRadius="13dp"
+    android:layout_height="190dp"
+    android:orientation="horizontal"
+    app:cardBackgroundColor="?attr/backgroundColor"
+    android:background="?attr/backgroundColor"
+    app:cardUseCompatPadding="true"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/backgroundColor"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/ratingcard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="3dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/colorAccent">
+
+                <TextView
+                    android:id="@+id/rating"
+                    android:layout_width="39dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/urbanistregular"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="?attr/textcolor"
+                    android:textFontWeight="700"
+                    android:textSize="14dp"
+
+                    />
+            </androidx.cardview.widget.CardView>
+
+
+        <ImageView
+            android:id="@+id/newuploadimg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:background="@drawable/favicon" />
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/newuploadname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:visibility="gone"
+            android:text="Sample title"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/seekbarr"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_gravity="bottom"
+        android:minHeight="60dp"
+        android:progress="40"
+        android:minWidth="220dp" />
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/newuploadurl"
+        android:gravity="center"
+        android:text="Image"
+        android:visibility="gone"
+        android:textColor="#000"
+        android:textSize="18sp" />
+    <TextView
+        android:id="@+id/seriesid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="Sample title"
+        android:textColor="?attr/textcolor"
+        android:textSize="14sp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/newuploadid"
+        android:gravity="center"
+        android:layout_gravity="bottom"
+        android:text="Image"
+        android:visibility="gone"
+        android:textColor="?attr/textcolor"
+        android:textSize="18sp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/ppvstatus"
+        android:layout_weight="3"
+        android:text="Image"
+        android:gravity="center"
+        android:visibility="gone"
+        android:padding="5dp"
+        android:textColor="#000"
+        android:textSize="14sp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/id"
+        android:gravity="center"
+        android:text="Image"
+        android:visibility="gone"
+        android:textColor="#000"
+        android:textSize="18sp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/views"
+        android:layout_weight="3"
+        android:text="Image"
+        android:visibility="gone"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textColor="#000"
+        android:textSize="14sp" />
+</androidx.cardview.widget.CardView>
+
+

@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?attr/background"
+    tools:context=".MoviesActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            layout_height="?actionBarSize"
+            layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/toolbar_color"
+            android:minHeight="?attr/actionBarSize"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark"
+            tools:ignore="MissingClass">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_height="?actionBarSize"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:visibility="visible"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:fontFamily="@font/urbanist_bold"
+                    android:textColor="?attr/textcolor"
+                    android:layout_marginLeft="10dp"
+                    android:text="Series"/>
+
+
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+        <RelativeLayout
+            android:layout_weight="2"
+            android:id="@+id/playerlayout"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="10dp"
+                android:layout_margin="10dp"
+                app:cardBackgroundColor="@color/black_transparent"
+                >
+
+            <ImageView
+                android:id="@+id/videoimage"
+                android:scaleType="centerCrop"
+                android:background="@drawable/overlay"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+
+
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/seriesname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:fontFamily="@font/urbanist_bold"
+                android:padding="5dp"
+                android:textColor="#ffffffff"/>
+
+            <TextView
+                android:id="@+id/watch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Watch Trailer"
+                android:textSize="10dp"
+                android:gravity="center"
+                android:drawablePadding="5dp"
+                android:drawableLeft="@drawable/player_play"
+                android:textColor="#ffffffff" />
+
+            </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:id="@+id/hidelayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="15dp"
+                        android:visibility="visible"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:textSize="18sp"
+                            android:textColor="?attr/textcolor"
+                            android:text="Episodes"
+                            android:textStyle="bold"
+                            android:layout_width="match_parent"
+                            android:fontFamily="@font/urbanist_bold"
+                            android:layout_height="wrap_content"/>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_marginTop="10dp"
+                            android:id="@+id/episoderecycler"
+                            android:visibility="visible"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/norecommanded"
+                            android:textColor="?attr/textcolor"
+                            android:textSize="12dp"
+                            android:visibility="gone"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="No Recommend videos"/>
+
+
+                    </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="15dp"
+                    android:visibility="visible"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:textSize="18sp"
+                        android:textColor="?attr/textcolor"
+                        android:text="Seasons"
+                        android:textStyle="bold"
+                        android:layout_width="match_parent"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:layout_height="wrap_content"/>
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/seasonrecycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:textSize="16dp"
+                            android:textColor="?attr/textcolor"
+                            android:text="More Like this "
+                            android:textStyle="bold"
+                            android:layout_width="match_parent"
+                            android:fontFamily="@font/urbanist_bold"
+                            android:layout_height="wrap_content"/>
+
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/moreseriesrecycler"
+                            android:background="?attr/backgroundColor"
+                            android:layout_width="match_parent"
+                            android:visibility="visible"
+                            android:layout_height="match_parent"/>
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:id="@+id/no_series"
+                            android:text="No videos"
+                            android:visibility="gone"
+                            android:fontFamily="@font/urbanist_bold"
+                            android:textColor="?attr/textcolor"
+                            android:textSize="14dp" />
+
+
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="8dp"
+                        android:visibility="gone"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/watchlist"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+
+                            <ImageView
+                                android:layout_weight="1"
+                                android:id="@+id/watchlistimg"
+                                android:src="@drawable/add"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"/>
+                            <ImageView
+                                android:layout_weight="1"
+                                android:id="@+id/watchlistaddimg"
+                                android:src="@drawable/added"
+                                android:visibility="gone"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_gravity="center"
+                                android:textColor="?attr/textcolor"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:textSize="12dp"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:layout_height="wrap_content"
+                                android:text="Wishlist"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/watchlater"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+
+                            <ImageView
+                                android:layout_weight="1"
+                                android:id="@+id/watchlateradd"
+                                android:src="@drawable/watchlater"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"/>
+                            <ImageView
+                                android:layout_weight="1"
+                                android:id="@+id/watchlateraddedimg"
+                                android:src="@drawable/watchlateradded"
+                                android:visibility="gone"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_gravity="center"
+                                android:textColor="?attr/textcolor"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:textSize="12dp"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:layout_height="wrap_content"
+                                android:text="Watchlater"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/share"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+
+                            <ImageView
+                                android:layout_weight="1"
+                                android:src="@drawable/share"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                tools:ignore="NestedWeights" />
+
+                            <TextView
+
+                                android:layout_width="match_parent"
+                                android:layout_gravity="center"
+                                android:textColor="?attr/textcolor"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:textSize="12dp"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:layout_height="wrap_content"
+                                android:text="Share"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/videotext"
+                        android:textColor="?attr/textcolor"
+                        android:textSize="15dp"
+                        android:layout_margin="10dp"
+                        android:lineSpacingExtra="1.2dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+
+                    <LinearLayout
+                       android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:orientation="vertical">
+                        <TextView
+                            android:text="Trailer"
+                            android:textColor="?attr/textcolor"
+                            android:textSize="14dp"
+                            android:fontFamily="@font/urbanist_bold"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/videotrailer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </ScrollView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>
+
+
+
+

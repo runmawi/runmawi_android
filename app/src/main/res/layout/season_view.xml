@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="180dp"
+    android:layout_height="120dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lin"
+    android:layout_margin="5dp"
+    android:background="#00FFFFFF"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/newuploadid"
+            android:gravity="left"
+            android:text=""
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/urbanist_bold"
+            android:visibility="visible"
+            android:textColor="?attr/textcolor"
+            android:textSize="14dp" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="8dp"
+        app:cardBackgroundColor="@color/black_transparent"
+        >
+
+        <ImageView
+            android:id="@+id/newuploadimg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_launcher_background" />
+
+    </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/newuploadname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:visibility="gone"
+            android:text="Sample title"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/newuploadurl"
+        android:gravity="center"
+        android:text="Image"
+        android:visibility="gone"
+        android:textColor="#000"
+        android:textSize="18sp"/>
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/ppvstatus"
+        android:layout_weight="3"
+        android:text="Image"
+        android:gravity="center"
+        android:visibility="gone"
+        android:padding="5dp"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/id"
+        android:gravity="center"
+        android:text="Image"
+        android:visibility="gone"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/views"
+        android:layout_weight="3"
+        android:text="Image"
+        android:visibility="gone"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp" />
+
+
+
+
+</LinearLayout>

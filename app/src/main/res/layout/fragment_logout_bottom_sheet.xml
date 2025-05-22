@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".LogoutBottomSheet"
+    android:background="?attr/back_card_color">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="40dp"
+        app:cardBackgroundColor="?attr/card_color">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp">
+
+            <View
+                android:layout_width="140dp"
+                android:layout_height="4dp"
+                android:layout_gravity="center"
+                android:background="#363A42" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="25sp"
+                android:fontFamily="@font/urbanist_bold"
+                android:textFontWeight="700"
+                android:textColor="@color/colorAccent"
+                android:gravity="center"
+                android:layout_marginTop="25dp"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:background="#363A42"
+                android:layout_marginTop="25dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"/>
+
+
+            <TextView
+                android:id="@+id/desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="18dp"
+                android:fontFamily="@font/urbanist_medium"
+                android:textFontWeight="500"
+                android:textColor="?attr/textcolor"
+                android:gravity="center"
+                android:layout_marginTop="25dp"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cancel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="?attr/back_card_color"
+                    app:cardCornerRadius="45dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cancel"
+                        android:textSize="17dp"
+                        android:layout_gravity="center"
+                        android:textColor="?attr/textcolor"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:textFontWeight="700"
+                        android:padding="20dp"
+                        />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/logout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/colorAccent"
+                    app:cardCornerRadius="45dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/btn_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Yes"
+                        android:textSize="17sp"
+                        android:layout_gravity="center"
+                        android:textColor="?attr/textcolor"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:textFontWeight="700"
+                        android:padding="20dp"
+                        />
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>

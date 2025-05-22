@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="?attr/backgroundColor"
+    android:layout_width="500dp"
+    android:layout_height="match_parent">
+
+
+
+
+    <LinearLayout
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:fontFamily="@font/urbanist_bold"
+                android:textColor="?attr/textcolor"
+                android:visibility="visible"
+                android:text="Font Size"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginLeft="5dp"
+                android:orientation="horizontal">
+
+
+
+                <LinearLayout
+                    android:id="@+id/fontback1"
+                    android:layout_weight="1"
+                    android:visibility="visible"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_margin="2dp"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:id="@+id/font1"
+                    android:padding="5dp"
+                    android:background="?attr/backgroundColor"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:textColor="?attr/textcolor"
+                        android:visibility="visible"
+                        android:text="Aa"
+                        />
+
+
+                    <CheckBox
+                        android:visibility="visible"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/fontcheck1"/>
+
+                </LinearLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/fontback2"
+                    android:background="@color/white"
+                    android:layout_weight="1"
+                    android:visibility="visible"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                <LinearLayout
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:id="@+id/font2"
+                    android:padding="5dp"
+                    android:layout_margin="2dp"
+                    android:background="?attr/backgroundColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:textColor="?attr/textcolor"
+                        android:visibility="visible"
+                        android:text="Aa"/>
+
+                    <CheckBox
+                        android:visibility="visible"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/fontcheck2"/>
+
+                </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/fontback3"
+                    android:background="?attr/backgroundColor"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_margin="2dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:background="?attr/backgroundColor"
+                    android:id="@+id/font3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18dp"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:textColor="?attr/textcolor"
+                        android:visibility="visible"
+                        android:text="Aa"
+                        />
+
+                    <CheckBox
+                        android:visibility="visible"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/fontcheck3"/>
+
+                </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/fontback4"
+                    android:background="?attr/backgroundColor"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:id="@+id/font4"
+                    android:padding="5dp"
+                    android:layout_margin="2dp"
+                    android:background="?attr/backgroundColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20dp"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:textColor="?attr/textcolor"
+                        android:visibility="visible"
+                        android:text="Aa"
+                        />
+
+
+                    <CheckBox
+                        android:visibility="visible"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/fontcheck4"/>
+
+                </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:fontFamily="@font/urbanist_bold"
+                android:textColor="?attr/textcolor"
+                android:visibility="visible"
+                android:text="Font Format"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginLeft="5dp"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:layout_margin="3dp"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:background="@color/black"
+                    android:id="@+id/format1"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:textColor="?attr/textcolor"
+                        android:visibility="visible"
+                        android:text="Aa"
+                        />
+
+                    <CheckBox
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/stylecheck1"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:id="@+id/format2"
+                    android:padding="5dp"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14dp"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:textColor="@color/black"
+                        android:visibility="visible"
+                        android:text="Aa"/>
+
+                    <CheckBox
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/stylecheck2"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:background="@color/black"
+                    android:id="@+id/format3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14dp"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:textColor="#FFFF00"
+                        android:visibility="visible"
+                        android:text="Aa"
+                        />
+
+                    <CheckBox
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/stylecheck3"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:id="@+id/format4"
+                    android:background="@color/gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14dp"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:textColor="?attr/textcolor"
+                        android:visibility="visible"
+                        android:text="Aa"
+                        />
+
+                    <CheckBox
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/stylecheck4"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btndialog"
+        android:visibility="gone"
+        android:textColor="?attr/textcolor"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/buttonbackgroun"
+        android:text="Cancel"/>
+
+</LinearLayout>

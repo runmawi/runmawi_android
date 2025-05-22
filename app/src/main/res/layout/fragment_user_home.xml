@@ -1,0 +1,837 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?attr/backgroundColor"
+    android:orientation="vertical">
+
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                layout_height="?actionBarSize"
+                layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:background="@color/toolbar_color"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark"
+                tools:ignore="MissingClass">
+
+
+                <ImageView
+                    android:id="@+id/logo"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:paddingRight="15dp"
+                     />
+
+
+                <ImageView
+                    android:id="@+id/notification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:gravity="right"
+                    android:paddingRight="15dp"
+                    android:src="@drawable/searchhome" />
+
+            </androidx.appcompat.widget.Toolbar>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:visibility="visible"
+                android:orientation="vertical">
+
+                <ProgressBar
+                    android:id="@+id/homepogress"
+                    android:layout_width="35dp"
+                    android:visibility="gone"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"/>
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:id="@+id/homelayout"
+                        android:visibility="visible"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:visibility="gone"
+                            android:id="@+id/activity_main"
+                            android:layout_width="match_parent"
+                            android:layout_height="190dp">
+
+
+                            <androidx.viewpager.widget.ViewPager
+                                android:id="@+id/viewPager"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="8dp" />
+
+                            <ProgressBar
+                                android:id="@+id/bannerprogress"
+                                android:layout_width="35dp"
+                                android:visibility="visible"
+                                android:layout_height="35dp"
+                                android:layout_centerInParent="true"/>
+
+                            <LinearLayout
+                                android:id="@+id/SliderDots"
+                                android:layout_below="@+id/viewPager"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical|center_horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"/>
+
+                        </RelativeLayout>
+
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+
+                            <LinearLayout
+                                android:layout_margin="10dp"
+                                android:id="@+id/listenmusic"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Watch Videos"
+                                    android:textColor="?attr/textcolor"
+                                    android:textSize="18dp"
+                                    android:textStyle="bold"
+                                    android:drawableRight="@drawable/backright"/>
+                                />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/aud_cat_layout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:visibility="gone"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="18dp"
+                                    android:textColor="?attr/textcolor"
+                                    android:layout_marginLeft="10dp"
+                                    android:text="Live Streming"/>
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <ProgressBar
+                                        android:id="@+id/aud_cat_progress"
+                                        style="?android:attr/progressBarStyleLarge"
+                                        android:layout_width="35dp"
+                                        android:layout_height="35dp"
+                                        android:visibility="visible"
+                                        android:layout_centerInParent="true" />
+
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:id="@+id/aud_cat_recycler"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginEnd="10dp"
+                                        android:layout_marginBottom="10dp"
+                                        android:background="?attr/backgroundColor"
+                                        android:divider="@null"
+                                        android:visibility="visible" />
+
+                                </RelativeLayout>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/latestmovies"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="visible"
+                                android:layout_marginLeft="10dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="18dp"
+                                    android:visibility="visible"
+                                    android:textColor="?attr/textcolor"
+                                    android:text="New Releases for you"/>
+
+                                <ImageView
+                                    android:visibility="gone"
+                                    android:id="@+id/banimg"
+                                    android:layout_width="150dp"
+                                    android:layout_height="120dp"
+                                    android:src="@drawable/banner"/>
+
+                                <RelativeLayout
+                                    android:visibility="visible"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <LinearLayout
+                                        android:layout_margin="15dp"
+                                        android:id="@+id/nolatest"
+                                        android:background="@color/black"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:visibility="visible"
+                                            android:id="@+id/new_audio"
+                                            android:gravity="center"
+                                            android:textColor="?attr/textcolor"
+                                            android:text="No Audios"
+                                          />
+
+                                    </LinearLayout>
+
+                                    <ProgressBar
+                                        android:id="@+id/newreleseprogress"
+                                        style="?android:attr/progressBarStyleLarge"
+                                        android:layout_width="35dp"
+                                        android:layout_height="35dp"
+                                        android:visibility="visible"
+                                        android:layout_centerInParent="true" />
+
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:id="@+id/newreleaserecycler"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginEnd="10dp"
+                                        android:layout_marginBottom="10dp"
+                                        android:background="@color/black"
+                                        android:divider="@null"
+                                        android:visibility="visible" />
++
+                                </RelativeLayout>
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:id="@+id/artistlayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="visible"
+                                android:layout_marginLeft="10dp"
+                                android:layout_margin="10dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="18dp"
+                                    android:visibility="visible"
+                                    android:textColor="?attr/textcolor"
+                                    android:text="Artist"/>
+
+
+                                <RelativeLayout
+                                    android:visibility="visible"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <LinearLayout
+                                        android:layout_margin="15dp"
+                                        android:id="@+id/noartist"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="14dp"
+                                            android:gravity="center"
+                                            android:visibility="visible"
+                                            android:id="@+id/no_artist"
+                                            android:layout_gravity="center"
+                                            android:layout_centerInParent="true"
+                                            android:textColor="?attr/textcolor"
+                                            android:layout_marginLeft="10dp"
+                                            android:text="No Artist"/>
+
+                                    </LinearLayout>
+                                    <ProgressBar
+                                        android:id="@+id/artistprogress"
+                                        style="?android:attr/progressBarStyleLarge"
+                                        android:layout_width="35dp"
+                                        android:layout_height="35dp"
+                                        android:layout_centerInParent="true" />
+
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:layout_margin="10dp"
+                                        android:id="@+id/artistrecycler"
+                                        android:layout_width="match_parent"
+                                        android:divider="@null"
+                                        android:layout_height="wrap_content"
+                                        android:background="@color/black" />
+
+                                </RelativeLayout>
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:id="@+id/recentyplayedlayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone"
+                                android:layout_marginLeft="10dp"
+                                android:layout_margin="10dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="18dp"
+                                    android:visibility="visible"
+                                    android:textColor="?attr/textcolor"
+                                    android:text="Recently Played"/>
+
+
+
+                                <RelativeLayout
+                                    android:visibility="visible"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <LinearLayout
+                                        android:layout_margin="15dp"
+                                        android:id="@+id/norecent"
+                                        android:background="@color/black"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="14dp"
+                                            android:gravity="center"
+                                            android:visibility="visible"
+                                            android:layout_centerInParent="true"
+                                            android:textColor="?attr/textcolor"
+                                            android:layout_marginLeft="10dp"
+                                            android:text="No videos"/>
+                                    </LinearLayout>
+                                    <ProgressBar
+                                        android:id="@+id/recentproress"
+                                        style="?android:attr/progressBarStyleLarge"
+                                        android:layout_width="35dp"
+                                        android:layout_height="35dp"
+                                        android:layout_centerInParent="true" />
+
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:layout_margin="10dp"
+                                        android:id="@+id/recentrecycler"
+                                        android:layout_width="match_parent"
+                                        android:divider="@null"
+                                        android:layout_height="wrap_content"
+                                        android:background="@color/black" />
+
+                                </RelativeLayout>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/favouriteartistlayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="visible"
+                                android:layout_margin="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/fav_artist_layout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="18dp"
+                                    android:visibility="visible"
+                                    android:textColor="?attr/textcolor"
+                                    android:text="Your favourite artists"/>
+
+
+
+                                <RelativeLayout
+                                    android:visibility="visible"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <LinearLayout
+                                        android:layout_margin="15dp"
+                                        android:id="@+id/nofavartist"
+                                        android:background="@color/black"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:visibility="visible"
+                                            android:id="@+id/no_fav_artist"
+                                            android:gravity="center"
+                                            android:textColor="?attr/textcolor"
+                                            android:text="No favourite Artist"
+                                            />
+                                    </LinearLayout>
+                                    <ProgressBar
+
+                                        android:id="@+id/favartistprogress"
+                                        style="?android:attr/progressBarStyleLarge"
+                                        android:layout_width="35dp"
+                                        android:layout_height="35dp"
+                                        android:layout_centerInParent="true" />
+
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:layout_margin="10dp"
+                                        android:id="@+id/favartistrecycler"
+                                        android:layout_width="match_parent"
+                                        android:divider="@null"
+                                        android:layout_height="wrap_content"
+                                        android:background="@color/black" />
+
+                                </RelativeLayout>
+                            </LinearLayout>
+
+
+
+                            <LinearLayout
+                                android:id="@+id/trendingmovies"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="visible"
+                                android:layout_marginTop="10dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="18dp"
+                                    android:textColor="?attr/textcolor"
+                                    android:layout_marginLeft="10dp"
+                                    android:text="Trending Now"/>
+
+                                <RelativeLayout
+                                    android:visibility="visible"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <ProgressBar
+                                        android:id="@+id/trendingvideoprogress"
+                                        style="?android:attr/progressBarStyleLarge"
+                                        android:layout_width="35dp"
+                                        android:layout_height="35dp"
+                                        android:layout_centerInParent="true" />
+
+                                    <LinearLayout
+                                        android:layout_margin="15dp"
+                                        android:id="@+id/notrending"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
+
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="14dp"
+                                            android:visibility="visible"
+                                            android:gravity="center"
+                                            android:id="@+id/no_trends"
+                                            android:layout_centerInParent="true"
+                                            android:textColor="?attr/textcolor"
+                                            android:layout_marginLeft="10dp"
+                                            android:text="No Audios"/>
+
+                                    </LinearLayout>
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:layout_margin="10dp"
+                                        android:id="@+id/trendingvideosRecycler"
+                                        android:layout_width="match_parent"
+                                        android:divider="@null"
+                                        android:visibility="visible"
+                                        android:layout_height="wrap_content"
+                                        android:background="@color/black" />
+
+                                </RelativeLayout>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/followartistlayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone"
+                                android:layout_marginTop="10dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="18dp"
+                                    android:textColor="?attr/textcolor"
+                                    android:layout_marginLeft="10dp"
+                                    android:text="Artist You Follow"/>
+
+                                <RelativeLayout
+                                    android:visibility="visible"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <ProgressBar
+                                        android:id="@+id/followartistprogress"
+                                        style="?android:attr/progressBarStyleLarge"
+                                        android:layout_width="35dp"
+                                        android:layout_height="35dp"
+                                        android:layout_centerInParent="true" />
+
+                                    <LinearLayout
+                                        android:layout_margin="15dp"
+                                        android:id="@+id/nofollow"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
+
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="14dp"
+                                            android:visibility="visible"
+                                            android:gravity="center"
+                                            android:id="@+id/no_following_art"
+                                            android:layout_centerInParent="true"
+                                            android:textColor="?attr/textcolor"
+                                            android:layout_marginLeft="10dp"
+                                            android:text="No Following Artist"/>
+
+                                    </LinearLayout>
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:layout_margin="10dp"
+                                        android:id="@+id/followartistrecycler"
+                                        android:layout_width="match_parent"
+                                        android:divider="@null"
+                                        android:visibility="visible"
+                                        android:layout_height="wrap_content"
+                                        android:background="@color/black" />
+
+                                </RelativeLayout>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/recommendedtodaylayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone"
+                                android:layout_marginTop="10dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="18dp"
+                                    android:textColor="?attr/textcolor"
+                                    android:layout_marginLeft="10dp"
+                                    android:text="Recomended for today"/>
+
+                                <RelativeLayout
+                                    android:visibility="visible"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <ProgressBar
+                                        android:id="@+id/recomendedtodayprogress"
+                                        style="?android:attr/progressBarStyleLarge"
+                                        android:layout_width="35dp"
+                                        android:layout_height="35dp"
+                                        android:layout_centerInParent="true" />
+
+                                    <LinearLayout
+                                        android:layout_margin="15dp"
+                                        android:id="@+id/norecommandedtoday"
+                                        android:background="@color/black"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
+
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="14dp"
+                                            android:visibility="gone"
+                                            android:gravity="center"
+                                            android:id="@+id/no_recom"
+                                            android:layout_centerInParent="true"
+                                            android:textColor="?attr/textcolor"
+                                            android:layout_marginLeft="10dp"
+                                            android:text="No Audios"/>
+
+                                    </LinearLayout>
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:layout_margin="10dp"
+                                        android:id="@+id/norecommandedtodayrecycler"
+                                        android:layout_width="match_parent"
+                                        android:divider="@null"
+                                        android:visibility="visible"
+                                        android:layout_height="wrap_content"
+                                        android:background="@color/black" />
+
+                                </RelativeLayout>
+                            </LinearLayout>
+
+
+
+                            <LinearLayout
+
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:visibility="gone"
+                                android:layout_marginTop="10dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="18dp"
+                                    android:textColor="?attr/textcolor"
+                                    android:layout_marginLeft="10dp"
+                                    android:text="Recommended for today"/>
+
+                                <RelativeLayout
+                                    android:visibility="visible"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <ProgressBar
+                                        style="?android:attr/progressBarStyleLarge"
+                                        android:layout_width="35dp"
+                                        android:layout_height="35dp"
+                                        android:layout_centerInParent="true" />
+
+                                    <LinearLayout
+                                        android:layout_margin="15dp"
+                                        android:background="@color/black"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
+
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="14dp"
+                                            android:visibility="gone"
+                                            android:gravity="center"
+                                            android:layout_centerInParent="true"
+                                            android:textColor="?attr/textcolor"
+                                            android:layout_marginLeft="10dp"
+                                            android:text="No Videos"/>
+
+                                    </LinearLayout>
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:layout_margin="10dp"
+                                        android:layout_width="match_parent"
+                                        android:divider="@null"
+                                        android:visibility="visible"
+                                        android:layout_height="wrap_content"
+                                        android:background="@color/black" />
+
+                                </RelativeLayout>
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:id="@+id/allchannel"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="10dp"
+                                android:visibility="gone"
+                                android:layout_marginTop="10dp"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="18dp"
+                                    android:textColor="@color/black"
+                                    android:layout_marginLeft="10dp"
+                                    android:text="All Categories"/>
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <ProgressBar
+                                        android:id="@+id/chennalprogess"
+                                        style="?android:attr/progressBarStyleLarge"
+                                        android:layout_width="35dp"
+                                        android:layout_height="35dp"
+                                        android:layout_centerInParent="true" />
+
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:layout_marginTop="25dp"
+                                        android:layout_margin="10dp"
+                                        android:id="@+id/channelistrecycler"
+                                        android:layout_width="match_parent"
+                                        android:divider="@null"
+                                        android:nestedScrollingEnabled="false"
+                                        android:layout_height="wrap_content"
+                                        android:background="@color/white" />
+                                </RelativeLayout>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/Livestreaming"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:visibility="gone"
+                                android:layout_marginTop="10dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:visibility="gone"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="18dp"
+                                    android:textColor="@color/black"
+                                    android:layout_marginLeft="10dp"
+                                    android:text="Live Streming"/>
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <ProgressBar
+                                        android:id="@+id/livestreamprogress"
+                                        style="?android:attr/progressBarStyleLarge"
+                                        android:layout_width="35dp"
+                                        android:layout_height="35dp"
+                                        android:visibility="visible"
+                                        android:layout_centerInParent="true" />
+
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:layout_margin="10dp"
+                                        android:id="@+id/livestreamrecycler"
+                                        android:layout_width="match_parent"
+                                        android:divider="@null"
+                                        android:visibility="visible"
+                                        android:layout_height="wrap_content"
+                                        android:background="@color/black" />
+
+                                </RelativeLayout>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/allalbum"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="@color/black"
+                                android:visibility="visible"
+                                android:layout_marginTop="10dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="18dp"
+                                    android:textColor="?attr/textcolor"
+                                    android:layout_marginLeft="10dp"
+                                    android:text="Albums"/>
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <ProgressBar
+                                        android:id="@+id/allalbumprogress"
+                                        style="?android:attr/progressBarStyleLarge"
+                                        android:layout_width="35dp"
+                                        android:visibility="gone"
+                                        android:layout_height="35dp"
+                                        android:layout_centerInParent="true" />
+
+                                    <LinearLayout
+                                        android:layout_margin="15dp"
+                                        android:id="@+id/noalbum"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:visibility="visible"
+                                            android:gravity="center"
+                                            android:textColor="?attr/textcolor"
+                                            android:text="No Album"
+                                            />
+
+                                    </LinearLayout>
+
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:layout_margin="10dp"
+                                        android:id="@+id/allalbumrecycler"
+                                        android:layout_width="match_parent"
+                                        android:divider="@null"
+                                        android:layout_height="wrap_content"
+                                        android:background="@color/black" />
+
+                                </RelativeLayout>
+                            </LinearLayout>
+
+
+
+                        </LinearLayout>
+
+                        </LinearLayout>
+                        <TextView
+                            android:id="@+id/userid"
+                            android:layout_width="match_parent"
+                            android:visibility="gone"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+
+                </androidx.core.widget.NestedScrollView>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+
+

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="?attr/backgroundColor"
+    android:background="?attr/backgroundColor"
+    android:orientation="horizontal"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="5dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/backgroundColor"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/backgroundColor"
+            android:orientation="vertical">
+
+
+
+
+            <TextView
+                android:id="@+id/newuploadname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:visibility="visible"
+                android:padding="10dp"
+                android:text="Sample title"
+                android:textColor="?attr/textcolor"
+                android:textSize="12sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/viewcolor"
+                />
+
+
+            <ImageView
+                android:id="@+id/newuploadimg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                android:layout_weight="0.5"
+                android:adjustViewBounds="true"
+                android:src="@drawable/backright" />
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/newuploadurl"
+        android:gravity="center"
+        android:text="Image"
+        android:visibility="gone"
+        android:textColor="#000"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/newuploadid"
+        android:gravity="center"
+        android:text="Image"
+        android:visibility="gone"
+        android:textColor="#000"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/ppvstatus"
+        android:layout_weight="3"
+        android:text="Image"
+        android:gravity="center"
+        android:visibility="gone"
+        android:padding="5dp"
+        android:textColor="#000"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/id"
+        android:gravity="center"
+        android:text="Image"
+        android:visibility="gone"
+        android:textColor="#000"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/views"
+        android:layout_weight="3"
+        android:text="Image"
+        android:visibility="gone"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textColor="#000"
+        android:textSize="14sp" />
+</androidx.cardview.widget.CardView>
+
+

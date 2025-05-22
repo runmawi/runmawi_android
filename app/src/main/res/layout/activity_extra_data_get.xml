@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ExtraDataGetActivity"
+    android:background="@color/background_color">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                layout_height="?actionBarSize"
+                layout_width="wrap_content"
+                android:background="@color/toolbar_color"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark"
+                tools:ignore="MissingClass">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/back_arrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/baseline_arrow_back_24"
+                        android:padding="10dp"
+                        android:visibility="gone"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/forgot_head"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:text=""
+                        android:textColor="?attr/textcolor"
+                        android:textFontWeight="700"
+                        android:textSize="25dp" />
+
+                </LinearLayout>
+            </androidx.appcompat.widget.Toolbar>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="20dp">
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="100dp">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile_image"
+                        android:layout_width="114dp"
+                        android:layout_height="114dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_baseline_account_circle_24" />
+                    <ImageView
+                        android:id="@+id/edit_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/edit_vecter"
+                        android:layout_gravity="right|bottom"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        />
+
+                </FrameLayout>
+
+                <EditText
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/urbanist_bold"
+                    android:hint="Name"
+                    android:inputType="textFilter"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:background="@drawable/otp_edittext_layout"
+                    android:padding="15dp"
+                    android:shadowRadius="2"
+                    android:singleLine="true"
+                    android:textFontWeight="700"
+                    android:textColor="?attr/textcolor"
+                    android:textColorHint="@color/hintcolor"
+                    android:textCursorDrawable="@null"
+                    android:textSize="15dp"
+                    android:drawableStart="@drawable/outline_person_24"
+                    android:drawablePadding="12dp"/>
+
+                <EditText
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/urbanist_bold"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:background="@drawable/otp_edittext_layout"
+                    android:padding="15dp"
+                    android:shadowRadius="2"
+                    android:singleLine="true"
+                    android:textFontWeight="700"
+                    android:textColor="?attr/textcolor"
+                    android:textColorHint="@color/hintcolor"
+                    android:textCursorDrawable="@null"
+                    android:textSize="15dp"
+                    android:drawableStart="@drawable/mailvector"
+                    android:drawablePadding="12dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="30dp"
+                    android:visibility="gone"
+                    android:background="@drawable/otp_edittext_layout">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="15dp"
+                        android:src="@drawable/outline_person_24"/>
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="#363A42"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        />
+                    <EditText
+                        android:id="@+id/name1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="?attr/textcolor"
+                        android:paddingStart="20dp"
+                        android:background="?attr/card_color"
+                        android:textColorHint="@color/hintcolor"
+                        android:hint="Name"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:inputType="textPersonName"
+                        android:textSize="15dp"
+                        android:layout_marginEnd="10dp"
+                        android:textFontWeight="700"/>
+                </LinearLayout>
+                <EditText
+                    android:id="@+id/email1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="1"
+                    android:visibility="gone"
+                    android:background="@drawable/otp_edittext_layout"
+                    android:drawableEnd="@drawable/mailvector"
+                    android:drawableTint="?attr/textcolor"
+                    android:fontFamily="@font/urbanist_bold"
+                    android:hint="@string/Email"
+                    android:inputType="textEmailAddress"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="15dp"
+                    android:paddingStart="24dp"
+                    android:paddingTop="15dp"
+                    android:paddingEnd="20dp"
+                    android:textColor="?attr/textcolor"
+                    android:textColorHint="#848587"
+                    android:textSize="15dp" />
+
+                <LinearLayout
+                    android:id="@+id/gender_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/otp_edittext_layout">
+
+                    <TextView
+                        android:id="@+id/gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="24dp"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:textSize="15dp"
+                        android:hint="Gender"
+                        android:textColor="?attr/textcolor"
+                        android:textColorHint="#848587"
+                        android:textFontWeight="700" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/baseline_arrow_drop_down_24"
+                        app:tint="?attr/textcolor"
+                        android:layout_marginEnd="20dp"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/gender_show"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="10dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/male"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Male"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:gravity="center"
+                        android:background="@drawable/edittextstyle10"
+                        android:textColor="?attr/textcolor" />
+
+                    <TextView
+                        android:id="@+id/female"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Female"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:gravity="center"
+                        android:background="@drawable/edittextstyle10"
+                        android:textColor="?attr/textcolor"
+                        android:layout_marginTop="5dp"/>
+                </LinearLayout>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/continue_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginTop="100dp"
+                    android:layout_marginBottom="20dp"
+                    android:backgroundTint="@color/colorAccent"
+                    app:cardCornerRadius="45dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="17dp"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:text="Continue"
+                        android:textColor="#FFFFFF"
+                        android:textFontWeight="700"
+                        android:textSize="18dp" />
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

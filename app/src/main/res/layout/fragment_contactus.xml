@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
+    tools:context=".ContactusFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/website"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:cardBackgroundColor="?attr/backgroundColor"
+            app:cardCornerRadius="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittextstyle10"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="19dp"
+                android:paddingBottom="19dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="25dp"
+                    android:src="@drawable/website"
+                    app:tint="@color/colorAccent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/urbanist_bold"
+                    android:text="Website"
+                    android:textColor="?attr/textcolor"
+                    android:textFontWeight="700"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="?attr/backgroundColor"
+            app:cardCornerRadius="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittextstyle10"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/customer_service"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittextstyle10"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingTop="19dp"
+                    android:paddingBottom="19dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="25dp"
+                        android:src="@drawable/customerservice"
+                        app:tint="@color/colorAccent" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:text="Customer Service"
+                        android:textColor="?attr/textcolor"
+                        android:textFontWeight="700"
+                        android:textSize="18dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/customer_options"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/customer_num1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                        android:fontFamily="@font/urbanist_regular"
+                        android:paddingTop="19dp"
+                        android:paddingBottom="19dp"
+                        android:text=""
+                        android:textColor="?attr/textcolor"
+                        android:textFontWeight="400"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/customer_num2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                        android:fontFamily="@font/urbanist_regular"
+                        android:paddingTop="19dp"
+                        android:paddingBottom="19dp"
+                        android:text=""
+                        android:textColor="?attr/textcolor"
+                        android:textFontWeight="400"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/customer_num3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                        android:fontFamily="@font/urbanist_regular"
+                        android:paddingTop="19dp"
+                        android:paddingBottom="19dp"
+                        android:text=""
+                        android:textColor="?attr/textcolor"
+                        android:textFontWeight="400"
+                        android:textSize="18dp" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="?attr/backgroundColor"
+            app:cardCornerRadius="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittextstyle10"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/whatsapp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittextstyle10"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingTop="19dp"
+                    android:paddingBottom="19dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="25dp"
+                        android:src="@drawable/whatsapp1"
+                        app:tint="@color/colorAccent" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:text="WhatsApp"
+                        android:textColor="?attr/textcolor"
+                        android:textFontWeight="700"
+                        android:textSize="18dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/whatsapp_options"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/whatsapp_num1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                        android:fontFamily="@font/urbanist_regular"
+                        android:paddingTop="19dp"
+                        android:paddingBottom="19dp"
+                        android:text=""
+                        android:textColor="?attr/textcolor"
+                        android:textFontWeight="400"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/whatsapp_num2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                        android:fontFamily="@font/urbanist_regular"
+                        android:paddingTop="19dp"
+                        android:paddingBottom="19dp"
+                        android:text=""
+                        android:textColor="?attr/textcolor"
+                        android:textFontWeight="400"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/whatsapp_num3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                        android:fontFamily="@font/urbanist_regular"
+                        android:paddingTop="19dp"
+                        android:paddingBottom="19dp"
+                        android:text=""
+                        android:textColor="?attr/textcolor"
+                        android:textFontWeight="400"
+                        android:textSize="18dp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/facebook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="?attr/backgroundColor"
+            app:cardCornerRadius="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittextstyle10"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="19dp"
+                android:paddingBottom="19dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="25dp"
+                    android:src="@drawable/facebook1"
+                    app:tint="@color/colorAccent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/urbanist_bold"
+                    android:text="Facebook"
+                    android:textColor="?attr/textcolor"
+                    android:textFontWeight="700"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/twitter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:visibility="visible"
+            app:cardBackgroundColor="?attr/backgroundColor"
+            app:cardCornerRadius="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittextstyle10"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="19dp"
+                android:paddingBottom="19dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="25dp"
+                    android:src="@drawable/twitter1"
+                    app:tint="@color/colorAccent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/urbanist_bold"
+                    android:text="Twitter"
+                    android:textColor="?attr/textcolor"
+                    android:textFontWeight="700"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/instagram"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="?attr/backgroundColor"
+            app:cardCornerRadius="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittextstyle10"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="19dp"
+                android:paddingBottom="19dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="25dp"
+                    android:src="@drawable/instagram"
+                    app:tint="@color/colorAccent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/urbanist_bold"
+                    android:text="Instagram"
+                    android:textColor="?attr/textcolor"
+                    android:textFontWeight="700"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</FrameLayout>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
+    android:background="?attr/backgroundColor"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:background="?attr/backgroundColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_movie_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="5dp"
+            android:drawableRight="@drawable/seeall"
+            android:drawableTint="@color/colorAccent"
+            android:fontFamily="@font/urbanist_bold"
+            android:padding="2dp"
+            android:text="Movie Category"
+            android:textColor="?attr/textcolor"
+            android:textSize="20dp"
+            android:textFontWeight="700"
+            android:layout_marginTop="15dp"/>
+
+        <TextView
+            android:id="@+id/tv_movie_category_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="Movie Category"
+            android:visibility="gone"
+            android:fontFamily="@font/urbanistregular"
+            android:textColor="?attr/textcolor"
+            android:textSize="14dp"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/home_recycler_view_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_movie_category"
+            android:visibility="visible"
+            android:layout_marginBottom="0dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/nodata"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="?attr/backgroundColor"
+            android:padding="5dp"
+            android:layout_below="@+id/tv_movie_category"
+            android:textColor="?attr/textcolor"
+            android:fontFamily="@font/urbanistregular"
+            android:text="No Videos Available"/>
+
+        <TextView
+            android:id="@+id/id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="?attr/backgroundColor"
+            android:padding="5dp"
+            android:visibility="gone"
+            android:layout_below="@+id/tv_movie_category"
+            android:textColor="?attr/textcolor"
+            android:fontFamily="@font/urbanistregular"
+            />
+        <TextView
+            android:id="@+id/id1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="?attr/backgroundColor"
+            android:padding="5dp"
+            android:visibility="gone"
+            android:layout_below="@+id/tv_movie_category"
+            android:textColor="?attr/textcolor"
+            android:fontFamily="@font/urbanistregular"
+            /> <TextView
+            android:id="@+id/id3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="?attr/backgroundColor"
+            android:padding="5dp"
+            android:visibility="gone"
+            android:layout_below="@+id/tv_movie_category"
+            android:textColor="?attr/textcolor"
+            android:fontFamily="@font/urbanistregular"
+            />
+        <View
+            android:id="@+id/activityMainDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:visibility="gone"
+            android:layout_below="@+id/home_recycler_view_horizontal"
+            android:layout_marginBottom="5dp"
+            android:background="#31C7C7CC" />
+
+    </RelativeLayout>
+
+</LinearLayout>

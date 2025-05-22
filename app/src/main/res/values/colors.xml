@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="colorPrimary">#ff0000</color>
+    <color name="colorPrimaryDark">#ff0000</color>
+    <color name="colorAccent">#ff0000</color>
+    <color name="txtedit">#ff0000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color><!--#00000-->
+    <color name="blacklight">#121212</color><!--#292929-->
+    <color name="edittextblack">#433F3F</color>
+    <color name="buttonred"> #ff0000</color>
+    <color name="editextwhite">#EEE9E9</color>
+    <color name="gray">#433F3F</color>
+    <color name="button">#ff0000</color>
+    <color name="aash">#A9A9A9</color>
+    <color name="edittxtbg">#433F3F</color>
+    <color name="buttonclr">#ff0000</color>
+    <color name="button_color">#ff0000</color>
+    <color name="buttontxtclr">#FFFFFF</color>
+    <color name="myacoountcolor">#232428</color>
+    <color name="ediitextstylecolor">#B0433F3F</color>
+    <color name="myacccolor">#FF272626</color>
+    <color name="blackshadow">#232428</color>
+    <color name="viewmy">#2f3334</color>
+    <color name="menutextcolor">#747474</color>
+    <color name="shimmer_placeholder">#dddddd</color>
+    <!-- dots inactive colors -->
+    <color name="dot_dark_screen1">#FFFFFF47</color>
+    <color name="dot_dark_screen2">#FFFFFF47</color>
+    <color name="dot_dark_screen3">#FFFFFF47</color>
+    <color name="dot_dark_screen4">#FFFFFF47</color>
+    <!-- dots active colors -->
+    <color name="dot_light_screen1">#ff0000</color>
+    <color name="dot_light_screen2">#ff0000</color>
+    <color name="dot_light_screen4">#ff0000</color>
+
+    <array name="array_dot_active">
+        <item>@color/dot_light_screen1</item>
+        <item>@color/dot_light_screen2</item>
+        <item>@color/dot_light_screen4</item>
+    </array>
+    <array name="array_dot_inactive">
+        <item>@color/dot_dark_screen1</item>
+        <item>@color/dot_dark_screen2</item>
+        <item>@color/dot_dark_screen3</item>
+        <item>@color/dot_dark_screen4</item>
+    </array>
+    <color name="iconcolor">#ff0000</color>
+    <color name="bghelp">#F2F5FA</color>
+    <color name="bghelp1">#433F3F</color>
+    <color name="tabcolor">@color/black</color>
+
+    <color name="hintcolor">#626262</color>
+    <color name="cardbackground_color">#1F222A</color>
+    <color name="background_color">@color/black</color>
+    <color name="border_color">#363A42</color>
+    <color name="progress_color">#ff0000</color>
+    <color name="toolbar_color">@color/black</color>
+
+    <color name="light_hintcolor">#efefef</color>
+    <color name="dark_hintcolor">#1F222A</color>
+
+
+</resources>
+
+<!--new app color-  #ff0000 -->
+    <!--old app color-  #ff0000 -->
+

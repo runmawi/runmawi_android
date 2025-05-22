@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="?attr/card_color">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/cardbackground_color"
+        android:background="?attr/backgroundColor"
+        app:cardCornerRadius="37dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="24dp">
+
+            <ImageView
+                android:id="@+id/cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/cross"
+                android:layout_gravity="end"
+                />
+
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/colorAccent"
+                android:layout_gravity="center"
+                android:textSize="25dp"
+                android:fontFamily="@font/urbanist_bold"
+                android:textFontWeight="700"
+                android:layout_marginTop="30dp"
+                />
+
+            <TextView
+                android:id="@+id/desc_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/textcolor"
+                android:layout_gravity="center"
+                android:textSize="18dp"
+                android:fontFamily="@font/urbanist_regular"
+                android:textFontWeight="400"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text=""
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="35dp"
+                android:layout_marginBottom="35dp"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/subscribe"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorAccent"
+                    app:cardCornerRadius="45dp"
+                    android:visibility="gone"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="14dp"
+                        android:layout_marginBottom="14dp"
+                        android:drawableStart="@drawable/play_vector"
+                        android:drawablePadding="9dp"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:text="@string/subscribe"
+                        android:textColor="#FFFFFF"
+                        android:textFontWeight="700"
+                        android:textSize="17dp" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/rent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorAccent"
+                    app:cardCornerRadius="45dp"
+                    android:visibility="gone"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/rent_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="14dp"
+                        android:layout_marginBottom="14dp"
+                        android:drawableStart="@drawable/play_vector"
+                        android:drawablePadding="9dp"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:text="@string/rent"
+                        android:textColor="#FFFFFF"
+                        android:textFontWeight="700"
+                        android:textSize="17dp" />
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/subscribe1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="35dp"
+                android:visibility="gone"
+                android:layout_marginBottom="35dp"
+                android:layout_marginRight="24dp"
+                android:backgroundTint="@color/colorAccent"
+                app:cardCornerRadius="45dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingTop="19dp"
+                    android:paddingBottom="19dp"
+                    android:fontFamily="@font/urbanist_bold"
+                    android:text="Subscribe"
+                    android:textColor="?attr/textcolor"
+                    android:textFontWeight="700"
+                    android:textSize="18dp" />
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?attr/backgroundColor"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:orientation="vertical">
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            layout_height="?actionBarSize"
+            layout_width="wrap_content"
+            android:background="@color/toolbar_color"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:minHeight="?attr/actionBarSize"
+            >
+
+
+            <ImageView
+                android:id="@+id/backarrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:src="@drawable/back_arrow" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="App Settings"
+                android:layout_weight="0.5"
+                android:id="@+id/title"
+                android:textSize="20sp"
+                android:fontFamily="@font/urbanist_bold"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="?attr/textcolor"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="5dp">
+
+                <LinearLayout
+                    android:id="@id/settings"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="?attr/ediitextstylecolor"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:maxLines="1"
+                        android:paddingTop="5dp"
+                        android:paddingRight="12dp"
+                        android:text="Change Theme"
+                        android:textColor="?attr/textcolor"
+                        android:textSize="15sp" />
+
+                    <Switch
+                        android:id="@+id/dialog_button1"
+                        android:layout_width="120dip"
+                        android:layout_height="10dp"
+                        android:maxHeight="10dp"
+                        android:thumbTextPadding="25dp"
+                        android:switchMinWidth="56dp"
+                        android:layout_centerHorizontal="true"
+                        android:minWidth="100dp"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@id/settings"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="5dp"
+                    android:background="?attr/ediitextstylecolor"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:maxLines="1"
+                        android:paddingTop="5dp"
+                        android:paddingRight="15dp"
+                        android:text="Enable Screen Lock"
+                        android:textColor="?attr/textcolor"
+                        android:textSize="15sp" />
+
+                    <Switch
+                        android:id="@+id/dialog_button2"
+                        android:layout_width="120dip"
+                        android:layout_height="10dp"
+                        android:maxHeight="10dp"
+                        android:thumbTextPadding="25dp"
+                        android:switchMinWidth="56dp"
+                        android:layout_centerHorizontal="true"
+                        android:minWidth="100dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@id/settings"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="5dp"
+                    android:background="?attr/ediitextstylecolor"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:maxLines="1"
+                        android:paddingTop="5dp"
+                        android:paddingRight="15dp"
+                        android:text="Disable Notification"
+                        android:textColor="?attr/textcolor"
+                        android:textSize="15sp" />
+
+                    <Switch
+                        android:id="@+id/dialog_button3"
+                        android:layout_width="120dip"
+                        android:layout_height="10dp"
+                        android:maxHeight="10dp"
+                        android:thumbTextPadding="25dp"
+                        android:switchMinWidth="56dp"
+                        android:layout_centerHorizontal="true"
+                        android:minWidth="100dp"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@id/settings"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="5dp"
+                    android:background="?attr/ediitextstylecolor"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/payments"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:text="Payment Methods"
+                        android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
+                        android:drawablePadding="15dp"
+                        android:maxLines="1"
+                        android:paddingTop="5dp"
+                        android:paddingRight="15dp"
+                        android:textColor="?attr/textcolor"
+                        android:textSize="15sp" />
+
+                    <Switch
+                        android:id="@+id/dialog_button4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:visibility="gone"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@id/settings"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="5dp"
+                    android:background="?attr/ediitextstylecolor"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/comingsoon"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:text="@string/comingsoon"
+                        android:maxLines="1"
+                        android:paddingTop="5dp"
+                        android:paddingRight="15dp"
+                        android:textColor="?attr/textcolor"
+                        android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
+                        android:drawablePadding="15dp"
+                        android:textSize="15sp" />
+
+                    <Switch
+                        android:id="@+id/dialog_button5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:visibility="gone"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/faq_settings"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="5dp"
+                    android:background="?attr/ediitextstylecolor"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/faq"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/urbanist_bold"
+                        android:text="FAQ'S"
+                        android:maxLines="1"
+                        android:paddingTop="5dp"
+                        android:paddingRight="15dp"
+                        android:textColor="?attr/textcolor"
+                        android:textSize="15sp"
+                        android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
+                        android:drawablePadding="15dp"
+                        />
+
+                    <Switch
+                        android:id="@+id/dialog_button6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:visibility="gone"
+                        />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
