@@ -75,6 +75,10 @@ public class HomeFragment extends Fragment {
 
     ViewPager viewPager;
     ViewPagerAdapter1 viewPagerAdapter1;
+    ViewPager runmawiTvViewPager;
+    ViewPagerAdapter1 runmawiTvViewPagerAdapter;
+    RelativeLayout runmawiTvBannerContainer;
+    LinearLayout runmawiTvContentContainer;
     private ArrayList<series_banner> bannersdata;
     private ArrayList<video_banner> videobanner;
     private ArrayList<live_banner> livebannerdata;
@@ -162,6 +166,9 @@ public class HomeFragment extends Fragment {
         Site_theme_setting = new ArrayList<Site_theme_setting>();
 
         viewPager = (ViewPager) root.findViewById(R.id.viewPager);
+        runmawiTvViewPager = (ViewPager) root.findViewById(R.id.runmawi_tv_viewPager);
+        runmawiTvBannerContainer = (RelativeLayout) root.findViewById(R.id.runmawi_tv_banner_container);
+        runmawiTvContentContainer = (LinearLayout) root.findViewById(R.id.runmawi_tv_content_container);
         activity_main = root.findViewById(R.id.activity_main);
         bannerprogress = root.findViewById(R.id.bannerprogress);
 
@@ -400,6 +407,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        // Set Runmawi TV tab as initially selected
         runmawi_page.setCardBackgroundColor(Color.parseColor("#ff0000"));
         movie_page.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -409,14 +417,20 @@ public class HomeFragment extends Fragment {
                 runmawi_page.setCardBackgroundColor(Color.parseColor("#000000"));
 
                 swipeRefreshLayout.setVisibility(View.VISIBLE);
-                liveCateRecyclerview.setVisibility(View.GONE);
                 movieRecyclerview.setVisibility(View.GONE);
                 cateRecyclerView.setVisibility(View.GONE);
+                
+                // Show Movies banner, hide Runmawi TV content container
+                activity_main.setVisibility(View.VISIBLE);
+                runmawiTvContentContainer.setVisibility(View.GONE);
             }
         });
+        // Set initial visibility for Runmawi TV tab since it's the default
         swipeRefreshLayout.setVisibility(View.GONE);
-        movieRecyclerview.setVisibility(View.VISIBLE);
+        movieRecyclerview.setVisibility(View.GONE);
         cateRecyclerView.setVisibility(View.GONE);
+        activity_main.setVisibility(View.GONE);
+        runmawiTvContentContainer.setVisibility(View.VISIBLE);
 
         runmawi_page.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -427,8 +441,11 @@ public class HomeFragment extends Fragment {
 
                 swipeRefreshLayout.setVisibility(View.GONE);
                 movieRecyclerview.setVisibility(View.GONE);
-                liveCateRecyclerview.setVisibility(View.VISIBLE);
                 cateRecyclerView.setVisibility(View.GONE);
+                
+                // Hide Movies content, show Runmawi TV content container
+                activity_main.setVisibility(View.GONE);
+                runmawiTvContentContainer.setVisibility(View.VISIBLE);
 
                 /*Call<JSONResponse> channel = ApiClient.getInstance1().getApi().gethomelink("liveCategories", user_id);
                 channel.enqueue(new retrofit2.Callback<JSONResponse>() {
@@ -584,9 +601,20 @@ public class HomeFragment extends Fragment {
                     bannersdata = new ArrayList<>(Arrays.asList(jsonResponse.getSeries_banner()));
                     videobanner = new ArrayList<>(Arrays.asList(jsonResponse.getVideo_banners()));
                     sliderdata = new ArrayList<>(Arrays.asList(jsonResponse.getSliders()));
+                    
+                    // Set up main ViewPager for Movies tab
                     viewPagerAdapter1 = new ViewPagerAdapter1(sliderdata, bannersdata, livebannerdata, videobanner, getContext());
                     viewPager.setAdapter(viewPagerAdapter1);
                     bannerprogress.setVisibility(View.GONE);
+                    
+                    // Set up runmawi TV ViewPager with the same data (will filter later)
+                    runmawiTvViewPagerAdapter = new ViewPagerAdapter1(sliderdata, bannersdata, livebannerdata, videobanner, getContext());
+                    runmawiTvViewPager.setAdapter(runmawiTvViewPagerAdapter);
+                    runmawiTvBannerContainer.findViewById(R.id.runmawi_tv_bannerprogress).setVisibility(View.GONE);
+                    
+                    // Make sure the Runmawi TV content is visible on initial load
+                    runmawiTvContentContainer.setVisibility(View.VISIBLE);
+                    activity_main.setVisibility(View.GONE);
                 }
 
 

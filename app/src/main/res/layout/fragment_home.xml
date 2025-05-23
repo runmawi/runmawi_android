@@ -162,7 +162,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:visibility="gone"/>
-            <FrameLayout
+                        <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -174,16 +174,48 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="60dp"
                     android:visibility="gone" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/liveCateRecyclerview"
+                
+                <!-- Linear layout containing banner + content for Runmawi TV tab -->
+                <LinearLayout
+                    android:id="@+id/runmawi_tv_content_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/genrerecyclerview"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginBottom="60dp"
-                    android:visibility="visible" />
+                    android:orientation="vertical"
+                    android:visibility="gone">
+                    
+                    <!-- Banner for Runmawi TV tab -->
+                    <RelativeLayout
+                        android:id="@+id/runmawi_tv_banner_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:visibility="visible"
+                        android:layout_marginBottom="10dp">
+
+                        <androidx.viewpager.widget.ViewPager
+                            android:id="@+id/runmawi_tv_viewPager"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="0dp"
+                            android:visibility="visible" />
+
+                        <ProgressBar
+                            android:id="@+id/runmawi_tv_bannerprogress"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_centerInParent="true"
+                            android:visibility="visible" />
+                    </RelativeLayout>
+
+                    <!-- Content list for Runmawi TV tab -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/liveCateRecyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="60dp"
+                        android:visibility="visible" />
+                </LinearLayout>
 
                 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                     android:id="@+id/refreshLayout"
