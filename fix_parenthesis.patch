@@ -1,0 +1,10 @@
+--- a/app/src/main/java/com/atbuys/runmawi/HomeFragment.java
++++ b/app/src/main/java/com/atbuys/runmawi/HomeFragment.java
+@@ -563,6 +563,6 @@
+                     //showCategoryMenu(getContext());
+                 }
+             }
+-        });
++        }));
+
+         final Handler handler = new Handler();

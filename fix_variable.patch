@@ -1,0 +1,12 @@
+--- a/app/src/main/java/com/atbuys/runmawi/HomeFragment.java
++++ b/app/src/main/java/com/atbuys/runmawi/HomeFragment.java
+@@ -448,8 +448,8 @@
+         activity_main.setVisibility(View.GONE);
+         runmawiTvContentContainer.setVisibility(View.VISIBLE);
+         
+-        // Set default active tab to Runmawi TV
+-        // Variable is already defined above as activeTabType
++        // activeTabType is already defined above with default value "runmawi_tv"
++        // No need to set it again here
+ 
+         runmawi_page.setOnClickListener(new View.OnClickListener() {

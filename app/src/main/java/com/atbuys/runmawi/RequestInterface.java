@@ -678,4 +678,8 @@ public interface RequestInterface {
     @POST("update-reset-password")
     Call<JSONResponse> updateResetpassword(@Field("email") String email,
                                            @Field("password") String password);
+                                           
+    @FormUrlEncoded
+    @POST("clear_all_notifications")
+    Call<ReadNotification> getClearAll(@Field("user_id") String userId);
 }

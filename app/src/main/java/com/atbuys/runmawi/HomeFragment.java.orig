@@ -45,7 +45,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.atbuys.runmawi.Adapter.GenreAdapter;
 import com.atbuys.runmawi.Adapter.GenreCategoriesAdapter;
-import com.atbuys.runmawi.Adapter.LiveCategoriesSimpleAdapter;
 import com.atbuys.runmawi.adapter.RunmawiTvBannerAdapter;
 import com.atbuys.runmawi.channelvideos;
 import java.util.Arrays;
@@ -91,7 +90,6 @@ public class HomeFragment extends Fragment {
     private String activeTabType = "runmawi_tv"; // Default is Runmawi TV
     private ArrayList<categoryVideos> movieCategoryList;
     private ArrayList<data> liveCategoryList;
-    private ArrayList<data> liveCategoriesForDisplay; // Preserved copy for the Categories tab
     private ArrayList<pages> pageslist;
     private ArrayList<Menus> menuslist;
     private ArrayList<user_details> user_detailsdata;
@@ -155,7 +153,6 @@ public class HomeFragment extends Fragment {
         cateList = new ArrayList<>();
         movieCategoryList = new ArrayList<>();
         liveCategoryList = new ArrayList<>();
-        liveCategoriesForDisplay = new ArrayList<>();
         categoryList = new ArrayList<HomeCategoryData>();
         swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.refreshLayout);
         runmawi_page = (CardView) root.findViewById(R.id.runmawi_page);
@@ -261,10 +258,6 @@ public class HomeFragment extends Fragment {
                 if (response.isSuccessful()) {
                     // Store all categories
                     allCateList = new ArrayList<>(Arrays.asList(jsonResponse.getCategorylist()));
-                    // Print out all categories for debugging
-                    for (categorylist category : allCateList) {
-                        Log.d("CATEGORIES_DEBUG", "ID: " + category.getId() + ", Name: " + category.getName());
-                    }
                     // Initially filter based on the active tab
                     filterCategoriesByActiveTab();
                     genreCategoriesAdapter = new GenreCategoriesAdapter(cateList, getContext());
@@ -294,40 +287,10 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<HomeBodyResponse> call, retrofit2.Response<HomeBodyResponse> response) {
 
                 if (response.isSuccessful()) {
-                    Log.d("LIVE_CATEGORIES_DEBUG", "Loaded " + response.body().getData().length + " live categories");
-                    
-                    // Clear both lists to avoid duplicates
-                    liveCategoryList.clear();
-                    liveCategoriesForDisplay.clear();
-                    
-                    // Add data to both lists
-                    for (int i = 0; i < response.body().getData().length; i++) {
-                        data categoryData = response.body().getData()[i];
-                        
-                        // Generate ID for categories with null IDs
-                        if (categoryData.getId() == null) {
-                            // Generate ID based on name: "live_" + index + "_" + name_without_spaces
-                            String generatedId = "live_" + (i + 1);
-                            if (categoryData.getName() != null) {
-                                generatedId += "_" + categoryData.getName().toLowerCase().replace(" ", "_");
-                                categoryData.setId(generatedId);
-                            }
-                        }
-                        
-                        // Add to the main list for the LiveCategoryAdapter
-                        liveCategoryList.add(categoryData);
-                        
-                        // Create a clean copy for the Categories tab display
-                        data displayCopy = new data();
-                        displayCopy.setName(categoryData.getName());
-                        displayCopy.setId(categoryData.getId()); // Now using the generated ID if original was null
-                        displayCopy.setId1(categoryData.getId1());
-                        liveCategoriesForDisplay.add(displayCopy);
-                        
-                        Log.d("LIVE_CATEGORIES_DEBUG", "ID: " + categoryData.getId() + ", Name: " + categoryData.getName());
+
+                    for (data data : response.body().getData()) {
+                        liveCategoryList.add(data);
                     }
-                    
-                    // Update the adapter
                     live_adapter.notifyDataSetChanged();
                 }
             }
@@ -463,53 +426,19 @@ public class HomeFragment extends Fragment {
                 cateRecyclerView.setVisibility(View.GONE);
                 
                 // Show Movies banner with only video banners, hide Runmawi TV content container
-                activity_main.setVisibility(View.VISIBLE); // Main container for movies
-                runmawiTvContentContainer.setVisibility(View.GONE); // Hide Runmawi TV content
-                if (runmawiTvViewPager != null) runmawiTvViewPager.setVisibility(View.GONE); // Hide Runmawi TV slider
-
-                // Update the ViewPager to show only video banners AND MAKE IT VISIBLE
-                if (viewPager != null) { // Check if viewPager is not null
-                    if (videobanner != null && !videobanner.isEmpty()) {
-                        viewPagerAdapter1 = new ViewPagerAdapter1(null, null, null, videobanner, getContext());
-                        viewPager.setAdapter(viewPagerAdapter1);
-                        viewPager.setVisibility(View.VISIBLE); // Make movie slider visible
-                    } else {
-                        viewPager.setVisibility(View.GONE); // Hide if no banners for movies
-                    }
+                activity_main.setVisibility(View.VISIBLE);
+                runmawiTvContentContainer.setVisibility(View.GONE);
+                
+                // Update the ViewPager to show only video banners
+                if (videobanner != null && !videobanner.isEmpty()) {
+                    viewPagerAdapter1 = new ViewPagerAdapter1(null, null, null, videobanner, getContext());
+                    viewPager.setAdapter(viewPagerAdapter1);
                 }
                 
                 // Set active tab type to movies
                 activeTabType = "movies";
-                
-                // Don't automatically show categories - they should only appear when Categories tab is clicked
-                // Just prepare the filtered list for when Categories tab is clicked
-                if (allCateList != null && !allCateList.isEmpty()) {
-                    // Clear current category list
-                    cateList = new ArrayList<>();
-                    
-                    // Filter movie categories based on naming patterns
-                    for (categorylist category : allCateList) {
-                        String name = category.getName() != null ? category.getName().toLowerCase() : "";
-                        
-                        // Add movie-related categories
-                        if (name.contains("movie") || name.contains("film") || 
-                            name.contains("cinema") || 
-                            (!name.contains("tv") && !name.contains("live") && !name.contains("news"))) {
-                            cateList.add(category);
-                        }
-                    }
-                    
-                    // If no categories matched our filter, show all categories
-                    if (cateList.isEmpty()) {
-                        cateList.addAll(allCateList);
-                    }
-                    
-                    // Update the adapter but don't show it yet
-                    if (genreCategoriesAdapter != null) {
-                        genreCategoriesAdapter = new GenreCategoriesAdapter(cateList, getContext());
-                        cateRecyclerView.setAdapter(genreCategoriesAdapter);
-                    }
-                }
+                // Filter categories to show only movie categories
+                filterCategoriesByActiveTab();
             }
         });
         // Set initial visibility for Runmawi TV tab since it's the default
@@ -519,8 +448,8 @@ public class HomeFragment extends Fragment {
         activity_main.setVisibility(View.GONE);
         runmawiTvContentContainer.setVisibility(View.VISIBLE);
         
-        // activeTabType is already defined above with default value "runmawi_tv"
-        // No need to set it again here
+        // Set default active tab to Runmawi TV
+        // Variable is already defined above as activeTabType
 
         runmawi_page.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -537,25 +466,15 @@ public class HomeFragment extends Fragment {
                 activity_main.setVisibility(View.GONE);
                 runmawiTvContentContainer.setVisibility(View.VISIBLE);
                 
-                // Ensure specific content sections within runmawiTvContentContainer are visible
-                if (allChannelRecycler != null) {
-                    allChannelRecycler.setVisibility(View.VISIBLE);
-                }
-
-                // Update the ViewPager to show only live banners for Runmawi TV and manage its visibility
-                if (runmawiTvViewPager != null) { // Ensure viewpager is not null
-                    if (livebannerdata != null && !livebannerdata.isEmpty()) {
-                        runmawiTvViewPagerAdapter = new ViewPagerAdapter1(null, null, livebannerdata, null, getContext());
-                        runmawiTvViewPager.setAdapter(runmawiTvViewPagerAdapter);
-                        runmawiTvViewPager.setVisibility(View.VISIBLE); // Make sure slider is visible
-                    } else {
-                        runmawiTvViewPager.setVisibility(View.GONE); // Hide slider if no data
-                    }
+                // Update the ViewPager to show only live banners
+                if (livebannerdata != null && !livebannerdata.isEmpty()) {
+                    runmawiTvViewPagerAdapter = new ViewPagerAdapter1(null, null, livebannerdata, null, getContext());
+                    runmawiTvViewPager.setAdapter(runmawiTvViewPagerAdapter);
                 }
                 
                 // Set active tab type to Runmawi TV
                 activeTabType = "runmawi_tv";
-                // Filter categories to show only TV categories (prepares data for when Categories tab is clicked)
+                // Filter categories to show only TV categories
                 filterCategoriesByActiveTab();
 
                 /*Call<JSONResponse> channel = ApiClient.getInstance1().getApi().gethomelink("liveCategories", user_id);
@@ -571,10 +490,6 @@ public class HomeFragment extends Fragment {
                             } else {
 
                                 liveCategoryList = new ArrayList<>(Arrays.asList(jsonResponse.getPage_List()));
-                                // Print out all live categories for debugging
-                                for (data liveCat : liveCategoryList) {
-                                    Log.d("LIVE_CATEGORIES_DEBUG", "ID: " + liveCat.getId() + ", Name: " + liveCat.getName());
-                                }
                                 liveCategoryAdapter = new LiveCategoryAdapter(liveCategoryList, getContext());
                                 liveCateRecyclerview.setAdapter(liveCategoryAdapter);
                             }
@@ -591,71 +506,18 @@ public class HomeFragment extends Fragment {
         categories_page.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 categories_page.setCardBackgroundColor(Color.parseColor("#ff0000"));
                 runmawi_page.setCardBackgroundColor(Color.parseColor("#000000"));
                 movie_page.setCardBackgroundColor(Color.parseColor("#000000"));
                 
-                Log.d("CATEGORIES_DEBUG", "Categories tab clicked, activeTabType=" + activeTabType);
-
-                // If cateRecyclerView is currently visible, hide it and restore slider visibility for the active tab.
+                // Make sure categories are filtered by the active tab before displaying
+                filterCategoriesByActiveTab();
+                
                 if (cateRecyclerView.getVisibility() == View.VISIBLE) {
-                    Log.d("CATEGORIES_DEBUG", "Categories (cateRecyclerView) were visible, now hiding.");
                     cateRecyclerView.setVisibility(View.GONE);
-                    // Ensure the correct slider for the active tab becomes visible again if it was hidden by old logic
-                    if (activeTabType.equals("movies")) {
-                        if (viewPager != null) viewPager.setVisibility(View.VISIBLE);
-                    } else { // runmawi_tv
-                        if (runmawiTvViewPager != null) runmawiTvViewPager.setVisibility(View.VISIBLE);
-                    }
-                    return;
-                }
-
-                // If we are here, it means cateRecyclerView was hidden, and we need to show it.
-                // The underlying content (sliders, main content areas) should remain visible as categories overlay them.
-                Log.d("CATEGORIES_DEBUG", "Categories (cateRecyclerView) were hidden, now showing for " + activeTabType);
-
-                if (activeTabType.equals("movies")) {
-                    Log.d("CATEGORIES_DEBUG", "Setting up movie categories on cateRecyclerView");
-                    // Ensure movie tab's main content and slider are visible
-                    if (activity_main != null) activity_main.setVisibility(View.VISIBLE);
-                    if (viewPager != null) viewPager.setVisibility(View.VISIBLE);
-                    // Ensure Runmawi TV specific content is GONE (should be handled by movie_page click listener)
-                    if (runmawiTvContentContainer != null) runmawiTvContentContainer.setVisibility(View.GONE);
-                    if (runmawiTvViewPager != null) runmawiTvViewPager.setVisibility(View.GONE);
-
-                    if (allCateList == null || allCateList.isEmpty()) {
-                        Toast.makeText(getContext(), "No movie categories available", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    if (cateList == null) cateList = new ArrayList<>(); else cateList.clear();
-                    for (categorylist category : allCateList) {
-                        String name = category.getName() != null ? category.getName().toLowerCase() : "";
-                        if (name.contains("movie") || name.contains("film") || name.contains("cinema") ||
-                            (!name.contains("tv") && !name.contains("live") && !name.contains("news"))) {
-                            cateList.add(category);
-                        }
-                    }
-                    if (cateList.isEmpty() && allCateList != null) cateList.addAll(allCateList);
-
-                    Log.d("CATEGORIES_DEBUG", "Found " + cateList.size() + " movie categories to display.");
-                    genreCategoriesAdapter = new GenreCategoriesAdapter(cateList, getContext());
-                    cateRecyclerView.setAdapter(genreCategoriesAdapter);
-                    if (cateRecyclerView.getLayoutManager() == null) {
-                        cateRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                    }
-                    cateRecyclerView.setVisibility(View.VISIBLE); // Show movie categories overlaying current content
-
-                } else { // runmawi_tv
-                    Log.d("CATEGORIES_DEBUG", "Setting up live TV categories on cateRecyclerView");
-                    // Ensure Runmawi TV tab's main content and slider are visible
-                    if (runmawiTvContentContainer != null) runmawiTvContentContainer.setVisibility(View.VISIBLE);
-                    if (allChannelRecycler != null) allChannelRecycler.setVisibility(View.VISIBLE);
-                    if (runmawiTvViewPager != null) runmawiTvViewPager.setVisibility(View.VISIBLE);
-                    // Ensure Movie specific content is GONE (should be handled by runmawi_page click listener)
-                    if (activity_main != null) activity_main.setVisibility(View.GONE);
-                    if (viewPager != null) viewPager.setVisibility(View.GONE);
-                    
-                    showLiveCategories(); // This method sets the adapter on cateRecyclerView and makes it VISIBLE
+                } else {
+                    cateRecyclerView.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -1116,104 +978,44 @@ public class HomeFragment extends Fragment {
 
     /**
      * Filter categories based on which tab is currently active (Movies or Runmawi TV)
-     * and display them in the appropriate adapter
      */
     private void filterCategoriesByActiveTab() {
-        if (activeTabType.equals("movies")) {
-            // For Movies tab, filter from allCateList
-            if (allCateList == null || allCateList.isEmpty()) {
-                return; // No categories to filter
-            }
+        if (allCateList == null || allCateList.isEmpty()) {
+            return; // No categories to filter
+        }
+        
+        // Clear current category list
+        cateList = new ArrayList<>();
+        
+        // Filter categories based on active tab
+        for (categorylist category : allCateList) {
+            String name = category.getName() != null ? category.getName().toLowerCase() : "";
             
-            // Clear current category list
-            cateList = new ArrayList<>();
-            
-            // Filter movie categories based on naming patterns
-            for (categorylist category : allCateList) {
-                String name = category.getName() != null ? category.getName().toLowerCase() : "";
-                
-                // Add movie-related categories
+            if (activeTabType.equals("movies")) {
+                // Add movie-related categories (customize this based on your naming patterns)
                 if (name.contains("movie") || name.contains("film") || 
-                    name.contains("cinema") || 
-                    (!name.contains("tv") && !name.contains("live") && !name.contains("news"))) {
+                    name.contains("cinema") || !name.contains("tv") && !name.contains("live")) {
+                    cateList.add(category);
+                }
+            } else { // runmawi_tv
+                // Add TV-related categories (customize this based on your naming patterns)
+                if (name.contains("tv") || name.contains("live") || 
+                    name.contains("channel") || name.contains("broadcast")) {
                     cateList.add(category);
                 }
             }
-            
-            // If no categories matched our filter, show all categories
-            if (cateList.isEmpty()) {
-                cateList.addAll(allCateList);
-            }
-            
-            // Update the movie categories adapter
-            if (genreCategoriesAdapter != null) {
-                genreCategoriesAdapter = new GenreCategoriesAdapter(cateList, getContext());
-                cateRecyclerView.setAdapter(genreCategoriesAdapter);
-                cateRecyclerView.setVisibility(View.VISIBLE);
-            }
-        } else { 
-            // For Runmawi TV tab, we'll use liveCategoryList in showLiveCategories()
-            // which is called when the Categories tab is clicked
-        }
-    }
-    
-    /**
-     * Show live categories when in Runmawi TV tab and Categories is clicked
-     */
-    private void showLiveCategories() {
-        Log.d("CATEGORIES_DEBUG", "showLiveCategories called, activeTabType=" + activeTabType);
-        
-        if (liveCategoriesForDisplay == null || liveCategoriesForDisplay.isEmpty()) {
-            Log.d("CATEGORIES_DEBUG", "No live categories available");
-            Toast.makeText(getContext(), "No live categories available", Toast.LENGTH_SHORT).show();
-            return;
         }
         
-        Log.d("CATEGORIES_DEBUG", "Preparing to show " + liveCategoriesForDisplay.size() + " live categories");
-        
-        // Log each category for verification
-        for (int i = 0; i < liveCategoriesForDisplay.size(); i++) {
-            data category = liveCategoriesForDisplay.get(i);
-            Log.d("CATEGORIES_DEBUG", "Live category " + i + ": Name=" + category.getName());
+        // If no categories matched our filter, show all categories
+        if (cateList.isEmpty()) {
+            cateList.addAll(allCateList);
         }
         
-        // Make sure the RecyclerView is properly configured
-        if (cateRecyclerView == null) {
-            Log.e("CATEGORIES_DEBUG", "cateRecyclerView is null");
-            return;
+        // Update the adapter
+        if (genreCategoriesAdapter != null) {
+            genreCategoriesAdapter = new GenreCategoriesAdapter(cateList, getContext());
+            cateRecyclerView.setAdapter(genreCategoriesAdapter);
         }
-        
-        // Make sure the RecyclerView's parent is visible
-        ViewGroup parent = (ViewGroup) cateRecyclerView.getParent();
-        if (parent != null) {
-            parent.setVisibility(View.VISIBLE);
-        }
-        
-        // Create adapter with the preserved copy of live categories list
-        LiveCategoriesSimpleAdapter simpleLiveCategoriesAdapter = 
-                new LiveCategoriesSimpleAdapter(liveCategoriesForDisplay, getContext());
-        
-        // Set up the RecyclerView with the correct layout manager
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        cateRecyclerView.setLayoutManager(layoutManager);
-        
-        // Make sure the RecyclerView has the correct properties
-        cateRecyclerView.setHasFixedSize(true);
-        cateRecyclerView.setNestedScrollingEnabled(true);
-        
-        // Set the adapter and make sure the RecyclerView is visible
-        cateRecyclerView.setAdapter(simpleLiveCategoriesAdapter);
-        cateRecyclerView.setVisibility(View.VISIBLE);
-        
-        // Force layout refresh
-        cateRecyclerView.post(new Runnable() {
-            @Override
-            public void run() {
-                simpleLiveCategoriesAdapter.notifyDataSetChanged();
-            }
-        });
-        
-        Log.d("CATEGORIES_DEBUG", "LiveCategoriesSimpleAdapter set on RecyclerView");
     }
     
     private void clearNotifications(String userId) {
