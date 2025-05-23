@@ -78,7 +78,7 @@ public class HomeFragment extends Fragment {
     ViewPager runmawiTvViewPager;
     ViewPagerAdapter1 runmawiTvViewPagerAdapter;
     RelativeLayout runmawiTvBannerContainer;
-    LinearLayout runmawiTvContentContainer;
+    androidx.core.widget.NestedScrollView runmawiTvContentContainer;
     private ArrayList<series_banner> bannersdata;
     private ArrayList<video_banner> videobanner;
     private ArrayList<live_banner> livebannerdata;
@@ -168,7 +168,7 @@ public class HomeFragment extends Fragment {
         viewPager = (ViewPager) root.findViewById(R.id.viewPager);
         runmawiTvViewPager = (ViewPager) root.findViewById(R.id.runmawi_tv_viewPager);
         runmawiTvBannerContainer = (RelativeLayout) root.findViewById(R.id.runmawi_tv_banner_container);
-        runmawiTvContentContainer = (LinearLayout) root.findViewById(R.id.runmawi_tv_content_container);
+        runmawiTvContentContainer = (androidx.core.widget.NestedScrollView) root.findViewById(R.id.runmawi_tv_content_container);
         activity_main = root.findViewById(R.id.activity_main);
         bannerprogress = root.findViewById(R.id.bannerprogress);
 
