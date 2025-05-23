@@ -58,11 +58,16 @@ import com.atbuys.runmawi.Adapter.CategoryhomepageAdopter;
 import com.atbuys.runmawi.Api1.RetrofitSingleton;
 import com.atbuys.runmawi.Model.HomeBodyResponse;
 import com.atbuys.runmawi.Model.HomeCategoryData;
+import com.atbuys.runmawi.LiveCategory;
+import com.atbuys.runmawi.livepageAdopter;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.lang.reflect.Field;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -340,7 +345,14 @@ public class HomeFragment extends Fragment {
                 new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, final int position) {
-
+                        // Add bounds checking to prevent IndexOutOfBoundsException
+                        if (cateList == null || cateList.isEmpty() || position >= cateList.size()) {
+                            Log.e("CATEGORY_DEBUG", "Invalid position or empty cateList. Position: " + position + 
+                                  ", List size: " + (cateList != null ? cateList.size() : 0));
+                            return;
+                        }
+                        
+                        // Proceed only if we have a valid list and position
                         Call<JSONResponse> cate_api = ApiClient.getInstance1().getApi().getChannelVideo(cateList.get(position).getId());
                         cate_api.enqueue(new Callback<JSONResponse>() {
                             @Override
@@ -481,7 +493,6 @@ public class HomeFragment extends Fragment {
                 // Set active tab type to movies
                 activeTabType = "movies";
                 
-                // Don't automatically show categories - they should only appear when Categories tab is clicked
                 // Just prepare the filtered list for when Categories tab is clicked
                 if (allCateList != null && !allCateList.isEmpty()) {
                     // Clear current category list
@@ -529,17 +540,46 @@ public class HomeFragment extends Fragment {
                 categories_page.setCardBackgroundColor(Color.parseColor("#000000"));
                 movie_page.setCardBackgroundColor(Color.parseColor("#000000"));
 
+                // Reset all visibility states first
                 swipeRefreshLayout.setVisibility(View.GONE);
                 movieRecyclerview.setVisibility(View.GONE);
                 cateRecyclerView.setVisibility(View.GONE);
-                
-                // Hide Movies content, show Runmawi TV content container with only live banners
                 activity_main.setVisibility(View.GONE);
+                
+                // Show Runmawi TV content container
                 runmawiTvContentContainer.setVisibility(View.VISIBLE);
                 
+                // Make sure liveCateRecyclerview is also visible (it might have been hidden)
+                if (liveCateRecyclerview != null) {
+                    liveCateRecyclerview.setVisibility(View.VISIBLE);
+                    Log.d("VISIBILITY_DEBUG", "liveCateRecyclerview visibility set to VISIBLE");
+                }
+                
+                // Reset any potentially affected UI elements from movie category selection
+                // Ensure any Runmawi TV specific headers are visible
+                // Note: We don't have a liveTvCategoriesHeader variable, so we'll focus on ensuring
+                // other critical components are visible instead
+                
                 // Ensure specific content sections within runmawiTvContentContainer are visible
+                // More aggressively restore visibility of allChannelRecycler and ensure adapter is attached
                 if (allChannelRecycler != null) {
+                    // Set adapter again if it's null (might have been cleared by movie category selection)
+                    if (allChannelRecycler.getAdapter() == null && all_adapter != null) {
+                        Log.d("VISIBILITY_DEBUG", "Re-setting adapter on allChannelRecycler");
+                        allChannelRecycler.setAdapter(all_adapter);
+                    }
+                    
+                    // Force allChannelRecycler to VISIBLE
                     allChannelRecycler.setVisibility(View.VISIBLE);
+                    
+                    // Log state for debugging
+                    Log.d("VISIBILITY_DEBUG", "allChannelRecycler visibility set to VISIBLE, adapter: " + 
+                          (allChannelRecycler.getAdapter() != null ? "present" : "null") + 
+                          ", parent visibility: " + 
+                          (allChannelRecycler.getParent() instanceof View ? 
+                           ((View)allChannelRecycler.getParent()).getVisibility() : "unknown"));
+                } else {
+                    Log.e("VISIBILITY_DEBUG", "allChannelRecycler is null, cannot make visible");
                 }
 
                 // Update the ViewPager to show only live banners for Runmawi TV and manage its visibility
@@ -557,6 +597,36 @@ public class HomeFragment extends Fragment {
                 activeTabType = "runmawi_tv";
                 // Filter categories to show only TV categories (prepares data for when Categories tab is clicked)
                 filterCategoriesByActiveTab();
+                
+                // Refresh live TV content to ensure we have the latest data
+                if (allChannelRecycler != null) {
+                    // Request fresh content for Runmawi TV tab - using the same approach as in getDataFromAPI2 method
+                    Call<JSONResponse> refreshLiveCall = ApiClient.getInstance1().getApi().gethomelink("live", user_id);
+                    refreshLiveCall.enqueue(new retrofit2.Callback<JSONResponse>() {
+                        @Override
+                        public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
+                            if (response.isSuccessful() && response.body() != null) {
+                                // Simply refresh the existing adapter if it exists
+                                if (all_adapter != null) {
+                                    all_adapter.notifyDataSetChanged();
+                                    Log.d("VISIBILITY_DEBUG", "Refreshed existing live TV content adapter");
+                                } else {
+                                    // If adapter doesn't exist, recreate it using the same approach as in getDataFromAPI2
+                                    all_adapter = new CategoryhomepageAdopter(categoryList, getContext());
+                                    allChannelRecycler.setAdapter(all_adapter);
+                                    Log.d("VISIBILITY_DEBUG", "Created new adapter for live TV content");
+                                }
+                            } else {
+                                Log.e("VISIBILITY_DEBUG", "Failed to refresh live TV content, response not successful");
+                            }
+                        }
+                        
+                        @Override
+                        public void onFailure(Call<JSONResponse> call, Throwable t) {
+                            Log.e("VISIBILITY_DEBUG", "Error refreshing live TV content: " + t.getMessage());
+                        }
+                    });
+                }
 
                 /*Call<JSONResponse> channel = ApiClient.getInstance1().getApi().gethomelink("liveCategories", user_id);
                 channel.enqueue(new retrofit2.Callback<JSONResponse>() {
@@ -1189,9 +1259,110 @@ public class HomeFragment extends Fragment {
             parent.setVisibility(View.VISIBLE);
         }
         
-        // Create adapter with the preserved copy of live categories list
+        // Create adapter with the preserved copy of live categories list and a click listener
         LiveCategoriesSimpleAdapter simpleLiveCategoriesAdapter = 
-                new LiveCategoriesSimpleAdapter(liveCategoriesForDisplay, getContext());
+                new LiveCategoriesSimpleAdapter(liveCategoriesForDisplay, getContext(), new LiveCategoriesSimpleAdapter.OnCategoryClickListener() {
+                    @Override
+                    public void onCategoryClick(data selectedCategory) {
+                        Log.d("LIVE_CATEGORY_DEBUG", "Live category clicked (from adapter): " + selectedCategory.getName());
+                        
+                        // Determine the category ID to use for the API call
+                        String categoryId;
+                        if (selectedCategory.getId() != null) {
+                            categoryId = selectedCategory.getId();
+                            Log.d("LIVE_CATEGORY_DEBUG", "Using ID: " + categoryId);
+                        } else if (selectedCategory.getId1() != null) {
+                            categoryId = selectedCategory.getId1();
+                            Log.d("LIVE_CATEGORY_DEBUG", "Using ID1: " + categoryId);
+                        } else {
+                            // Generate ID from category name if no ID is available
+                            categoryId = "category_" + selectedCategory.getName().toLowerCase().replace(" ", "_");
+                            Log.d("LIVE_CATEGORY_DEBUG", "Using generated ID: " + categoryId);
+                        }
+                        
+                        // Make API call to get live content for this category
+                        Call<JSONResponse> liveCategoryApi = ApiClient.getInstance1().getApi().getLiveCat(categoryId);
+                        liveCategoryApi.enqueue(new Callback<JSONResponse>() {
+                            @Override
+                            public void onResponse(Call<JSONResponse> call, Response<JSONResponse> response) {
+                                try {
+                                    if (response.isSuccessful() && response.body() != null) {
+                                        JSONResponse jsonResponse = response.body();
+                                        Log.d("LIVE_CATEGORY_DEBUG", "API response received for category: " + selectedCategory.getName());
+                                        
+                                        // Hide categories list
+                                        cateRecyclerView.setVisibility(View.GONE);
+                                        
+                                        // Check if the response contains LiveCategory data
+                                        if (jsonResponse.getLiveCategory() != null && jsonResponse.getLiveCategory().length > 0) {
+                                            // Hide the all channels recycler view first
+                                            if (allChannelRecycler != null) {
+                                                allChannelRecycler.setVisibility(View.GONE);
+                                            }
+                                            
+                                            // Get the filtered live content
+                                            ArrayList<LiveCategory> filteredLiveContent = new ArrayList<>(Arrays.asList(jsonResponse.getLiveCategory()));
+                                            
+                                            // Check if we have an adapter for this content type
+                                            if (filteredLiveContent.size() > 0) {
+                                                // Create an adapter for the filtered content
+                                                // Note: We need to use the appropriate adapter for LiveCategory objects
+                                                livepageAdopter filteredAdapter = new livepageAdopter(filteredLiveContent, getContext());
+                                                
+                                                // Show and update allChannelRecycler with filtered content
+                                                allChannelRecycler.setAdapter(filteredAdapter);
+                                                allChannelRecycler.setVisibility(View.VISIBLE);
+                                                
+                                                // Add a title or indicator showing which category is being displayed
+                                                Toast.makeText(getContext(), "Showing: " + selectedCategory.getName(), Toast.LENGTH_SHORT).show();
+                                                
+                                                Log.d("LIVE_CATEGORY_DEBUG", "Displaying " + filteredLiveContent.size() + 
+                                                        " channels for category: " + selectedCategory.getName());
+                                            } else {
+                                                // No content found for this category
+                                                Toast.makeText(getContext(), "No channels found in " + selectedCategory.getName(), Toast.LENGTH_SHORT).show();
+                                                Log.d("LIVE_CATEGORY_DEBUG", "No channels found for category: " + selectedCategory.getName());
+                                                
+                                                // Show empty state or fallback to all channels
+                                                allChannelRecycler.setVisibility(View.VISIBLE);
+                                            }
+                                        } else {
+                                            // No content found for this category
+                                            Toast.makeText(getContext(), "No channels found in " + selectedCategory.getName(), Toast.LENGTH_SHORT).show();
+                                            Log.d("LIVE_CATEGORY_DEBUG", "No LiveCategory data in response for: " + selectedCategory.getName());
+                                            
+                                            // Show all channels as fallback
+                                            allChannelRecycler.setVisibility(View.VISIBLE);
+                                        }
+                                    } else {
+                                        // API call failed
+                                        Log.e("LIVE_CATEGORY_DEBUG", "API call failed for category: " + selectedCategory.getName());
+                                        Toast.makeText(getContext(), "Failed to load channels for " + selectedCategory.getName(), Toast.LENGTH_SHORT).show();
+                                        
+                                        // Show all channels as fallback
+                                        allChannelRecycler.setVisibility(View.VISIBLE);
+                                    }
+                                } catch (Exception e) {
+                                    // Catch any exceptions to prevent app crashes
+                                    Log.e("LIVE_CATEGORY_DEBUG", "Exception processing response: " + e.getMessage());
+                                    Toast.makeText(getContext(), "Error processing data for " + selectedCategory.getName(), Toast.LENGTH_SHORT).show();
+                                    
+                                    // Show all channels as fallback
+                                    allChannelRecycler.setVisibility(View.VISIBLE);
+                                }
+                            }
+                            
+                            @Override
+                            public void onFailure(Call<JSONResponse> call, Throwable t) {
+                                Log.e("LIVE_CATEGORY_DEBUG", "API call failed: " + t.getMessage());
+                                Toast.makeText(getContext(), "Network error. Please try again.", Toast.LENGTH_SHORT).show();
+                                
+                                // Show all channels as fallback
+                                allChannelRecycler.setVisibility(View.VISIBLE);
+                            }
+                        });
+                    }
+                });
         
         // Set up the RecyclerView with the correct layout manager
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -1213,7 +1384,7 @@ public class HomeFragment extends Fragment {
             }
         });
         
-        Log.d("CATEGORIES_DEBUG", "LiveCategoriesSimpleAdapter set on RecyclerView");
+        Log.d("CATEGORIES_DEBUG", "LiveCategoriesSimpleAdapter set on RecyclerView with click listener");
     }
     
     private void clearNotifications(String userId) {

@@ -18,13 +18,25 @@ import java.util.ArrayList;
  * This provides a consistent UI between movie categories and live categories
  */
 public class LiveCategoriesSimpleAdapter extends RecyclerView.Adapter<LiveCategoriesSimpleAdapter.LiveCateViewHolder> {
+    
+    /**
+     * Interface for handling category item clicks
+     */
+    public interface OnCategoryClickListener {
+        void onCategoryClick(data category);
+    }
 
     private ArrayList<data> liveCategoryList;
     private Context context;
+    private OnCategoryClickListener listener;
 
-    public LiveCategoriesSimpleAdapter(ArrayList<data> liveCategoryList, Context context) {
+    /**
+     * Constructor with click listener for in-place filtering
+     */
+    public LiveCategoriesSimpleAdapter(ArrayList<data> liveCategoryList, Context context, OnCategoryClickListener listener) {
         this.liveCategoryList = liveCategoryList;
         this.context = context;
+        this.listener = listener;
         
         // Log the categories received
         android.util.Log.d("LIVE_ADAPTER_DEBUG", "Adapter created with " + 
@@ -39,6 +51,14 @@ public class LiveCategoriesSimpleAdapter extends RecyclerView.Adapter<LiveCatego
                         "ID1=" + category.getId1());
             }
         }
+    }
+    
+    /**
+     * Constructor without click listener (for backward compatibility)
+     * This will launch a new activity when a category is clicked
+     */
+    public LiveCategoriesSimpleAdapter(ArrayList<data> liveCategoryList, Context context) {
+        this(liveCategoryList, context, null);
     }
 
     @NonNull
@@ -59,29 +79,38 @@ public class LiveCategoriesSimpleAdapter extends RecyclerView.Adapter<LiveCatego
         // Set the category name
         holder.category_name.setText(category.getName());
         
-        // Add click listener to navigate to category details
+        // Add click listener
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 android.util.Log.d("LIVE_ADAPTER_DEBUG", "Category clicked: " + category.getName());
-                Intent intent = new Intent(context, ChannalPageActivity1.class);
                 
-                // Handle case where ID is null by using the category name
-                if (category.getId() != null) {
-                    intent.putExtra("id", category.getId());
-                    android.util.Log.d("LIVE_ADAPTER_DEBUG", "Using ID: " + category.getId());
-                } else if (category.getId1() != null) {
-                    intent.putExtra("id", category.getId1());
-                    android.util.Log.d("LIVE_ADAPTER_DEBUG", "Using ID1: " + category.getId1());
+                // If we have a listener, use it for in-place filtering
+                if (listener != null) {
+                    android.util.Log.d("LIVE_ADAPTER_DEBUG", "Using in-place filtering for: " + category.getName());
+                    listener.onCategoryClick(category);
                 } else {
-                    // Use category name as identifier when ID is null
-                    intent.putExtra("id", "category_" + category.getName().toLowerCase().replace(" ", "_"));
-                    intent.putExtra("category_name", category.getName());
-                    android.util.Log.d("LIVE_ADAPTER_DEBUG", "Using name as ID: category_" + 
-                            category.getName().toLowerCase().replace(" ", "_"));
+                    // Otherwise, launch a new activity (legacy behavior)
+                    android.util.Log.d("LIVE_ADAPTER_DEBUG", "Launching activity for: " + category.getName());
+                    Intent intent = new Intent(context, ChannalPageActivity1.class);
+                    
+                    // Handle case where ID is null by using the category name
+                    if (category.getId() != null) {
+                        intent.putExtra("id", category.getId());
+                        android.util.Log.d("LIVE_ADAPTER_DEBUG", "Using ID: " + category.getId());
+                    } else if (category.getId1() != null) {
+                        intent.putExtra("id", category.getId1());
+                        android.util.Log.d("LIVE_ADAPTER_DEBUG", "Using ID1: " + category.getId1());
+                    } else {
+                        // Use category name as identifier when ID is null
+                        intent.putExtra("id", "category_" + category.getName().toLowerCase().replace(" ", "_"));
+                        intent.putExtra("category_name", category.getName());
+                        android.util.Log.d("LIVE_ADAPTER_DEBUG", "Using name as ID: category_" + 
+                                category.getName().toLowerCase().replace(" ", "_"));
+                    }
+                    
+                    context.startActivity(intent);
                 }
-                
-                context.startActivity(intent);
             }
         });
     }
