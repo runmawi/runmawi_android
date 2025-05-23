@@ -420,9 +420,15 @@ public class HomeFragment extends Fragment {
                 movieRecyclerview.setVisibility(View.GONE);
                 cateRecyclerView.setVisibility(View.GONE);
                 
-                // Show Movies banner, hide Runmawi TV content container
+                // Show Movies banner with only video banners, hide Runmawi TV content container
                 activity_main.setVisibility(View.VISIBLE);
                 runmawiTvContentContainer.setVisibility(View.GONE);
+                
+                // Update the ViewPager to show only video banners
+                if (videobanner != null && !videobanner.isEmpty()) {
+                    viewPagerAdapter1 = new ViewPagerAdapter1(null, null, null, videobanner, getContext());
+                    viewPager.setAdapter(viewPagerAdapter1);
+                }
             }
         });
         // Set initial visibility for Runmawi TV tab since it's the default
@@ -443,9 +449,15 @@ public class HomeFragment extends Fragment {
                 movieRecyclerview.setVisibility(View.GONE);
                 cateRecyclerView.setVisibility(View.GONE);
                 
-                // Hide Movies content, show Runmawi TV content container
+                // Hide Movies content, show Runmawi TV content container with only live banners
                 activity_main.setVisibility(View.GONE);
                 runmawiTvContentContainer.setVisibility(View.VISIBLE);
+                
+                // Update the ViewPager to show only live banners
+                if (livebannerdata != null && !livebannerdata.isEmpty()) {
+                    runmawiTvViewPagerAdapter = new ViewPagerAdapter1(null, null, livebannerdata, null, getContext());
+                    runmawiTvViewPager.setAdapter(runmawiTvViewPagerAdapter);
+                }
 
                 /*Call<JSONResponse> channel = ApiClient.getInstance1().getApi().gethomelink("liveCategories", user_id);
                 channel.enqueue(new retrofit2.Callback<JSONResponse>() {
@@ -602,13 +614,13 @@ public class HomeFragment extends Fragment {
                     videobanner = new ArrayList<>(Arrays.asList(jsonResponse.getVideo_banners()));
                     sliderdata = new ArrayList<>(Arrays.asList(jsonResponse.getSliders()));
                     
-                    // Set up main ViewPager for Movies tab
-                    viewPagerAdapter1 = new ViewPagerAdapter1(sliderdata, bannersdata, livebannerdata, videobanner, getContext());
+                    // Set up main ViewPager for Movies tab - only show videobanner
+                    viewPagerAdapter1 = new ViewPagerAdapter1(null, null, null, videobanner, getContext());
                     viewPager.setAdapter(viewPagerAdapter1);
                     bannerprogress.setVisibility(View.GONE);
                     
-                    // Set up runmawi TV ViewPager with the same data (will filter later)
-                    runmawiTvViewPagerAdapter = new ViewPagerAdapter1(sliderdata, bannersdata, livebannerdata, videobanner, getContext());
+                    // Set up runmawi TV ViewPager with only livebannerdata
+                    runmawiTvViewPagerAdapter = new ViewPagerAdapter1(null, null, livebannerdata, null, getContext());
                     runmawiTvViewPager.setAdapter(runmawiTvViewPagerAdapter);
                     runmawiTvBannerContainer.findViewById(R.id.runmawi_tv_bannerprogress).setVisibility(View.GONE);
                     

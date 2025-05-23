@@ -80,15 +80,23 @@ public class ViewPagerAdapter1 extends PagerAdapter {
         TextView genre=view.findViewById(R.id.genre);
         viewpagerid = view.findViewById(R.id.view1);
 
-        if (slidersList != null && position < slidersList.size()) {
+        // Calculate offsets safely handling null lists
+        int sliderSize = slidersList != null ? slidersList.size() : 0;
+        int liveBannerSize = live_banner != null ? live_banner.size() : 0;
+        int videoBannerSize = video_banner != null ? video_banner.size() : 0;
+        int sliderImgSize = sliderImg != null ? sliderImg.size() : 0;
+        
+        // Check which section this position belongs to
+        if (slidersList != null && position < sliderSize) {
+            // Handle sliders
             sliders utils = slidersList.get(position);
             imageLoader = CustomVolleyRequest.getInstance(context).getImageLoader();
             imageLoader.get(utils.getSlider(), ImageLoader.getImageListener(imageView, R.drawable.favicon,R.drawable.favicon));
-            image =utils.getSlider();
+            image = utils.getSlider();
             play_now.setVisibility(View.GONE);
-        } else if (live_banner != null && position < live_banner.size()+ slidersList.size()) {
+        } else if (live_banner != null && position >= sliderSize && position < (sliderSize + liveBannerSize)) {
             // Get elements from live_banner list
-            int videoPosition = position - slidersList.size();
+            int videoPosition = position - sliderSize;
             live_banner utils = live_banner.get(videoPosition);
             imageLoader = CustomVolleyRequest.getInstance(context).getImageLoader();
             imageLoader.get(utils.getPlayer_image(), ImageLoader.getImageListener(imageView, R.drawable.favicon,R.drawable.favicon));
@@ -219,10 +227,10 @@ public class ViewPagerAdapter1 extends PagerAdapter {
 
 
         }
-        else if (video_banner != null && position < live_banner.size() + video_banner.size()+slidersList.size()) {
+        else if (video_banner != null && position >= (sliderSize + liveBannerSize) && position < (sliderSize + liveBannerSize + videoBannerSize)) {
 
             // Get elements from video_banner list
-            int videoPosition = position -  (live_banner.size()+slidersList.size());
+            int videoPosition = position - (sliderSize + liveBannerSize);
             video_banner utils2 = video_banner.get(videoPosition);
             imageLoader = CustomVolleyRequest.getInstance(context).getImageLoader();
             imageLoader.get(utils2.getPlayer_image(), ImageLoader.getImageListener(imageView, R.drawable.favicon,R.drawable.favicon));
@@ -365,10 +373,10 @@ public class ViewPagerAdapter1 extends PagerAdapter {
             });
 
         }
-        else if (sliderImg != null && position < live_banner.size() + video_banner.size() + sliderImg.size()+slidersList.size()) {
+        else if (sliderImg != null && position >= (sliderSize + liveBannerSize + videoBannerSize) && position < (sliderSize + liveBannerSize + videoBannerSize + sliderImgSize)) {
 
             // Get elements from sliderImg list
-            int sliderPosition = position - (live_banner.size() + video_banner.size()+slidersList.size());
+            int sliderPosition = position - (sliderSize + liveBannerSize + videoBannerSize);
             series_banner utils3 = sliderImg.get(sliderPosition);
             imageLoader = CustomVolleyRequest.getInstance(context).getImageLoader();
             imageLoader.get(utils3.getPlayer_image(), ImageLoader.getImageListener(imageView, R.drawable.favicon,R.drawable.favicon));
