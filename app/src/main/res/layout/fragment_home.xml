@@ -217,8 +217,19 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="0dp"
                             android:layout_marginStart="10dp"
-                            android:layout_marginBottom="60dp"
+                            android:layout_marginBottom="10dp"
                             android:visibility="visible"
+                            android:nestedScrollingEnabled="false" />
+                            
+                        <!-- Dedicated RecyclerView for filtered LiveTV content -->
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/filteredLiveTvRecyclerview"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="60dp"
+                            android:visibility="gone"
                             android:nestedScrollingEnabled="false" />
                     </LinearLayout>
                 </androidx.core.widget.NestedScrollView>
@@ -874,16 +885,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <!-- Root LinearLayout as the only direct child of ScrollView -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="?attr/backgroundColor"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="?attr/backgroundColor">
 
+                    <!-- Place all previous child views here, including sidemenu1 RecyclerView and logout section -->
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/sidemenu1"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:background="?attr/backgroundColor"
                         android:divider="@null" />
 
@@ -936,18 +949,10 @@
                                     android:textSize="14sp"
                                     android:visibility="visible" />
 
-
                             </LinearLayout>
-
-
                         </LinearLayout>
-
                     </LinearLayout>
-
-
                 </LinearLayout>
-
-
             </ScrollView>
         </LinearLayout>
 
