@@ -135,19 +135,38 @@ public class MailLoginFragment extends Fragment {
         callimg.enqueue(new retrofit2.Callback<JSONResponse>() {
             @Override
             public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
-
-                JSONResponse jsonResponse = response.body();
-
-                Site_theme_setting = new ArrayList<>(Arrays.asList(jsonResponse.getSite_theme_setting()));
-
-                String x = Site_theme_setting.get(0).getImage_url();
-                Picasso.get().load(x).into(logo);
-
+                if (response.isSuccessful() && response.body() != null) {
+                    JSONResponse jsonResponse = response.body();
+                    if (jsonResponse.getSite_theme_setting() != null && jsonResponse.getSite_theme_setting().length > 0) {
+                        Site_theme_setting = new ArrayList<>(Arrays.asList(jsonResponse.getSite_theme_setting()));
+                        if (!Site_theme_setting.isEmpty() && Site_theme_setting.get(0) != null) {
+                            String x = Site_theme_setting.get(0).getImage_url();
+                            if (x != null) {
+                                Picasso.get().load(x).into(logo);
+                            } else {
+                                Log.e("MailLoginFragment", "Image URL is null in theme settings.");
+                            }
+                        } else {
+                            Log.e("MailLoginFragment", "Site_theme_setting list is empty or contains null after processing.");
+                        }
+                    } else {
+                        Log.e("MailLoginFragment", "Site theme settings array is null or empty in the response.");
+                    }
+                } else {
+                    Log.e("MailLoginFragment", "Failed to get theme settings. Code: " + response.code() + ", Message: " + response.message());
+                    if (response.errorBody() != null) {
+                        try {
+                            Log.e("MailLoginFragment", "Error body: " + response.errorBody().string());
+                        } catch (java.io.IOException e) {
+                            Log.e("MailLoginFragment", "Error reading error body", e);
+                        }
+                    }
+                }
             }
 
             @Override
             public void onFailure(Call<JSONResponse> call, Throwable t) {
-                Log.d("Error1", t.getMessage());
+                Log.e("MailLoginFragment", "API call onFailure for getthemeSettings", t);
             }
         });
 
@@ -155,29 +174,43 @@ public class MailLoginFragment extends Fragment {
         call.enqueue(new Callback<JSONResponse>() {
             @Override
             public void onResponse(Call<JSONResponse> call, Response<JSONResponse> response) {
-                JSONResponse jsonResponse = response.body();
+                if (response.isSuccessful() && response.body() != null) {
+                    JSONResponse jsonResponse = response.body();
+                    socialsettingList = new ArrayList<>(Arrays.asList(jsonResponse.getSocialsetting()));
 
-                socialsettingList = new ArrayList<>(Arrays.asList(jsonResponse.getSocialsetting()));
+                    if (socialsettingList != null && !socialsettingList.isEmpty()) {
+                        if (socialsettingList.get(0).getFacebook().equalsIgnoreCase("0")) {
+                            facebook_layout.setVisibility(View.GONE);
+                        } else {
+                            facebook_layout.setVisibility(View.VISIBLE);
+                        }
 
-                if (socialsettingList.get(0).getFacebook().equalsIgnoreCase("0")) {
+                        if (socialsettingList.get(0).getGoogle().equalsIgnoreCase("0")) {
+                            google_layout.setVisibility(View.GONE);
+                        } else {
+                            google_layout.setVisibility(View.VISIBLE);
+                        }
 
+                        if (socialsettingList.get(0).getGoogle().equalsIgnoreCase("0") && socialsettingList.get(0).getFacebook().equalsIgnoreCase("0")) {
+                            orContinue_layout.setVisibility(View.GONE);
+                        } else {
+                            orContinue_layout.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        // Handle the case where socialsettingList is null or empty, e.g., hide all social login buttons
+                        facebook_layout.setVisibility(View.GONE);
+                        google_layout.setVisibility(View.GONE);
+                        orContinue_layout.setVisibility(View.GONE);
+                        Log.e("MailLoginFragment", "Social settings list is null or empty.");
+                    }
+                } else {
+                    // Handle unsuccessful response or null body
+                    Log.e("MailLoginFragment", "Failed to get social login settings. Code: " + response.code());
+                    // Optionally, inform the user or hide social login buttons
                     facebook_layout.setVisibility(View.GONE);
-
-                } else {
-                    facebook_layout.setVisibility(View.VISIBLE);
-                }
-
-                if (socialsettingList.get(0).getGoogle().equalsIgnoreCase("0")) {
                     google_layout.setVisibility(View.GONE);
-                } else {
-                    google_layout.setVisibility(View.VISIBLE);
-                }
-                if (socialsettingList.get(0).getGoogle().equalsIgnoreCase("0") && socialsettingList.get(0).getFacebook().equalsIgnoreCase("0")) {
                     orContinue_layout.setVisibility(View.GONE);
-                } else {
-                    orContinue_layout.setVisibility(View.VISIBLE);
                 }
-
             }
 
             @Override

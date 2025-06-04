@@ -101,12 +101,30 @@ public class OTPLoginFragment extends Fragment {
             @Override
             public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
 
-                JSONResponse jsonResponse = response.body();
-
-                ArrayList<Site_theme_setting> Site_theme_setting = new ArrayList<>(Arrays.asList(jsonResponse.getSite_theme_setting()));
-
-                String x = Site_theme_setting.get(0).getImage_url();
-                Picasso.get().load(x).into(logo);
+                if (response.isSuccessful() && response.body() != null) {
+                    JSONResponse jsonResponse = response.body();
+                    if (jsonResponse.getSite_theme_setting() != null && jsonResponse.getSite_theme_setting().length > 0) {
+                        java.util.ArrayList<com.atbuys.runmawi.Site_theme_setting> siteThemeSettingsList = new java.util.ArrayList<>(java.util.Arrays.asList(jsonResponse.getSite_theme_setting()));
+                        if (!siteThemeSettingsList.isEmpty() && siteThemeSettingsList.get(0) != null) {
+                            com.atbuys.runmawi.Site_theme_setting firstSetting = siteThemeSettingsList.get(0);
+                            String imageUrl = firstSetting.getImage_url();
+                            if (imageUrl != null && !imageUrl.isEmpty()) {
+                                Picasso.get().load(imageUrl).into(logo);
+                            } else {
+                                android.util.Log.e("OTPLoginFragment", "Site theme image URL is null or empty.");
+                                // Optionally, set a default image for logo here, e.g.:
+                                // if (logo != null) logo.setImageResource(R.drawable.default_logo_placeholder);
+                            }
+                        } else {
+                            android.util.Log.e("OTPLoginFragment", "Site theme settings list is empty or first element is null.");
+                        }
+                    } else {
+                        android.util.Log.e("OTPLoginFragment", "jsonResponse.getSite_theme_setting() is null or empty.");
+                    }
+                } else {
+                    android.util.Log.e("OTPLoginFragment", "API call for site theme settings failed. Code: " + response.code() + ", Message: " + response.message());
+                    // Optionally, set a default image for logo here
+                }
 
             }
 
@@ -119,23 +137,49 @@ public class OTPLoginFragment extends Fragment {
         call.enqueue(new Callback<JSONResponse>() {
             @Override
             public void onResponse(Call<JSONResponse> call, Response<JSONResponse> response) {
-                JSONResponse jsonResponse = response.body();
-                ArrayList<socialsetting> socialsettingList = new ArrayList<>(Arrays.asList(jsonResponse.getSocialsetting()));
+                if (response.isSuccessful() && response.body() != null) {
+                    JSONResponse jsonResponse = response.body();
+                    if (jsonResponse.getSocialsetting() != null && jsonResponse.getSocialsetting().length > 0) {
+                        java.util.ArrayList<com.atbuys.runmawi.socialsetting> socialsettingList = new java.util.ArrayList<>(java.util.Arrays.asList(jsonResponse.getSocialsetting()));
+                        if (!socialsettingList.isEmpty() && socialsettingList.get(0) != null) {
+                            com.atbuys.runmawi.socialsetting settings = socialsettingList.get(0);
+                            
+                            String facebookSetting = settings.getFacebook();
+                            String googleSetting = settings.getGoogle();
 
-                if (socialsettingList.get(0).getFacebook().equalsIgnoreCase("0")){
-                    facebook_layout.setVisibility(View.GONE);
-                }else {
-                    facebook_layout.setVisibility(View.VISIBLE);
-                }
-                if (socialsettingList.get(0).getGoogle().equalsIgnoreCase("0")) {
-                    google_layout.setVisibility(View.GONE);
+                            boolean facebookDisabled = "0".equalsIgnoreCase(facebookSetting);
+                            boolean googleDisabled = "0".equalsIgnoreCase(googleSetting);
+
+                            if (facebook_layout != null) { 
+                                facebook_layout.setVisibility(facebookDisabled ? View.GONE : View.VISIBLE);
+                            }
+                            if (google_layout != null) {
+                                google_layout.setVisibility(googleDisabled ? View.GONE : View.VISIBLE);
+                            }
+                            if (orContinue_layout != null) {
+                                if (facebookDisabled && googleDisabled) {
+                                    orContinue_layout.setVisibility(View.GONE);
+                                } else {
+                                    orContinue_layout.setVisibility(View.VISIBLE);
+                                }
+                            }
+                        } else {
+                            android.util.Log.e("OTPLoginFragment", "Social settings list is empty or first element is null.");
+                            if (facebook_layout != null) facebook_layout.setVisibility(View.GONE);
+                            if (google_layout != null) google_layout.setVisibility(View.GONE);
+                            if (orContinue_layout != null) orContinue_layout.setVisibility(View.GONE);
+                        }
+                    } else {
+                        android.util.Log.e("OTPLoginFragment", "jsonResponse.getSocialsetting() is null or empty.");
+                        if (facebook_layout != null) facebook_layout.setVisibility(View.GONE);
+                        if (google_layout != null) google_layout.setVisibility(View.GONE);
+                        if (orContinue_layout != null) orContinue_layout.setVisibility(View.GONE);
+                    }
                 } else {
-                    google_layout.setVisibility(View.VISIBLE);
-                }
-                if (socialsettingList.get(0).getGoogle().equalsIgnoreCase("0") && socialsettingList.get(0).getFacebook().equalsIgnoreCase("0")) {
-                    orContinue_layout.setVisibility(View.GONE);
-                } else {
-                    orContinue_layout.setVisibility(View.VISIBLE);
+                    android.util.Log.e("OTPLoginFragment", "API call for social settings failed. Code: " + response.code() + ", Message: " + response.message());
+                    if (facebook_layout != null) facebook_layout.setVisibility(View.GONE);
+                    if (google_layout != null) google_layout.setVisibility(View.GONE);
+                    if (orContinue_layout != null) orContinue_layout.setVisibility(View.GONE);
                 }
             }
 

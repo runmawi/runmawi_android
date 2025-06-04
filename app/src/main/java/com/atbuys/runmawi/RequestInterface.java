@@ -682,4 +682,12 @@ public interface RequestInterface {
     @FormUrlEncoded
     @POST("clear_all_notifications")
     Call<ReadNotification> getClearAll(@Field("user_id") String userId);
+
+    @FormUrlEncoded
+    @POST("create_razorpay_order")
+    Call<CreateRazorpayOrderResponse> createRazorpayOrder(@Field("user_id") String user_id,
+                                                         @Field("video_id") String video_id,
+                                                         @Field("amount") String amount,
+                                                         @Field("ppv_plan") String ppv_plan,
+                                                         @Field("platform") String platform);
 }

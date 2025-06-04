@@ -176,6 +176,11 @@ public class OTPLoginActivity extends AppCompatActivity implements GoogleApiClie
                                     user_detail userDetail = jsonResponse.getUser_detail();
                                     progressDialog.hide();
 
+                                    if (userDetail == null) {
+                                        Toast.makeText(OTPLoginActivity.this, "User details not found for this mobile number.", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+
                                     // Now call the API to send OTP using userDetail
                                     Call<JSONResponse> send_otp_api = ApiClient.getInstance1().getApi().sendingOTP(userDetail.getId());
                                     send_otp_api.enqueue(new Callback<JSONResponse>() {
@@ -184,7 +189,7 @@ public class OTPLoginActivity extends AppCompatActivity implements GoogleApiClie
                                             progressDialog.hide();
                                             if (response.body() != null) {
                                                 JSONResponse jsonResponse1 = response.body();
-                                                if (jsonResponse1.getStatus().equalsIgnoreCase("true")) {
+                                                if (jsonResponse1.getStatus() != null && jsonResponse1.getStatus().equalsIgnoreCase("true")) {
 
                                                     // OTP sent successfully, move to the OTP verification screen
                                                     Intent intent = new Intent(getApplicationContext(), OTPverifylogin_Activity.class);

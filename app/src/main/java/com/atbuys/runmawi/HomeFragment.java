@@ -1674,26 +1674,56 @@ public class HomeFragment extends Fragment {
             return;
         }
         Call<HomeBodyResponse> allChannel = RetrofitSingleton.getInstance().getApi().getHomeCategory(user_id, page);
+        
+        // Log the request parameters before making the call
+        Log.d("HomeFragmentData", "Making API call in getDataFromAPI2. User ID: " + user_id + ", Page: " + page);
+    
         allChannel.enqueue(new retrofit2.Callback<HomeBodyResponse>() {
             @Override
             public void onResponse(Call<HomeBodyResponse> call, retrofit2.Response<HomeBodyResponse> response) {
-
-
-                if (response.isSuccessful()) {
-                    for (HomeCategoryData data : response.body().getHome_page()) {
-                        categoryList.add(data);
+                Log.d("HomeFragmentData", "Request URL (getDataFromAPI2): " + call.request().url().toString());
+                if (response.isSuccessful() && response.body() != null) {
+                    try {
+                        Gson gson = new Gson();
+                        String jsonResponse = gson.toJson(response.body());
+                        Log.d("HomeFragmentData", "Raw JSON Response (getDataFromAPI2): " + jsonResponse);
+                    } catch (Exception e) {
+                        Log.e("HomeFragmentData", "Error converting response to JSON (getDataFromAPI2)", e);
+                    }
+    
+                    // Original logic from onResponse:
+                    // Ensure home_page is not null before iterating
+                    if (response.body().getHome_page() != null) {
+                        for (HomeCategoryData data : response.body().getHome_page()) {
+                            categoryList.add(data);
+                        }
+                        all_adapter.notifyDataSetChanged(); // Moved inside null check for safety
+                    } else {
+                        Log.w("HomeFragmentData", "Home page data is null in successful response (getDataFromAPI2)");
                     }
                     swipeRefreshLayout.setRefreshing(false);
-                    all_adapter.notifyDataSetChanged();
-
+    
+                } else if (!response.isSuccessful()) {
+                    try {
+                        String errorBody = response.errorBody() != null ? response.errorBody().string() : "null or empty error body";
+                        Log.e("HomeFragmentData", "Response unsuccessful (getDataFromAPI2). Code: " + response.code() + " Error Body: " + errorBody);
+                    } catch (java.io.IOException e) {
+                        Log.e("HomeFragmentData", "Error reading error body (getDataFromAPI2)", e);
+                    }
+                    swipeRefreshLayout.setRefreshing(false); // Also ensure this is called on error
+                } else {
+                     Log.w("HomeFragmentData", "Response successful but body is null (getDataFromAPI2). Code: " + response.code());
+                     swipeRefreshLayout.setRefreshing(false); // Also ensure this is called here
                 }
             }
-
+    
             @Override
             public void onFailure(Call<HomeBodyResponse> call, Throwable t) {
+                Log.e("HomeFragmentData", "API Call Failed (getDataFromAPI2): " + call.request().url().toString(), t);
+                swipeRefreshLayout.setRefreshing(false); // Ensure UI reflects loading finished
+                loadingPB.setVisibility(View.GONE); // Hide progress bar on failure
             }
         });
-
     }
 
     public void onBackPressed() {

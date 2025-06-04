@@ -33,6 +33,8 @@ import android.telephony.TelephonyManager;
 import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
+import org.json.JSONObject;
+import org.json.JSONException;
 import android.util.Pair;
 import android.view.Display;
 import android.view.GestureDetector;
@@ -399,6 +401,20 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
     public static PayPalConfiguration config;
 
 
+    String RAZORPAY_KEY_ID;
+    String RAZORPAY_KEY_SECRET;
+    String orderId;
+    /*String RAZORPAY_KEY_ID = "rzp_test_2YHmQefc5LWtAu";
+    String RAZORPAY_KEY_SECRET = "vfMkD21soV9h3R0HZqrkh7nb";*/
+
+    // Utility method to safely convert array to ArrayList with null check
+    private static <T> ArrayList<T> safeArrayToList(T[] array) {
+        if (array == null) {
+            return new ArrayList<>();
+        }
+        return new ArrayList<>(Arrays.asList(array));
+    }
+
     private static boolean isBehindLiveWindow(ExoPlaybackException e) {
         if (e.type != ExoPlaybackException.TYPE_SOURCE) {
             return false;
@@ -412,13 +428,6 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
         }
         return false;
     }
-
-
-    String RAZORPAY_KEY_ID;
-    String RAZORPAY_KEY_SECRET;
-    String orderId;
-    /*String RAZORPAY_KEY_ID = "rzp_test_2YHmQefc5LWtAu";
-    String RAZORPAY_KEY_SECRET = "vfMkD21soV9h3R0HZqrkh7nb";*/
 
     @SuppressLint({"WrongViewCast", "ForegroundServiceType"})
     @Override
@@ -718,7 +727,7 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
             public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     JSONResponse jsonResponse = response.body();
-                    payment_settingslist = new ArrayList<>(Arrays.asList(jsonResponse.getPayment_settings()));
+                    payment_settingslist = safeArrayToList(jsonResponse.getPayment_settings());
                     for (int i = 0; i < payment_settingslist.size(); i++) {
                         if (payment_settingslist.get(i).getPayment_type().equalsIgnoreCase("Razorpay")) {
 
@@ -731,6 +740,20 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
                             }
                         }
                     }
+                } else {
+                    // Log error response or null body for the main getMovieDetails call
+                    String errorBodyString = "null";
+                    if (response.errorBody() != null) {
+                        try {
+                            errorBodyString = response.errorBody().string();
+                        } catch (java.io.IOException e) {
+                            android.util.Log.e("API_RESPONSE_IO_ERR", "IOException reading error body: " + e.getMessage());
+                            errorBodyString = "Error reading error body.";
+                        }
+                    } else {
+                        android.util.Log.w("Log_API_RESPONSE_WARN", "Error body was null for unsuccessful response.");
+                    }
+                    android.util.Log.e("API_RESPONSE_FAILURE", "Main getMovieDetails: Response not successful or body is null. Code: " + response.code() + " Message: " + response.message() + " ErrorBody: " + errorBodyString);
                 }
             }
 
@@ -762,68 +785,15 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
 
 
                             JSONResponse jsonResponse = response.body();
-                            movie_detaildata = new ArrayList<>(Arrays.asList(jsonResponse.getVideodetail()));
+                            movie_detaildata = safeArrayToList(jsonResponse.getVideodetail());
 
-
-
-                               /* if (user_role.equalsIgnoreCase("admin")) {
-                                    resume.setVisibility(View.VISIBLE);
-                                    play_begin.setVisibility(View.VISIBLE);
-                                    paynow.setVisibility(View.GONE);
-                                    rent.setVisibility(View.GONE);
-                                    playnow.setVisibility(View.GONE);
-                                } else if (movie_detaildata.get(0).getAccess().equalsIgnoreCase("ppv")) {
-
-                                    if (jsonResponse.getPpv_video_status().equalsIgnoreCase("can_view")) {
-                                        resume.setVisibility(View.VISIBLE);
-                                        play_begin.setVisibility(View.VISIBLE);
-                                        paynow.setVisibility(View.GONE);
-                                        rent.setVisibility(View.GONE);
-                                        playnow.setVisibility(View.GONE);
-                                    } else {
-                                        if (false) {
-                                            int free_duration = Integer.parseInt(movie_detaildata.get(0).getFree_duration());//610
-                                            int minutes = free_duration / 60;//10
-
-                                            if (minutes < 1) {
-                                                rent_text.setText("Play Video ( Free " + free_duration + " seconds )");
-                                            } else {
-                                                rent_text.setText("Play Video ( Free " + minutes + " minutes )");
-                                            }
-                                        } else {
-                                            rent_text.setText("Rent");
-                                        }
-
-                                        resume.setVisibility(View.GONE);
-                                        play_begin.setVisibility(View.GONE);
-                                        paynow.setVisibility(View.GONE);
-                                        rent.setVisibility(View.VISIBLE);
-                                        playnow.setVisibility(View.GONE);
-                                    }
-
-                                } else if (movie_detaildata.get(0).getAccess().equalsIgnoreCase("subscriber")) {
-
-                                    if (user_role.equalsIgnoreCase("subscriber")) {
-                                        resume.setVisibility(View.VISIBLE);
-                                        play_begin.setVisibility(View.VISIBLE);
-                                        paynow.setVisibility(View.GONE);
-                                        rent.setVisibility(View.GONE);
-                                        playnow.setVisibility(View.GONE);
-                                    } else {
-                                        resume.setVisibility(View.GONE);
-                                        play_begin.setVisibility(View.GONE);
-                                        paynow.setVisibility(View.VISIBLE);
-                                        rent.setVisibility(View.GONE);
-                                        playnow.setVisibility(View.GONE);
-                                    }
-                                } else {
-                                    resume.setVisibility(View.VISIBLE);
-                                    play_begin.setVisibility(View.VISIBLE);
-                                    paynow.setVisibility(View.GONE);
-                                    rent.setVisibility(View.GONE);
-                                    playnow.setVisibility(View.GONE);
-                                }
-                            */
+                            // Check if video details are available
+                            if (movie_detaildata == null || movie_detaildata.isEmpty()) {
+                                android.util.Log.e("VIDEO_DETAILS_ERROR", "No video details found in first API response");
+                                Toast.makeText(HomePageVideoActivity.this, "Video details not available. Please try again later.", Toast.LENGTH_LONG).show();
+                                finish();
+                                return;
+                            }
 
                             if (user_role.equalsIgnoreCase("admin")) {
                                 resume.setVisibility(View.GONE);
@@ -831,9 +801,7 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
                                 paynow.setVisibility(View.GONE);
                                 rent.setVisibility(View.GONE);
                                 playnow.setVisibility(View.VISIBLE);
-                            } else if
-
-                            (movie_detaildata.get(0).getAccess().equalsIgnoreCase("ppv")) {
+                            } else if (movie_detaildata.get(0).getAccess().equalsIgnoreCase("ppv")) {
 
                                 if (jsonResponse.getPpv_exist().equalsIgnoreCase("1")) {
                                     resume.setVisibility(View.GONE);
@@ -842,18 +810,18 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
                                     rent.setVisibility(View.GONE);
                                     playnow.setVisibility(View.VISIBLE);
                                 } else {
-                                       /* if (false) {
-                                            int free_duration = Integer.parseInt(movie_detaildata.get(0).getFree_duration());//610
-                                            int minutes = free_duration / 60;//10
+                                    if (false) {
+                                        int free_duration = Integer.parseInt(movie_detaildata.get(0).getFree_duration());//610
+                                        int minutes = free_duration / 60;//10
 
-                                            if (minutes < 1) {
-                                                rent_text.setText("Play Video ( Free " + free_duration + " seconds )");
-                                            } else {
-                                                rent_text.setText("Play Video ( Free " + minutes + " minutes )");
-                                            }
+                                        if (minutes < 1) {
+                                            rent_text.setText("Play Video ( Free " + free_duration + " seconds )");
                                         } else {
-                                            rent_text.setText("Rent");
-                                        }*/
+                                            rent_text.setText("Play Video ( Free " + minutes + " minutes )");
+                                        }
+                                    } else {
+                                        rent_text.setText("Rent");
+                                    }
 
                                     resume.setVisibility(View.GONE);
                                     play_begin.setVisibility(View.GONE);
@@ -865,7 +833,6 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
                             } else if (movie_detaildata.get(0).getAccess().equalsIgnoreCase("subscriber")) {
 
                                 if (user_role.equalsIgnoreCase("subscriber")) {
-
                                     resume.setVisibility(View.GONE);
                                     play_begin.setVisibility(View.GONE);
                                     paynow.setVisibility(View.GONE);
@@ -905,22 +872,118 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
             }
         });
 
-        Log.w("runmawi_test", videoId);
+        Log.w("Log_runmawi_test", videoId);
+        Log.w("LOG_VIDEO_DEBUG", "Fetching video details for ID: " + videoId + ", User ID: " + user_id);
+        
         Call<JSONResponse> res = ApiClient.getInstance1().getApi().getMovieDetails(user_id, videoId);
         res.enqueue(new retrofit2.Callback<JSONResponse>() {
             @Override
             public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
+                Log.w("LOG_VIDEO_DEBUG", "API Response received. Code: " + response.code() + ", Successful: " + response.isSuccessful());
+                
                 if (response.isSuccessful() && response.body() != null) {
 
+                    com.google.gson.Gson gson = new com.google.gson.Gson();
+                    android.util.Log.d("API_RESPONSE_SUCCESS", "Raw: " + gson.toJson(response.body()));
+
                     JSONResponse jsonResponse = response.body();
-                    movie_detaildata = new ArrayList<>(Arrays.asList(jsonResponse.getVideodetail()));
-                    // moviesubtitlesdata = new ArrayList<>(Arrays.asList(jsonResponse.getmoviesubtitles()));
+                    
+                    // Log the complete API response structure
+                    Log.w("LOG_API_STRUCTURE", "=== Complete API Response Analysis ===");
+                    Log.w("LOG_API_STRUCTURE", "Response Class: " + jsonResponse.getClass().getSimpleName());
+                    try {
+                        Log.w("LOG_API_STRUCTURE", "Status: " + jsonResponse.getStatus());
+                        Log.w("LOG_API_STRUCTURE", "Message: " + jsonResponse.getMessage());
+                        Log.w("LOG_API_STRUCTURE", "Wishlist: " + jsonResponse.getWishlist());
+                        Log.w("LOG_API_STRUCTURE", "Watchlater: " + jsonResponse.getWatchlater());
+                        Log.w("LOG_API_STRUCTURE", "Like: " + jsonResponse.getLike());
+                        Log.w("LOG_API_STRUCTURE", "Dislike: " + jsonResponse.getDislike());
+                        Log.w("LOG_API_STRUCTURE", "Userrole: " + jsonResponse.getUserrole());
+                        Log.w("LOG_API_STRUCTURE", "Main Genre: " + jsonResponse.getMain_genre());
+                        Log.w("LOG_API_STRUCTURE", "Languages: " + jsonResponse.getLanguages());
+                        Log.w("LOG_API_STRUCTURE", "PPV Exist: " + jsonResponse.getPpv_exist());
+                    } catch (Exception e) {
+                        Log.e("LOG_API_STRUCTURE", "Error reading API response fields: " + e.getMessage());
+                    }
+                    
+                    // Enhanced debugging
+                    Log.w("LOG_VIDEO_DEBUG", "API Status: " + jsonResponse.getStatus());
+                    Log.w("LOG_VIDEO_DEBUG", "API Message: " + jsonResponse.getMessage());
+                    Log.w("LOG_VIDEO_DEBUG", "VideoDetail array null: " + (jsonResponse.getVideodetail() == null));
+                    if (jsonResponse.getVideodetail() != null) {
+                        Log.w("LOG_VIDEO_DEBUG", "VideoDetail array length: " + jsonResponse.getVideodetail().length);
+                        
+                        // Log detailed video details information
+                        if (jsonResponse.getVideodetail().length > 0) {
+                            videodetail firstVideo = jsonResponse.getVideodetail()[0];
+                            Log.w("LOG_VIDEO_DETAIL", "=== First Video Details ===");
+                            Log.w("LOG_VIDEO_DETAIL", "Video ID: " + firstVideo.getId());
+                            Log.w("LOG_VIDEO_DETAIL", "Video Title: " + firstVideo.getTitle());
+                            Log.w("LOG_VIDEO_DETAIL", "Video Type: " + firstVideo.getType());
+                            Log.w("LOG_VIDEO_DETAIL", "Video Access: " + firstVideo.getAccess());
+                            
+                            // Check for VideoCipher specific fields
+                            try {
+                                String otp = firstVideo.getOtp();
+                                String playbackInfo = firstVideo.getPlaybackInfo();
+                                Log.w("LOG_VIDEO_DETAIL", "OTP Present: " + (otp != null));
+                                Log.w("LOG_VIDEO_DETAIL", "OTP Value: " + (otp != null ? otp : "NULL"));
+                                Log.w("LOG_VIDEO_DETAIL", "PlaybackInfo Present: " + (playbackInfo != null));
+                                Log.w("LOG_VIDEO_DETAIL", "PlaybackInfo Value: " + (playbackInfo != null ? playbackInfo.substring(0, Math.min(100, playbackInfo.length())) + "..." : "NULL"));
+                            } catch (Exception e) {
+                                Log.e("LOG_VIDEO_DETAIL", "Error accessing OTP/PlaybackInfo: " + e.getMessage());
+                            }
+                            
+                            // Check for video URLs
+                            try {
+                                Log.w("LOG_VIDEO_DETAIL", "MP4 URL: " + firstVideo.getMp4_url());
+                                Log.w("LOG_VIDEO_DETAIL", "Video URL: " + firstVideo.getVideos_url());
+                                Log.w("LOG_VIDEO_DETAIL", "Trailer URL: " + firstVideo.getTrailer());
+                            } catch (Exception e) {
+                                Log.e("LOG_VIDEO_DETAIL", "Error accessing video URLs: " + e.getMessage());
+                            }
+                            
+                            // Check PPV related fields
+                            try {
+                                Log.w("LOG_VIDEO_DETAIL", "PPV Price: " + firstVideo.getPpv_price());
+                                Log.w("LOG_VIDEO_DETAIL", "PPV Plan: " + firstVideo.getPPV_Plan());
+                            } catch (Exception e) {
+                                Log.e("LOG_VIDEO_DETAIL", "Error accessing PPV fields: " + e.getMessage());
+                            }
+                            
+                            Log.w("LOG_VIDEO_DETAIL", "=== End Video Details ===");
+                        }
+                    }
+                    
+                    // Check if videodetail array is null to prevent NullPointerException
+                    if (jsonResponse.getVideodetail() == null) {
+                        android.util.Log.e("VIDEO_DETAILS_ERROR", "API returned null videodetail array");
+                        Toast.makeText(HomePageVideoActivity.this, "Video details not available. Please try again later.", Toast.LENGTH_LONG).show();
+                        finish();
+                        return;
+                    }
+                    
+                    // Populate movie_detaildata from the current response
+                    Log.w("LOG_VIDEO_DEBUG", "Populating movie_detaildata from API response...");
+                    movie_detaildata = safeArrayToList(jsonResponse.getVideodetail());
+                    Log.w("LOG_VIDEO_DEBUG", "movie_detaildata populated. Size: " + (movie_detaildata != null ? movie_detaildata.size() : "NULL"));
+                    
+                    // Check if the API request was successful and video details are available
+                    if (!"true".equalsIgnoreCase(jsonResponse.getStatus()) || movie_detaildata == null || movie_detaildata.isEmpty()) {
+                        android.util.Log.e("VIDEO_DETAILS_ERROR", "API returned error or empty video details. Status: " + jsonResponse.getStatus() + ", Message: " + jsonResponse.getMessage());
+                        
+                        // Show error message to user
+                        if (jsonResponse.getMessage() != null && !jsonResponse.getMessage().isEmpty()) {
+                            Toast.makeText(HomePageVideoActivity.this, jsonResponse.getMessage(), Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(HomePageVideoActivity.this, "Video details not available. Please try again later.", Toast.LENGTH_LONG).show();
+                        }
+                        
+                        // Don't finish the activity, just return to avoid crashes
+                        return;
+                    }
 
-                    shareurl = jsonResponse.getShareurl();
-
-                    video_like = jsonResponse.getLike();
                     video_dislike = jsonResponse.getDislike();
-
 
                     genre2.setText(jsonResponse.getMain_genre());
 
@@ -1187,159 +1250,280 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onFailure(Call<JSONResponse> call, Throwable t) {
                 Log.d("runmawi_test", t.getMessage());
+                Log.e("LOG_VIDEO_DEBUG", "=== API Call Failed ===");
+                Log.e("LOG_VIDEO_DEBUG", "Error Message: " + t.getMessage());
+                Log.e("LOG_VIDEO_DEBUG", "Error Type: " + t.getClass().getSimpleName());
+                Log.e("LOG_VIDEO_DEBUG", "Request URL: " + call.request().url().toString());
+                
+                if (t instanceof java.net.SocketTimeoutException) {
+                    Log.e("LOG_VIDEO_DEBUG", "Timeout Error - Server took too long to respond");
+                } else if (t instanceof java.net.ConnectException) {
+                    Log.e("LOG_VIDEO_DEBUG", "Connection Error - Unable to connect to server");
+                } else if (t instanceof java.net.UnknownHostException) {
+                    Log.e("LOG_VIDEO_DEBUG", "DNS Error - Unable to resolve server hostname");
+                }
+                
+                Toast.makeText(HomePageVideoActivity.this, "Network error. Please check your connection and try again.", Toast.LENGTH_LONG).show();
             }
         });
 
         playnow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                playnow.setClickable(false);
+                
+                if (movie_detaildata.get(0).getAccess().equalsIgnoreCase("ppv")) {
+                    
+                    // ✅ NEW: Android-only auto quality selection logic
+                    QualityAutoSelector.QualityChoice autoChoice = QualityAutoSelector.getAutoQualityChoice(movie_detaildata.get(0));
+                    
+                    Log.w("LOG_Android_AutoQuality", "=== PlayNow Button Clicked ===");
+                    Log.w("LOG_Android_AutoQuality", "autoChoice.isAutoSelected: " + autoChoice.isAutoSelected);
+                    Log.w("LOG_Android_AutoQuality", "autoChoice.name: " + autoChoice.name);
+                    Log.w("LOG_Android_AutoQuality", "autoChoice.price: " + autoChoice.price);
+                    Log.w("LOG_Android_AutoQuality", "autoChoice.resolution: " + autoChoice.resolution);
+                    
+                    if (autoChoice.isAutoSelected) {
+                        // 🎯 Auto-selected quality - skip selection UI, go directly to purchase
+                        Log.w("LOG_Android_AutoQuality", "Auto-selected quality: " + autoChoice.name + " at price: " + autoChoice.price);
+                        
+                        quality_name = autoChoice.name;
+                        quality_price = autoChoice.price;
+                        quality_resolution = autoChoice.resolution;
+                        
+                        Log.w("LOG_Android_AutoQuality", "Set quality variables - name: " + quality_name + ", price: " + quality_price + ", resolution: " + quality_resolution);
+                        
+                        // Check if user already purchased this quality
+                        Call<JSONResponse> qualityCheck = ApiClient.getInstance1().getApi().getMovieDetails1(user_id, videoId, quality_resolution);
+                        qualityCheck.enqueue(new retrofit2.Callback<JSONResponse>() {
+                            @Override
+                            public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
+                                if (response.isSuccessful() && response.body() != null) {
+                                    JSONResponse qualityResponse = response.body();
+                                    
+                                    if (qualityResponse.getPpv_exist().equalsIgnoreCase("1")) {
+                                        // Already purchased - play directly
+                                        Log.w("LOG_Android_AutoQuality", "User already owns " + quality_resolution + " - playing directly");
+                                        playVideoDirectly();
+                                    } else {
+                                        // Need to purchase - show simplified purchase dialog
+                                        Log.w("LOG_Android_AutoQuality", "User doesn't own " + quality_resolution + " - showing purchase dialog");
+                                        showSimplifiedPurchaseDialog();
+                                    }
+                                } else {
+                                    // Error - show purchase dialog to be safe
+                                    Log.w("LOG_Android_AutoQuality", "API error - showing purchase dialog as fallback");
+                                    showSimplifiedPurchaseDialog();
+                                }
+                                playnow.setClickable(true);
+                            }
+                            
+                            @Override
+                            public void onFailure(Call<JSONResponse> call, Throwable t) {
+                                // Error - show purchase dialog to be safe
+                                Log.w("LOG_Android_AutoQuality", "API failure - showing purchase dialog as fallback");
+                                showSimplifiedPurchaseDialog();
+                                playnow.setClickable(true);
+                            }
+                        });
+                        
+                    } else {
+                        // 🔄 Different prices - show traditional quality selection UI
+                        Log.w("LOG_Android_AutoQuality", "Different prices detected - showing quality selection");
+                        showTraditionalQualitySelection();
+                        playnow.setClickable(true);
+                    }
+                    
+                } else {
+                    // Free content - play directly
+                    playVideoDirectly();
+                    playnow.setClickable(true);
+                }
+            }
+        });
+
+        rent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rent.setClickable(false);
+                
+                // ✅ NEW: Use QualityAutoSelector for rent button too
+                QualityAutoSelector.QualityChoice autoChoice = QualityAutoSelector.getAutoQualityChoice(movie_detaildata.get(0));
+                
+                Log.w("LOG_Android_AutoQuality_Rent", "=== Rent Button Clicked ===");
+                Log.w("LOG_Android_AutoQuality_Rent", "autoChoice.isAutoSelected: " + autoChoice.isAutoSelected);
+                Log.w("LOG_Android_AutoQuality_Rent", "autoChoice.name: " + autoChoice.name);
+                Log.w("LOG_Android_AutoQuality_Rent", "autoChoice.price: " + autoChoice.price);
+                Log.w("LOG_Android_AutoQuality_Rent", "autoChoice.resolution: " + autoChoice.resolution);
+                
+                if (autoChoice.isAutoSelected) {
+                    // 🎯 Auto-selected quality - skip selection UI, go directly to purchase
+                    Log.w("LOG_Android_AutoQuality_Rent", "Auto-selected quality: " + autoChoice.name + " at price: " + autoChoice.price);
+                    
+                    quality_name = autoChoice.name;
+                    quality_price = autoChoice.price;
+                    quality_resolution = autoChoice.resolution;
+                    
+                    Log.w("LOG_Android_AutoQuality_Rent", "Set quality variables - name: " + quality_name + ", price: " + quality_price + ", resolution: " + quality_resolution);
+                    
+                    // For rent button, always show simplified purchase dialog (no ownership check needed)
+                    showSimplifiedPurchaseDialog();
+                    rent.setClickable(true);
+                    
+                } else {
+                    // 🔄 Different prices - show traditional quality selection UI
+                    Log.w("LOG_Android_AutoQuality_Rent", "Different prices detected - showing quality selection");
+                    showTraditionalQualitySelection();
+                    rent.setClickable(true);
+                }
+            }
+        });
+
+
+        /*playnow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
                 mediaplayer.pause();
                 qualities1.clear();
-                playnow.setClickable(false);
-
-                if (movie_detaildata.get(0).getType() == null || movie_detaildata.get(0).getType().isEmpty()) {
+                if (movie_detaildata.get(0).getType() == null || movie_detaildata.get(0).getType().isEmpty()) {//movie_detaildata.get(0).getType().equalsIgnoreCase("") || movie_detaildata.get(0).getType().isEmpty() ||
                     Call<JSONResponse> res = ApiClient.getInstance1().getApi().getMovieDetails(user_id, videoId);
                     res.enqueue(new retrofit2.Callback<JSONResponse>() {
                         @Override
                         public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
 
-                            JSONResponse jsonResponse = response.body();
-                            movie_detaildata = new ArrayList<>(Arrays.asList(jsonResponse.getVideodetail()));
+                            if (response.isSuccessful() && response.body() != null) {
 
-                            View view1 = getLayoutInflater().inflate(R.layout.quality_plan_page, null);
-                            BottomSheetDialog dialog1 = new BottomSheetDialog(HomePageVideoActivity.this);
-                            dialog1.setContentView(view1);
 
-                            RecyclerView plans_recyclerview = view1.findViewById(R.id.plans_recyclerview);
-                            CardView watch_free = view1.findViewById(R.id.watch_free);
-                            CardView pay = view1.findViewById(R.id.pay);
-                            TextView text_name = view1.findViewById(R.id.text_name);
-                            TextView pay_text = view1.findViewById(R.id.pay_text);
+                                JSONResponse jsonResponse = response.body();
+                                movie_detaildata = safeArrayToList(jsonResponse.getVideodetail());
 
-                            ItemClickListener itemClickListener;
-                            itemClickListener = new ItemClickListener() {
-                                @Override
-                                public void onClick(String s) {
-                                    // Notify adapter
-                                    plans_recyclerview.post(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            qualityAdapter.notifyDataSetChanged();
-                                        }
-                                    });
-                                }
-                            };
+                                video_access = movie_detaildata.get(0).getAccess();
+                                if ((video_access.equalsIgnoreCase("registered")) || (video_access.equalsIgnoreCase("guest"))) {
+                                    {
+                                        View view1 = getLayoutInflater().inflate(R.layout.quality_plan_page, null);
+                                        BottomSheetDialog dialog1 = new BottomSheetDialog(HomePageVideoActivity.this);
+                                        dialog1.setContentView(view1);
 
-                            Call<JSONResponse> res = ApiClient.getInstance1().getApi().getMovieDetails(user_id, videoId);
-                            res.enqueue(new retrofit2.Callback<JSONResponse>() {
-                                @Override
-                                public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
+                                        RecyclerView plans_recyclerview = view1.findViewById(R.id.plans_recyclerview);
+                                        CardView watch_free = view1.findViewById(R.id.watch_free);
+                                        TextView text_name = view1.findViewById(R.id.text_name);
+                                        //text_name.setText(videotitle1.getText().toString());
 
-                                    JSONResponse jsonResponse = response.body();
-                                    movie_detaildata = new ArrayList<>(Arrays.asList(jsonResponse.getVideodetail()));
-                                    String s = "";
-                                    String p = "";
-                                    String r = "";
+                                        ItemClickListener itemClickListener;
+                                        itemClickListener = new ItemClickListener() {
+                                            @Override
+                                            public void onClick(String s) {
+                                                // Notify adapter
+                                                plans_recyclerview.post(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        qualityAdapter.notifyDataSetChanged();
+                                                    }
+                                                });
+                                            }
+                                        };
 
-                                    for (int i = 0; i < 3; i++) {
 
-                                        if (i == 0) {
-                                            s = "Low Quality (480p)";
-                                            r = "480p";
-                                            p = movie_detaildata.get(0).getPpv_price_480p();
-                                        } else if (i == 1) {
-                                            s = "Medium Quality (720p)";
-                                            r = "720p";
-                                            p = movie_detaildata.get(0).getPpv_price_720p();
-                                        } else if (i == 2) {
-                                            s = "High Quality (1080p)";
-                                            r = "1080p";
-                                            p = movie_detaildata.get(0).getPpv_price_1080p();
-                                        }
+                                        Call<JSONResponse> res = ApiClient.getInstance1().getApi().getMovieDetails(user_id, videoId);
+                                        res.enqueue(new retrofit2.Callback<JSONResponse>() {
+                                            @Override
+                                            public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
 
-                                        quality_free qualityList = new quality_free(s, p, r);
-                                        qualities1.add(qualityList);
+                                                JSONResponse jsonResponse = response.body();
+                                                movie_detaildata = safeArrayToList(jsonResponse.getVideodetail());
+                                                String s = "";
+                                                String p = "";
+                                                String r = "";
+
+                                                for (int i = 0; i < 3; i++) {
+
+                                                    if (i == 0) {
+                                                        s = "Low Quality (480p)";
+                                                        r = "480p";
+                                                    } else if (i == 1) {
+                                                        s = "Medium Quality (720p)";
+                                                        r = "720p";
+                                                    } else if (i == 2) {
+                                                        s = "High Quality (1080p)";
+                                                        r = "1080p";
+                                                    }
+                                                    quality_free qualityList = new quality_free(s, r);
+                                                    qualities1.add(qualityList);
+                                                }
+
+                                                plans_recyclerview.setHasFixedSize(true);
+                                                plans_recyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+                                                qualityAdapter = new QualityAdapter(qualities1, itemClickListener);
+                                                plans_recyclerview.setAdapter(qualityAdapter);
+                                                dialog1.show();
+
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<JSONResponse> call, Throwable t) {
+                                            }
+                                        });
+
+
+                                        plans_recyclerview.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
+                                            @Override
+                                            public void onItemClick(View view, final int position) {
+
+                                                quality_name = qualities1.get(position).getQuality();
+                                                quality_resolution = qualities1.get(position).getResolution();
+
+                                                if (watch_free.getVisibility() == View.GONE) {
+                                                    watch_free.setVisibility(View.VISIBLE);
+                                                }
+
+
+                                            }
+                                        }));
+
+                                        watch_free.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                Log.w("Log_runmawi_test", "u: " + user_id + " v: " + videoId + " q: " + quality_resolution);
+                                                Call<JSONResponse> res = ApiClient.getInstance1().getApi().getMovieDetails1(user_id, videoId, quality_resolution);
+                                                res.enqueue(new retrofit2.Callback<JSONResponse>() {
+                                                    @Override
+                                                    public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
+
+                                                        JSONResponse jsonResponse = response.body();
+                                                        movie_detaildata1 = safeArrayToList(jsonResponse.getVideodetail());
+
+                                                        Intent in = new Intent(getApplicationContext(), Videoplayer_cipher.class);
+                                                        in.putExtra("id", videoId);
+                                                        in.putExtra("otp", movie_detaildata1.get(0).getOtp());
+                                                        in.putExtra("playback", movie_detaildata1.get(0).getPlaybackInfo());
+                                                        startActivity(in);
+
+                                                    }
+
+                                                    @Override
+                                                    public void onFailure(Call<JSONResponse> call, Throwable t) {
+                                                    }
+                                                });
+                                            }
+                                        });
                                     }
+                                } else {
 
-                                    plans_recyclerview.setHasFixedSize(true);
-                                    plans_recyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-                                    qualityAdapter = new QualityAdapter(qualities1, itemClickListener);
-                                    plans_recyclerview.setAdapter(qualityAdapter);
-                                    dialog1.show();
-                                    playnow.setClickable(true);
-
-                                }
-
-                                @Override
-                                public void onFailure(Call<JSONResponse> call, Throwable t) {
-                                }
-                            });
-
-
-                            plans_recyclerview.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(View view, final int position) {
-
-                                    quality_name = qualities1.get(position).getQuality();
-                                    quality_resolution = qualities1.get(position).getResolution();
-                                    quality_price = qualities1.get(position).getPrice();
-                                    pay_text.setText("Upgrade Now");
-
-                                    if (movie_detaildata.get(0).getAccess().equalsIgnoreCase("ppv")) {
-                                        if (quality_resolution.equalsIgnoreCase(movie_detaildata.get(0).getPPV_Plan())) {
-                                            watch_free.setVisibility(View.VISIBLE);
-                                            pay.setVisibility(View.GONE);
-                                        } else {
-                                            pay.setVisibility(View.VISIBLE);
-                                            watch_free.setVisibility(View.GONE);
-                                        }
-                                    } else {
-                                        watch_free.setVisibility(View.VISIBLE);
-                                        pay.setVisibility(View.GONE);
-                                    }
+                                    Intent in = new Intent(getApplicationContext(), Videoplayer_cipher.class);
+                                    in.putExtra("id", videoId);
+                                    in.putExtra("otp", movie_detaildata.get(0).getOtp());
+                                    in.putExtra("playback", movie_detaildata.get(0).getPlaybackInfo());
+                                    startActivity(in);
 
                                 }
-                            }));
 
-                            pay.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    dialog1.cancel();
-                                    createOrder();
-                                }
-                            });
-                            watch_free.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    dialog1.cancel();
-                                    Log.w("runmawi_test", "u: " + user_id + " v: " + videoId + " q: " + quality_resolution);
-                                    Call<JSONResponse> res = ApiClient.getInstance1().getApi().getMovieDetails1(user_id, videoId, quality_resolution);
-                                    res.enqueue(new retrofit2.Callback<JSONResponse>() {
-                                        @Override
-                                        public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
+                            }
 
-                                            JSONResponse jsonResponse = response.body();
-                                            movie_detaildata1 = new ArrayList<>(Arrays.asList(jsonResponse.getVideodetail()));
-
-                                            Intent in = new Intent(getApplicationContext(), Videoplayer_cipher.class);
-                                            in.putExtra("id", videoId);
-                                            in.putExtra("otp", movie_detaildata1.get(0).getOtp());
-                                            in.putExtra("playback", movie_detaildata1.get(0).getPlaybackInfo());
-                                            startActivity(in);
-
-                                        }
-
-                                        @Override
-                                        public void onFailure(Call<JSONResponse> call, Throwable t) {
-                                        }
-                                    });
-                                }
-                            });
                         }
 
                         @Override
-                        public void onFailure(Call<JSONResponse> call, Throwable throwable) {
-
+                        public void onFailure(Call<JSONResponse> call, Throwable t) {
                         }
                     });
                 } else {
@@ -1354,7 +1538,7 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
                             public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
 
                                 JSONResponse jsonResponse = response.body();
-                                movie_detaildata = new ArrayList<>(Arrays.asList(jsonResponse.getVideodetail()));
+                                movie_detaildata = safeArrayToList(jsonResponse.getVideodetail());
 
                                 View view1 = getLayoutInflater().inflate(R.layout.quality_plan_page, null);
                                 BottomSheetDialog dialog1 = new BottomSheetDialog(HomePageVideoActivity.this);
@@ -1386,7 +1570,7 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
                                     public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
 
                                         JSONResponse jsonResponse = response.body();
-                                        movie_detaildata = new ArrayList<>(Arrays.asList(jsonResponse.getVideodetail()));
+                                        movie_detaildata = safeArrayToList(jsonResponse.getVideodetail());
                                         String s = "";
                                         String p = "";
                                         String r = "";
@@ -1462,14 +1646,14 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
                                     @Override
                                     public void onClick(View view) {
                                         dialog1.cancel();
-                                        Log.w("runmawi_test", "u: " + user_id + " v: " + videoId + " q: " + quality_resolution);
+                                        Log.w("Log_runmawi_test", "u: " + user_id + " v: " + videoId + " q: " + quality_resolution);
                                         Call<JSONResponse> res = ApiClient.getInstance1().getApi().getMovieDetails1(user_id, videoId, quality_resolution);
                                         res.enqueue(new retrofit2.Callback<JSONResponse>() {
                                             @Override
                                             public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
 
                                                 JSONResponse jsonResponse = response.body();
-                                                movie_detaildata1 = new ArrayList<>(Arrays.asList(jsonResponse.getVideodetail()));
+                                                movie_detaildata1 = safeArrayToList(jsonResponse.getVideodetail());
 
                                                 Intent in = new Intent(getApplicationContext(), Videoplayer_cipher.class);
                                                 in.putExtra("id", videoId);
@@ -1490,404 +1674,6 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
                             @Override
                             public void onFailure(Call<JSONResponse> call, Throwable throwable) {
 
-                            }
-                        });
-                    }
-                }
-
-            }
-        });
-
-        rent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rent.setClickable(false);
-                qualities.clear();
-                View view1 = getLayoutInflater().inflate(R.layout.quality_plan_page, null);
-                BottomSheetDialog dialog1 = new BottomSheetDialog(HomePageVideoActivity.this);
-                dialog1.setContentView(view1);
-
-                RecyclerView plans_recyclerview = view1.findViewById(R.id.plans_recyclerview);
-                CardView pay = view1.findViewById(R.id.pay);
-                TextView text_name = view1.findViewById(R.id.text_name);
-                //text_name.setText(videotitle1.getText().toString());
-
-                ItemClickListener itemClickListener;
-                itemClickListener = new ItemClickListener() {
-                    @Override
-                    public void onClick(String s) {
-                        // Notify adapter
-                        plans_recyclerview.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                qualityPlansAdapter.notifyDataSetChanged();
-                            }
-                        });
-                    }
-                };
-
-
-                Call<JSONResponse> res = ApiClient.getInstance1().getApi().getMovieDetails(user_id, videoId);
-                res.enqueue(new retrofit2.Callback<JSONResponse>() {
-                    @Override
-                    public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
-
-                        JSONResponse jsonResponse = response.body();
-                        movie_detaildata = new ArrayList<>(Arrays.asList(jsonResponse.getVideodetail()));
-                        String s = "";
-                        String p = "";
-                        String r = "";
-
-                        for (int i = 0; i < 3; i++) {
-
-                            if (i == 0) {
-                                s = "Low Quality (480p)";
-                                r = "480p";
-                                p = movie_detaildata.get(0).getPpv_price_480p();
-                            } else if (i == 1) {
-                                s = "Medium Quality (720p)";
-                                r = "720p";
-                                p = movie_detaildata.get(0).getPpv_price_720p();
-                            } else if (i == 2) {
-                                s = "High Quality (1080p)";
-                                r = "1080p";
-                                p = movie_detaildata.get(0).getPpv_price_1080p();
-                            }
-                            quality qualityList = new quality(s, p, r);
-                            qualities.add(qualityList);
-                        }
-
-                        plans_recyclerview.setHasFixedSize(true);
-                        plans_recyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-                        qualityPlansAdapter = new QualityPlansAdapter(qualities, itemClickListener);
-                        plans_recyclerview.setAdapter(qualityPlansAdapter);
-                        dialog1.show();
-                        rent.setClickable(true);
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<JSONResponse> call, Throwable t) {
-                    }
-                });
-
-                plans_recyclerview.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, final int position) {
-
-                        quality_name = qualities.get(position).getQuality();
-                        quality_price = qualities.get(position).getPrice();
-                        quality_resolution = qualities.get(position).getResolution();
-
-                        if (pay.getVisibility() == View.GONE) {
-                            pay.setVisibility(View.VISIBLE);
-                        }
-                    }
-                }));
-
-                pay.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog1.cancel();
-                        createOrder();
-                    }
-                });
-            }
-        });
-
-
-        /*playnow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                mediaplayer.pause();
-                qualities1.clear();
-                if (movie_detaildata.get(0).getType() == null || movie_detaildata.get(0).getType().isEmpty()) {//movie_detaildata.get(0).getType().equalsIgnoreCase("") || movie_detaildata.get(0).getType().isEmpty() ||
-                    Call<JSONResponse> res = ApiClient.getInstance1().getApi().getMovieDetails(user_id, videoId);
-                    res.enqueue(new retrofit2.Callback<JSONResponse>() {
-                        @Override
-                        public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
-
-                            if (response.isSuccessful() && response.body() != null) {
-
-
-                                JSONResponse jsonResponse = response.body();
-                                movie_detaildata = new ArrayList<>(Arrays.asList(jsonResponse.getVideodetail()));
-
-                                video_access = movie_detaildata.get(0).getAccess();
-                                if ((video_access.equalsIgnoreCase("registered")) || (video_access.equalsIgnoreCase("guest"))) {
-                                    {
-                                        View view1 = getLayoutInflater().inflate(R.layout.quality_plan_page, null);
-                                        BottomSheetDialog dialog1 = new BottomSheetDialog(HomePageVideoActivity.this);
-                                        dialog1.setContentView(view1);
-
-                                        RecyclerView plans_recyclerview = view1.findViewById(R.id.plans_recyclerview);
-                                        CardView watch_free = view1.findViewById(R.id.watch_free);
-                                        TextView text_name = view1.findViewById(R.id.text_name);
-                                        //text_name.setText(videotitle1.getText().toString());
-
-                                        ItemClickListener itemClickListener;
-                                        itemClickListener = new ItemClickListener() {
-                                            @Override
-                                            public void onClick(String s) {
-                                                // Notify adapter
-                                                plans_recyclerview.post(new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        qualityAdapter.notifyDataSetChanged();
-                                                    }
-                                                });
-                                            }
-                                        };
-
-
-                                        Call<JSONResponse> res = ApiClient.getInstance1().getApi().getMovieDetails(user_id, videoId);
-                                        res.enqueue(new retrofit2.Callback<JSONResponse>() {
-                                            @Override
-                                            public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
-
-                                                JSONResponse jsonResponse = response.body();
-                                                movie_detaildata = new ArrayList<>(Arrays.asList(jsonResponse.getVideodetail()));
-                                                String s = "";
-                                                String p = "";
-                                                String r = "";
-
-                                                for (int i = 0; i < 3; i++) {
-
-                                                    if (i == 0) {
-                                                        s = "Low Quality (480p)";
-                                                        r = "480p";
-                                                    } else if (i == 1) {
-                                                        s = "Medium Quality (720p)";
-                                                        r = "720p";
-                                                    } else if (i == 2) {
-                                                        s = "High Quality (1080p)";
-                                                        r = "1080p";
-                                                    }
-                                                    quality_free qualityList = new quality_free(s, r);
-                                                    qualities1.add(qualityList);
-                                                }
-
-                                                plans_recyclerview.setHasFixedSize(true);
-                                                plans_recyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-                                                qualityAdapter = new QualityAdapter(qualities1, itemClickListener);
-                                                plans_recyclerview.setAdapter(qualityAdapter);
-                                                dialog1.show();
-
-                                            }
-
-                                            @Override
-                                            public void onFailure(Call<JSONResponse> call, Throwable t) {
-                                            }
-                                        });
-
-
-                                        plans_recyclerview.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
-                                            @Override
-                                            public void onItemClick(View view, final int position) {
-
-                                                quality_name = qualities1.get(position).getQuality();
-                                                quality_resolution = qualities1.get(position).getResolution();
-
-                                                if (watch_free.getVisibility() == View.GONE) {
-                                                    watch_free.setVisibility(View.VISIBLE);
-                                                }
-
-
-                                            }
-                                        }));
-
-                                        watch_free.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View view) {
-                                                Log.w("runmawi_test", "u: " + user_id + " v: " + videoId + " q: " + quality_resolution);
-                                                Call<JSONResponse> res = ApiClient.getInstance1().getApi().getMovieDetails1(user_id, videoId, quality_resolution);
-                                                res.enqueue(new retrofit2.Callback<JSONResponse>() {
-                                                    @Override
-                                                    public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
-
-                                                        JSONResponse jsonResponse = response.body();
-                                                        movie_detaildata1 = new ArrayList<>(Arrays.asList(jsonResponse.getVideodetail()));
-
-                                                        Intent in = new Intent(getApplicationContext(), Videoplayer_cipher.class);
-                                                        in.putExtra("id", videoId);
-                                                        in.putExtra("otp", movie_detaildata1.get(0).getOtp());
-                                                        in.putExtra("playback", movie_detaildata1.get(0).getPlaybackInfo());
-                                                        startActivity(in);
-
-                                                    }
-
-                                                    @Override
-                                                    public void onFailure(Call<JSONResponse> call, Throwable t) {
-                                                    }
-                                                });
-                                            }
-                                        });
-                                    }
-                                } else {
-
-                                    Intent in = new Intent(getApplicationContext(), Videoplayer_cipher.class);
-                                    in.putExtra("id", videoId);
-                                    in.putExtra("otp", movie_detaildata.get(0).getOtp());
-                                    in.putExtra("playback", movie_detaildata.get(0).getPlaybackInfo());
-                                    startActivity(in);
-
-                                }
-
-                            }
-
-                        }
-
-                        @Override
-                        public void onFailure(Call<JSONResponse> call, Throwable t) {
-                        }
-                    });
-                } else {
-                    if (movie_detaildata.get(0).getType().equalsIgnoreCase("embed")) {
-                        Intent intent1 = new Intent(getApplicationContext(), EncodedWebViewActivity.class);
-                        intent1.putExtra("url", movie_detaildata.get(0).getVideos_url());
-                        startActivity(intent1);
-                    } else {
-                        Call<JSONResponse> res = ApiClient.getInstance1().getApi().getMovieDetails(user_id, videoId);
-                        res.enqueue(new retrofit2.Callback<JSONResponse>() {
-
-                            @Override
-                            public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
-
-                                if (response.isSuccessful() && response.body() != null) {
-
-
-                                    JSONResponse jsonResponse = response.body();
-                                    movie_detaildata = new ArrayList<>(Arrays.asList(jsonResponse.getVideodetail()));
-
-                                    video_access = movie_detaildata.get(0).getAccess();
-                                    if ((video_access.equalsIgnoreCase("registered")) || (video_access.equalsIgnoreCase("guest"))) {
-                                        {
-                                            View view1 = getLayoutInflater().inflate(R.layout.quality_plan_page, null);
-                                            BottomSheetDialog dialog1 = new BottomSheetDialog(HomePageVideoActivity.this);
-                                            dialog1.setContentView(view1);
-
-                                            RecyclerView plans_recyclerview = view1.findViewById(R.id.plans_recyclerview);
-                                            CardView watch_free = view1.findViewById(R.id.watch_free);
-                                            TextView text_name = view1.findViewById(R.id.text_name);
-                                            //text_name.setText(videotitle1.getText().toString());
-
-                                            ItemClickListener itemClickListener;
-                                            itemClickListener = new ItemClickListener() {
-                                                @Override
-                                                public void onClick(String s) {
-                                                    // Notify adapter
-                                                    plans_recyclerview.post(new Runnable() {
-                                                        @Override
-                                                        public void run() {
-                                                            qualityAdapter.notifyDataSetChanged();
-                                                        }
-                                                    });
-                                                }
-                                            };
-
-
-                                            Call<JSONResponse> res = ApiClient.getInstance1().getApi().getMovieDetails(user_id, videoId);
-                                            res.enqueue(new retrofit2.Callback<JSONResponse>() {
-                                                @Override
-                                                public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
-
-                                                    JSONResponse jsonResponse = response.body();
-                                                    movie_detaildata = new ArrayList<>(Arrays.asList(jsonResponse.getVideodetail()));
-                                                    String s = "";
-                                                    String p = "";
-                                                    String r = "";
-
-                                                    for (int i = 0; i < 3; i++) {
-
-                                                        if (i == 0) {
-                                                            s = "Low Quality (480p)";
-                                                            r = "480p";
-                                                        } else if (i == 1) {
-                                                            s = "Medium Quality (720p)";
-                                                            r = "720p";
-                                                        } else if (i == 2) {
-                                                            s = "High Quality (1080p)";
-                                                            r = "1080p";
-                                                        }
-                                                        quality_free qualityList = new quality_free(s, r);
-                                                        qualities1.add(qualityList);
-                                                    }
-
-                                                    plans_recyclerview.setHasFixedSize(true);
-                                                    plans_recyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-                                                    qualityAdapter = new QualityAdapter(qualities1, itemClickListener);
-                                                    plans_recyclerview.setAdapter(qualityAdapter);
-                                                    dialog1.show();
-
-                                                }
-
-                                                @Override
-                                                public void onFailure(Call<JSONResponse> call, Throwable t) {
-                                                }
-                                            });
-
-
-                                            plans_recyclerview.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
-                                                @Override
-                                                public void onItemClick(View view, final int position) {
-
-                                                    quality_name = qualities1.get(position).getQuality();
-                                                    quality_resolution = qualities1.get(position).getResolution();
-
-                                                    if (watch_free.getVisibility() == View.GONE) {
-                                                        watch_free.setVisibility(View.VISIBLE);
-                                                    }
-
-
-                                                }
-                                            }));
-
-                                            watch_free.setOnClickListener(new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View view) {
-                                                    Log.w("runmawi_test", "u: " + user_id + " v: " + videoId + " q: " + quality_resolution);
-                                                    Call<JSONResponse> res = ApiClient.getInstance1().getApi().getMovieDetails1(user_id, videoId, quality_resolution);
-                                                    res.enqueue(new retrofit2.Callback<JSONResponse>() {
-                                                        @Override
-                                                        public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
-
-                                                            JSONResponse jsonResponse = response.body();
-                                                            movie_detaildata1 = new ArrayList<>(Arrays.asList(jsonResponse.getVideodetail()));
-
-                                                            Intent in = new Intent(getApplicationContext(), Videoplayer_cipher.class);
-                                                            in.putExtra("id", videoId);
-                                                            in.putExtra("otp", movie_detaildata1.get(0).getOtp());
-                                                            in.putExtra("playback", movie_detaildata1.get(0).getPlaybackInfo());
-                                                            startActivity(in);
-
-                                                        }
-
-                                                        @Override
-                                                        public void onFailure(Call<JSONResponse> call, Throwable t) {
-                                                        }
-                                                    });
-                                                }
-                                            });
-                                        }
-                                    } else {
-
-                                        Intent in = new Intent(getApplicationContext(), Videoplayer_cipher.class);
-                                        in.putExtra("id", videoId);
-                                        in.putExtra("otp", movie_detaildata.get(0).getOtp());
-                                        in.putExtra("playback", movie_detaildata.get(0).getPlaybackInfo());
-                                        startActivity(in);
-
-                                    }
-
-                                }
-
-
-                            }
-
-
-                            @Override
-                            public void onFailure(Call<JSONResponse> call, Throwable t) {
                             }
                         });
                     }
@@ -2097,7 +1883,7 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
                                     wes.setHasFixedSize(true);
                                     wes.setLayoutManager(new GridLayoutManager(HomePageVideoActivity.this, 1));
 
-                                    active_payment_settingsList = new ArrayList<>(Arrays.asList(jsonResponse.getActive_payment_settings()));
+                                    active_payment_settingsList = safeArrayToList(jsonResponse.getActive_payment_settings());
                                     active_payment_settingsAdopter = new Active_Payment_settingsAdopter(active_payment_settingsList);
                                     wes.setAdapter(active_payment_settingsAdopter);
 
@@ -2172,7 +1958,7 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
                                         public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
                                             if (response.isSuccessful() && response.body() != null) {
                                                 JSONResponse jsonResponse = response.body();
-                                                payment_settingslist = new ArrayList<>(Arrays.asList(jsonResponse.getPayment_settings()));
+                                                payment_settingslist = safeArrayToList(jsonResponse.getPayment_settings());
                                                 if (payment_settingslist.get(0).getLive_mode().equalsIgnoreCase(String.valueOf(0))) {
                                                     key = payment_settingslist.get(0).getTest_publishable_key();
                                                 } else {
@@ -2439,6 +2225,8 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
         castandcrewrecycler.setLayoutManager(manager);
         castandcrewrecycler.setAdapter(castandcrewadapter);
 
+        // Debug: First check if video exists in database at all
+
         usercommentrecycler.setHasFixedSize(true);
         usercommentrecycler.setLayoutManager(layoutManager1);
         usercommentrecycler.setAdapter(commentsAdopter);
@@ -2506,8 +2294,8 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
                 if (response.isSuccessful() && response.body() != null) {
                     JSONResponse jsonResponse = response.body();
 
-                    if (jsonResponse.getComment().length != 0) {
-                        usercommentslist = new ArrayList<>(Arrays.asList(jsonResponse.getComment()));
+                    if (jsonResponse.getComment() != null && jsonResponse.getComment().length != 0) {
+                        usercommentslist = safeArrayToList(jsonResponse.getComment());
                         commentsAdopter = new CommentsAdopter(usercommentslist);
                         usercommentrecycler.setAdapter(commentsAdopter);
                     }
@@ -3143,12 +2931,12 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
                     JSONResponse jsonResponse = response.body();
 
 
-                    if (jsonResponse.getCast_details().length != 0) {
+                    if (jsonResponse.getCast_details() != null && jsonResponse.getCast_details().length != 0) {
 
 
                         castandcrewrecycler.setVisibility(View.VISIBLE);
                         no_cast.setVisibility(View.GONE);
-                        castdetails = new ArrayList<>(Arrays.asList(jsonResponse.getCast_details()));
+                        castdetails = safeArrayToList(jsonResponse.getCast_details());
                         castandcrewadapter = new castandcrewadapter(castdetails);
                         castandcrewrecycler.setAdapter(castandcrewadapter);
 
@@ -3170,6 +2958,240 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
                 Log.d("Error", t.getMessage());
 
             }
+        });
+    }
+
+
+    private void showSimplifiedPurchaseDialog() {
+        // ✅ DEBUG: Log the values being used
+        Log.w("LOG_SimplifiedDialog", "=== Simplified Purchase Dialog ===");
+        Log.w("LOG_SimplifiedDialog", "quality_name: " + (quality_name != null ? quality_name : "NULL"));
+        Log.w("LOG_SimplifiedDialog", "quality_price: " + (quality_price != null ? quality_price : "NULL"));
+        Log.w("LOG_SimplifiedDialog", "quality_resolution: " + (quality_resolution != null ? quality_resolution : "NULL"));
+        
+        View view1 = getLayoutInflater().inflate(R.layout.simplified_purchase_dialog, null);
+        BottomSheetDialog dialog1 = new BottomSheetDialog(HomePageVideoActivity.this);
+        dialog1.setContentView(view1);
+        
+        TextView qualityText = view1.findViewById(R.id.quality_text);
+        TextView priceText = view1.findViewById(R.id.price_text);
+        TextView currencyText = view1.findViewById(R.id.currency_text);
+        CardView purchaseButton = view1.findViewById(R.id.purchase_button);
+        
+        // ✅ NULL CHECKS: Set with fallback values
+        if (quality_name != null && !quality_name.isEmpty()) {
+            qualityText.setText(quality_name);
+            Log.w("LOG_SimplifiedDialog", "Set quality_name: " + quality_name);
+        } else {
+            qualityText.setText("High Quality (1080p)"); // Fallback
+            Log.w("LOG_SimplifiedDialog", "Used fallback quality name");
+        }
+        
+        if (quality_price != null && !quality_price.isEmpty()) {
+            priceText.setText(quality_price);
+            Log.w("LOG_SimplifiedDialog", "Set quality_price: " + quality_price);
+        } else {
+            priceText.setText("0"); // Fallback
+            Log.w("LOG_SimplifiedDialog", "Used fallback price: 0");
+        }
+        
+        // Get currency symbol
+        Call<JSONResponse> currencyCall = ApiClient.getInstance1().getApi().getStripeOnetime();
+        currencyCall.enqueue(new retrofit2.Callback<JSONResponse>() {
+            @Override
+            public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
+                if (response.body() != null && response.body().getCurrency_Symbol() != null) {
+                    currencyText.setText(response.body().getCurrency_Symbol());
+                    Log.w("LOG_SimplifiedDialog", "Set currency: " + response.body().getCurrency_Symbol());
+                } else {
+                    currencyText.setText("₹"); // Fallback
+                    Log.w("LOG_SimplifiedDialog", "Used fallback currency: ₹");
+                }
+            }
+            @Override
+            public void onFailure(Call<JSONResponse> call, Throwable t) {
+                currencyText.setText("₹"); // Fallback on failure
+                Log.w("LOG_SimplifiedDialog", "Currency API failed, using fallback: ₹");
+            }
+        });
+        
+        purchaseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog1.dismiss();
+                createOrder(); // Existing payment flow
+            }
+        });
+        
+        dialog1.show();
+        Log.w("LOG_SimplifiedDialog", "Dialog shown successfully");
+    }
+
+    private void showTraditionalQualitySelection() {
+        if (movie_detaildata == null || movie_detaildata.isEmpty()) {
+            Log.e("HomePageVideoActivity", "showTraditionalQualitySelection: movie_detaildata is null or empty.");
+            Toast.makeText(this, "Video details not available.", Toast.LENGTH_SHORT).show();
+            if (playnow != null) playnow.setClickable(true); // Re-enable the main play button
+            return;
+        }
+    
+        final videodetail currentVideoDetails = movie_detaildata.get(0);
+        final String videoAccessType = currentVideoDetails.getAccess();
+    
+        // Initialize or clear the list for quality options
+        if (qualities1 == null) {
+            qualities1 = new ArrayList<>();
+        } else {
+            qualities1.clear();
+        }
+    
+        View view1 = getLayoutInflater().inflate(R.layout.quality_plan_page, null);
+        final BottomSheetDialog dialog1 = new BottomSheetDialog(HomePageVideoActivity.this);
+        dialog1.setContentView(view1);
+    
+        final RecyclerView plans_recyclerview = view1.findViewById(R.id.plans_recyclerview);
+        final CardView payButton = view1.findViewById(R.id.pay);
+        final TextView payButtonText = view1.findViewById(R.id.pay_text); // Text inside payButton
+        final CardView watchFreeButton = view1.findViewById(R.id.watch_free);
+        TextView dialogTitle = view1.findViewById(R.id.text_name);
+    
+        if (dialogTitle != null && currentVideoDetails.getTitle() != null) {
+            dialogTitle.setText(currentVideoDetails.getTitle());
+        }
+    
+        // Initially hide buttons
+        payButton.setVisibility(View.GONE);
+        watchFreeButton.setVisibility(View.GONE);
+    
+        // Populate qualities1 list (using quality_free objects)
+        String name480p = "Low Quality (480p)";
+        String res480p = "480p";
+        String price480p = currentVideoDetails.getPpv_price_480p();
+        if (price480p != null) { // Add if price info exists (even if "0" or empty)
+            qualities1.add(new quality_free(name480p, price480p, res480p));
+        }
+    
+        String name720p = "Medium Quality (720p)";
+        String res720p = "720p";
+        String price720p = currentVideoDetails.getPpv_price_720p();
+        if (price720p != null) {
+            qualities1.add(new quality_free(name720p, price720p, res720p));
+        }
+    
+        String name1080p = "High Quality (1080p)";
+        String res1080p = "1080p";
+        String price1080p = currentVideoDetails.getPpv_price_1080p();
+        if (price1080p != null) {
+            qualities1.add(new quality_free(name1080p, price1080p, res1080p));
+        }
+        
+        if (qualities1.isEmpty()) {
+            Log.e("HomePageVideoActivity", "No qualities available in showTraditionalQualitySelection.");
+            Toast.makeText(this, "No video quality options found.", Toast.LENGTH_SHORT).show();
+            dialog1.dismiss(); // Dismiss if there's nothing to show
+            if (playnow != null) playnow.setClickable(true);
+            return;
+        }
+    
+        ItemClickListener itemClickListener = s -> {
+            if (plans_recyclerview.getAdapter() != null) {
+                plans_recyclerview.post(() -> plans_recyclerview.getAdapter().notifyDataSetChanged());
+            }
+        };
+    
+        qualityAdapter = new QualityAdapter(qualities1, itemClickListener); // Assuming QualityAdapter takes ArrayList<quality_free>
+        plans_recyclerview.setHasFixedSize(true);
+        plans_recyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+        plans_recyclerview.setAdapter(qualityAdapter);
+    
+        plans_recyclerview.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, final int position) {
+                if (position >= qualities1.size()) return;
+    
+                quality_free selectedQuality = qualities1.get(position);
+                quality_name = selectedQuality.getQuality();
+                quality_resolution = selectedQuality.getResolution();
+                // quality_price might be null if quality_free constructor without price was used for some items.
+                // Ensure your quality_free class handles getPrice() appropriately (e.g., returns "0" or actual price).
+                // For this adapter, it seems quality_free instances are always created with a price string.
+                quality_price = selectedQuality.getPrice(); 
+    
+                boolean selectedPriceIsEffectivelyZero = (quality_price == null || quality_price.isEmpty() || quality_price.equals("0"));
+    
+                if (videoAccessType.equalsIgnoreCase("ppv")) {
+                    // Check if this PPV quality is already owned by the user
+                    // currentVideoDetails.getPPV_Plan() should return the RESOLUTION of the owned plan (e.g., "720p")
+                    if (quality_resolution.equalsIgnoreCase(currentVideoDetails.getPPV_Plan())) {
+                        watchFreeButton.setVisibility(View.VISIBLE);
+                        payButton.setVisibility(View.GONE);
+                    } 
+                    // If not owned, but the selected quality tier itself is free (price is "0")
+                    else if (selectedPriceIsEffectivelyZero) {
+                        watchFreeButton.setVisibility(View.VISIBLE);
+                        payButton.setVisibility(View.GONE);
+                    } 
+                    // Otherwise, it's a PPV quality that needs to be purchased/upgraded
+                    else {
+                        watchFreeButton.setVisibility(View.GONE);
+                        payButton.setVisibility(View.VISIBLE);
+                        if (payButtonText != null) payButtonText.setText("Upgrade Now"); // Or "Pay"
+                    }
+                } else {
+                    // For non-PPV access types (e.g., "registered", "guest") that show quality selection
+                    // it's always free to watch once selected.
+                    watchFreeButton.setVisibility(View.VISIBLE);
+                    payButton.setVisibility(View.GONE);
+                }
+            }
+        }));
+    
+        payButton.setOnClickListener(v -> {
+            dialog1.dismiss();
+            if (quality_price == null || quality_resolution == null) {
+                Toast.makeText(HomePageVideoActivity.this, "Please select a quality to purchase.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            // Ensure quality_name is also set if createOrder() depends on it.
+            // quality_name is set in the item click listener.
+            createOrder(); // Uses member variables quality_price, quality_name, quality_resolution
+        });
+    
+        watchFreeButton.setOnClickListener(v -> {
+            dialog1.dismiss();
+            if (quality_resolution == null) {
+                Toast.makeText(HomePageVideoActivity.this, "Please select a quality to watch.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            playVideoDirectly(); // Uses member variable quality_resolution
+        });
+    
+        dialog1.setOnDismissListener(dialogInterface -> {
+            if (playnow != null) playnow.setClickable(true); // Re-enable the main "Play Now" button
+        });
+    
+        dialog1.show();
+        // Consider disabling playnow button while dialog is shown:
+        // if (playnow != null) playnow.setClickable(false); 
+    }
+
+    private void playVideoDirectly() {
+        Call<JSONResponse> res = ApiClient.getInstance1().getApi().getMovieDetails1(user_id, videoId, quality_resolution);
+        res.enqueue(new retrofit2.Callback<JSONResponse>() {
+            @Override
+            public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
+                JSONResponse jsonResponse = response.body();
+                movie_detaildata1 = safeArrayToList(jsonResponse.getVideodetail());
+                
+                Intent in = new Intent(getApplicationContext(), Videoplayer_cipher.class);
+                in.putExtra("id", videoId);
+                in.putExtra("otp", movie_detaildata1.get(0).getOtp());
+                in.putExtra("playback", movie_detaildata1.get(0).getPlaybackInfo());
+                startActivity(in);
+            }
+            
+            @Override
+            public void onFailure(Call<JSONResponse> call, Throwable t) {}
         });
     }
 
@@ -3284,11 +3306,30 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
     }
 
     private void startPaymentWithQuality(String id) {
-
+        Log.w("LOG_Runmawi_Payment", "startPaymentWithQuality called with orderId: " + id);
         final Activity activity = this;
         final Checkout co = new Checkout();
 
         try {
+            // Validate critical parameters
+            if (id == null || id.isEmpty()) {
+                Log.e("LOG_Runmawi_Payment", "startPaymentWithQuality - Order ID is null or empty!");
+                Toast.makeText(this, "Payment setup error: Invalid order ID", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            
+            if (quality_price == null || quality_price.isEmpty()) {
+                Log.e("LOG_Runmawi_Payment", "startPaymentWithQuality - Quality price is null or empty!");
+                Toast.makeText(this, "Payment setup error: Invalid price", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            
+            if (RAZORPAY_KEY_ID == null || RAZORPAY_KEY_ID.isEmpty()) {
+                Log.e("LOG_Runmawi_Payment", "startPaymentWithQuality - Razorpay Key ID is null or empty!");
+                Toast.makeText(this, "Payment setup error: Invalid Razorpay configuration", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             JSONObject options = new JSONObject();
             options.put("name", "Runmawi");
             options.put("description", id);
@@ -3297,24 +3338,40 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
             options.put("currency", "INR");
             options.put("order_id", id);
             String payment = quality_price;
+            Log.w("LOG_Runmawi_Payment", "startPaymentWithQuality - quality_price: " + payment);
 
             //amount is in paise so please multiple it by 100
             //Payment failed Invalid amount (should be passed in integer paise. Minimum value is 100 paise, i.e. ₹ 1)
             double total = Double.parseDouble(payment);
-            Log.w("runmawii", "p: " + payment + " d: " + total + " t: " + (total * 100));
+            Log.w("LOG_runmawii", "p: " + payment + " d: " + total + " t: " + (total * 100));
             total = total * 100;
+            
+            // Validate minimum amount (100 paise = ₹1)
+            if (total < 100) {
+                Log.e("LOG_Runmawi_Payment", "startPaymentWithQuality - Amount too low: " + total + " paise. Minimum is 100 paise (₹1)");
+                Toast.makeText(this, "Payment error: Amount is too low (minimum ₹1)", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            
             // p: 100 d: 100.0 t: 10000.0
 
-            options.put("amount", total);
+            options.put("amount", (int) total);
             JSONObject preFill = new JSONObject();
             preFill.put("email", "");
             preFill.put("contact", "");
             options.put("prefill", preFill);
+
+            // Set the Key ID for Razorpay Checkout
+            co.setKeyID(RAZORPAY_KEY_ID); 
+            Log.w("LOG_Runmawi_Payment", "startPaymentWithQuality - RAZORPAY_KEY_ID: " + RAZORPAY_KEY_ID);
+            Log.w("LOG_Runmawi_Payment", "startPaymentWithQuality - Options before co.open: " + options.toString());
+
             co.open(activity, options);
         } catch (Exception e) {
             //Toast.makeText(activity, "Error in payment: "+e.getMessage(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
-            Log.w("runmawii", "Exception: " + e);
+            Log.w("LOG_Runmawi_Payment", "startPaymentWithQuality - Exception: " + e.getMessage(), e);
+            Log.w("LOG_runmawii", "Exception: " + e);
         }
 
     }
@@ -3336,11 +3393,13 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
             //Payment failed Invalid amount (should be passed in integer paise. Minimum value is 100 paise, i.e. ₹ 1)
             double total = Double.parseDouble(payment);
             total = total * 100;
-            options.put("amount", total);
+            options.put("amount", (int) total);
             JSONObject preFill = new JSONObject();
             preFill.put("email", "");
             preFill.put("contact", "");
             options.put("prefill", preFill);
+
+
             co.open(activity, options);
         } catch (Exception e) {
             Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -3351,70 +3410,32 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
 
 
     @Override
-    public void onPaymentSuccess(String s) {
-
-        Log.w("runmawii", "success: " + s);
-        fetchPaymentDetails(s);
-        //payment successfull pay_DGU19rDsInjcF2
-
-        /*Api.getClient().getAddPayperViewWithqualityStore(user_id, idd.getText().toString(), s,"captured", "razorpay", quality_resolution, quality_price, "Android", new Callback<Addpayperview>() {
-
+    public void onPaymentSuccess(String razorpayPaymentId) {
+        Log.w("LOG_Runmawi_Payment", "Payment successful. Payment ID: " + razorpayPaymentId);
+        
+        // Don't call add_payperview anymore - webhook handles it!
+        // Just show success and refresh access
+        Toast.makeText(this, "Payment successful! Processing...", Toast.LENGTH_SHORT).show();
+        
+        // Wait a moment for webhook to process, then refresh access
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void success(Addpayperview addpayperview1, Response response) {
-
-                addpayperview = addpayperview1;
-                if (addpayperview.getStatus().equalsIgnoreCase("true")) {
-                    Toast.makeText(getApplicationContext(), addpayperview.getMessage(), Toast.LENGTH_LONG).show();
-
-                    changeAccess();
-                } else if (addpayperview.getStatus().equalsIgnoreCase("false")) {
-                    Toast.makeText(getApplicationContext(), addpayperview.getMessage(), Toast.LENGTH_LONG).show();
-                }
+            public void run() {
+                changeAccess(); // This will refresh the video access
             }
-
-            @Override
-            public void failure(RetrofitError error) {
-
-            }
-        });*/
-
+        }, 3000); // 3 second delay
     }
 
     @Override
-    public void onPaymentError(int i, String s) {
-        try {
-            //Toast.makeText(this, "Payment error: " + s, Toast.LENGTH_SHORT).show();
-            Log.w("runmawii", "Payment error: " + s);
-
-            Api.getClient().getAddPayperViewWithqualityStore(user_id, idd.getText().toString(), orderId, "failed", "razorpay", quality_resolution, quality_price, "Android", new Callback<Addpayperview>() {
-                @Override
-                public void success(Addpayperview addpayperview1, Response response) {
-
-                    addpayperview = addpayperview1;
-                    if (addpayperview.getStatus().equalsIgnoreCase("true")) {
-                        //Toast.makeText(getApplicationContext(), addpayperview.getMessage(), Toast.LENGTH_LONG).show();
-
-                        changeAccess();
-                    } else if (addpayperview.getStatus().equalsIgnoreCase("false")) {
-                        //Toast.makeText(getApplicationContext(), addpayperview.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                }
-                @Override
-                public void failure(RetrofitError error) {
-
-                }
-            });
-
-
-        } catch (Exception e) {
-            //Toast.makeText(this, "Catch error: " +e, Toast.LENGTH_SHORT).show();
-            Log.w("runmawii", "Catch error: " + e);
-        }
+    public void onPaymentError(int code, String response) {
+        Log.e("LOG_Runmawi_Payment", "Payment failed. Code: " + code + ", Response: " + response);
+        Toast.makeText(this, "Payment failed. Please try again.", Toast.LENGTH_SHORT).show();
+        // Webhook will handle failed payments too
     }
 
     private void transactionLog(){
 
-        Log.w("runmawwi","ui: "+user_id+" price: "+quality_price+" vi: "+videoId);
+        Log.w("Log_runmawwi","ui: "+user_id+" price: "+quality_price+" vi: "+videoId);
         Call<JSONResponse1> trac_api=ApiClient.getInstance1().getApi().transactioLog(user_id,quality_price,"ppv", "razorpay","android",quality_resolution,videoId,"","","");
         trac_api.enqueue(new retrofit2.Callback<JSONResponse1>() {
             @Override
@@ -3422,89 +3443,79 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
             }
             @Override
             public void onFailure(Call<JSONResponse1> call, Throwable throwable) {
-                Log.w("runmawwi"," err: "+throwable.getMessage());
+                Log.w("Log_runmawwi"," err: "+throwable.getMessage());
             }
         });
     }
 
     private void createOrder() {
         transactionLog();
-        String credentials = RAZORPAY_KEY_ID + ":" + RAZORPAY_KEY_SECRET;
-        String authHeader = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
+        Log.w("LOG_Runmawi_Payment", "createOrder called via Laravel API. quality_price: " + quality_price);
+        
+        // Call Laravel to create Razorpay order using consistent Retrofit 2.x
+        Call<CreateRazorpayOrderResponse> orderCall = ApiClient.getInstance1().getApi().createRazorpayOrder(
+            user_id, 
+            idd.getText().toString(), // video_id
+            quality_price,           // amount
+            quality_name,            // ppv_plan (quality plan name)
+            "Android"               // platform
+        );
 
-        int amt = Integer.parseInt(quality_price);
-        String priceTotal = String.valueOf(amt * 100);
-
-        Order order = new Order(priceTotal, "INR", "order_rcptid_12", "1");
-        Call<JSONResponse> list = ApiClient.getInstance1().getApi2().createOrder("Authorization" + authHeader, order);
-        list.enqueue(new retrofit2.Callback<JSONResponse>() {
+        orderCall.enqueue(new retrofit2.Callback<CreateRazorpayOrderResponse>() {
             @Override
-            public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
-                if (response.code() == 200) {
-                    orderId = response.body().getId();
-                    startPaymentWithQuality(response.body().getId());
-                    Log.w("runmawii", "amt: " + quality_price);
-                    Log.w("runmawii", "id: " + response.body().getId());
+            public void onResponse(Call<CreateRazorpayOrderResponse> call, retrofit2.Response<CreateRazorpayOrderResponse> response) {
+                CreateRazorpayOrderResponse responseBody = response.body();
+                if (responseBody != null && responseBody.getStatus().equalsIgnoreCase("true")) {
+                    // Use the order created by Laravel
+                    orderId = responseBody.getOrder_id();
+                    RAZORPAY_KEY_ID = responseBody.getKey_id();
+                    
+                    Log.w("LOG_Runmawi_Payment", "Laravel order created successfully. Order ID: " + orderId);
+                    
+                    // Now start Razorpay payment with Laravel-created order
+                    startRazorpayPayment(orderId, quality_price, RAZORPAY_KEY_ID);
                 } else {
-                    Toast.makeText(getApplicationContext(), "Error: " + response.message(), Toast.LENGTH_SHORT).show();
-                    Log.w("runmawii", "Error: " + response.message());
+                    Log.e("LOG_Runmawi_Payment", "Failed to create order: " + (responseBody != null ? responseBody.getMessage() : "No response"));
+                    Toast.makeText(HomePageVideoActivity.this, "Failed to create payment order", Toast.LENGTH_SHORT).show();
                 }
-
             }
 
             @Override
-            public void onFailure(Call<JSONResponse> call, Throwable throwable) {
-                Log.w("runmawii", "api failed: " + throwable.getMessage());
-            }
-        });
-
-    }
-
-    private void fetchPaymentDetails(String paymentId) {
-
-        //Generate Basic Auth header
-        String credentials = RAZORPAY_KEY_ID + ":" + RAZORPAY_KEY_SECRET;
-        String authHeader = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
-
-        Call<JSONResponse> list = ApiClient.getInstance1().getApi1().dynamicGetRequest("Authorization" + authHeader, paymentId);
-        list.enqueue(new retrofit2.Callback<JSONResponse>() {
-            @Override
-            public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
-                Log.w("runmawii", "api success: " + response);
-                Log.w("runmawii", "api success: " + response.body().getStatus() + " daa: " + response.body().getAmount());
-
-                Api.getClient().getAddPayperViewWithqualityStore(user_id, idd.getText().toString(), orderId, response.body().getStatus(), "razorpay", quality_resolution, quality_price, "Android", new Callback<Addpayperview>() {
-                    @Override
-                    public void success(Addpayperview addpayperview1, Response response) {
-
-                        addpayperview = addpayperview1;
-                        if (addpayperview.getStatus().equalsIgnoreCase("true")) {
-                            Toast.makeText(getApplicationContext(), addpayperview.getMessage(), Toast.LENGTH_LONG).show();
-
-                            changeAccess();
-                        } else if (addpayperview.getStatus().equalsIgnoreCase("false")) {
-                            Toast.makeText(getApplicationContext(), addpayperview.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-
-                    }
-                });
-
-            }
-
-            @Override
-            public void onFailure(Call<JSONResponse> call, Throwable throwable) {
-                Log.w("runmawii", "api failed: " + throwable.getMessage());
+            public void onFailure(Call<CreateRazorpayOrderResponse> call, Throwable t) {
+                Log.e("LOG_Runmawi_Payment", "Error creating order: " + t.getMessage());
+                Toast.makeText(HomePageVideoActivity.this, "Payment initialization failed", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+    private void startRazorpayPayment(String orderId, String amount, String keyId) {
+        try {
+            Checkout checkout = new Checkout();
+            checkout.setKeyID(keyId);
+            
+            JSONObject options = new JSONObject();
+            options.put("name", "RunMawi");
+            options.put("description", "Video Purchase");
+            options.put("order_id", orderId);
+            options.put("currency", "INR");
+            options.put("amount", Integer.parseInt(amount) * 100); // Convert to paise
+            
+            JSONObject prefill = new JSONObject();
+            prefill.put("email", "user@example.com");
+            prefill.put("contact", "9999999999");
+            options.put("prefill", prefill);
+            
+            checkout.open(HomePageVideoActivity.this, options);
+            
+        } catch (Exception e) {
+            Log.e("LOG_Runmawi_Payment", "Error starting Razorpay payment", e);
+            Toast.makeText(this, "Payment failed", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 
     private MediaSource buildMediaSource1(Uri urlll) {
-
         return buildMediaSource(urlll, null);
     }
 
@@ -4964,7 +4975,14 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
                     public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
                         if (response.isSuccessful() && response.body() != null) {
                             JSONResponse jsonResponse = response.body();
-                            movie_detaildata = new ArrayList<>(Arrays.asList(jsonResponse.getVideodetail()));
+                            movie_detaildata = safeArrayToList(jsonResponse.getVideodetail());
+
+                            // Check if movie_detaildata is empty or null before proceeding
+                            if (movie_detaildata == null || movie_detaildata.isEmpty()) {
+                                android.util.Log.e("CHANGE_ACCESS_ERROR", "No video details available in changeAccess method");
+                                Toast.makeText(HomePageVideoActivity.this, "Video details not available. Please try again later.", Toast.LENGTH_LONG).show();
+                                return;
+                            }
 
                           /*  if (continuee == "1") {
                                 if (user_role.equalsIgnoreCase("admin")) {
@@ -5128,16 +5146,16 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
             try {
                 PaydunyaDirectPay direct_pay = new PaydunyaDirectPay(setup);
                 if (direct_pay.creditAccount(email_ou_numero_du_client_paydunya, montant_a_transferer)) {
-                    Log.w("direct_pay", "if: " + direct_pay.getStatus() + " trac_ID: " + direct_pay.getTransactionId());
+                    Log.w("Log_direct_pay", "if: " + direct_pay.getStatus() + " trac_ID: " + direct_pay.getTransactionId());
                     return direct_pay.getStatus() + ":" + direct_pay.getTransactionId();
                 } else {
-                    Log.w("direct_pay", "else: " + direct_pay.getStatus() + direct_pay.getResponseText());
+                    Log.w("Log_direct_pay", "else: " + direct_pay.getStatus() + direct_pay.getResponseText());
                     return direct_pay.getStatus() + ":" + direct_pay.getResponseText();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
                 this.exception = e;
-                Log.w("direct_pay", "catch: " + e.getMessage());
+                Log.w("Log_direct_pay", "catch: " + e.getMessage());
                 return "Error" + ":" + e.getMessage();
             }
 

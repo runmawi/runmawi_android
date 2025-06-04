@@ -217,6 +217,15 @@ public interface ApiInterface {
                                   Callback<Addpayperview> callback);
 
     @FormUrlEncoded
+    @POST("/create_razorpay_order")
+    public void createRazorpayOrder(@Field("user_id") String user_id,
+                                    @Field("video_id") String video_id,
+                                    @Field("amount") String amount,
+                                    @Field("ppv_plan") String ppv_plan,
+                                    @Field("platform") String platform,
+                                    Callback<CreateRazorpayOrderResponse> callback);
+
+    @FormUrlEncoded
     @POST("/add_payperview")
     public void getAddPayperViewLive(@Field("user_id") String user_id,
                                      @Field("live_id") String live_id,
