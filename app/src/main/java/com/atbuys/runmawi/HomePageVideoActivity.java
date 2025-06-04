@@ -3038,6 +3038,18 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
         final videodetail currentVideoDetails = movie_detaildata.get(0);
         final String videoAccessType = currentVideoDetails.getAccess();
     
+        // ✅ ENHANCED DEBUG: Log all PPV-related fields from currentVideoDetails
+        Log.w("LOG_TraditionalQuality", "=== Enhanced Video Details Debug ===");
+        Log.w("LOG_TraditionalQuality", "Video ID: " + currentVideoDetails.getId());
+        Log.w("LOG_TraditionalQuality", "Video Title: " + currentVideoDetails.getTitle());
+        Log.w("LOG_TraditionalQuality", "Video Access Type: " + videoAccessType);
+        Log.w("LOG_TraditionalQuality", "User's PPV_Plan: '" + currentVideoDetails.getPPV_Plan() + "'");
+        Log.w("LOG_TraditionalQuality", "PPV_Plan is null: " + (currentVideoDetails.getPPV_Plan() == null));
+        Log.w("LOG_TraditionalQuality", "PPV_Plan is empty: " + (currentVideoDetails.getPPV_Plan() != null && currentVideoDetails.getPPV_Plan().isEmpty()));
+        Log.w("LOG_TraditionalQuality", "480p Price: " + currentVideoDetails.getPpv_price_480p());
+        Log.w("LOG_TraditionalQuality", "720p Price: " + currentVideoDetails.getPpv_price_720p());
+        Log.w("LOG_TraditionalQuality", "1080p Price: " + currentVideoDetails.getPpv_price_1080p());
+        
         // Initialize or clear the list for quality options
         if (qualities1 == null) {
             qualities1 = new ArrayList<>();
@@ -3104,6 +3116,32 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
         plans_recyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         plans_recyclerview.setAdapter(qualityAdapter);
     
+        // ✅ NEW: Auto-select the purchased quality by default
+        int purchasedQualityPosition = findPurchasedQualityPosition(currentVideoDetails, qualities1);
+        Log.w("LOG_TraditionalQuality", "=== Auto-Selection ===");
+        Log.w("LOG_TraditionalQuality", "Purchased quality position: " + purchasedQualityPosition);
+        
+        if (purchasedQualityPosition != -1) {
+            // Pre-select the purchased quality
+            quality_free purchasedQuality = qualities1.get(purchasedQualityPosition);
+            quality_name = purchasedQuality.getQuality();
+            quality_resolution = purchasedQuality.getResolution();
+            quality_price = purchasedQuality.getPrice();
+            
+            Log.w("LOG_TraditionalQuality", "Auto-selected purchased quality: " + quality_name);
+            
+            // Show the appropriate button for the owned quality
+            watchFreeButton.setVisibility(View.VISIBLE);
+            payButton.setVisibility(View.GONE);
+            
+            // Notify adapter about selection and scroll to position
+            plans_recyclerview.post(() -> {
+                // Scroll to the purchased quality position and refresh the adapter
+                qualityAdapter.notifyDataSetChanged();
+                plans_recyclerview.scrollToPosition(purchasedQualityPosition);
+            });
+        }
+    
         plans_recyclerview.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, final int position) {
@@ -3112,27 +3150,90 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
                 quality_free selectedQuality = qualities1.get(position);
                 quality_name = selectedQuality.getQuality();
                 quality_resolution = selectedQuality.getResolution();
-                // quality_price might be null if quality_free constructor without price was used for some items.
-                // Ensure your quality_free class handles getPrice() appropriately (e.g., returns "0" or actual price).
-                // For this adapter, it seems quality_free instances are always created with a price string.
                 quality_price = selectedQuality.getPrice(); 
     
                 boolean selectedPriceIsEffectivelyZero = (quality_price == null || quality_price.isEmpty() || quality_price.equals("0"));
     
+                // ✅ COMPREHENSIVE OWNERSHIP DEBUG
+                Log.w("LOG_TraditionalQuality", "=== Quality Item Clicked - COMPREHENSIVE DEBUG ===");
+                Log.w("LOG_TraditionalQuality", "Selected quality_resolution: '" + quality_resolution + "'");
+                Log.w("LOG_TraditionalQuality", "Selected quality_name: '" + quality_name + "'");
+                Log.w("LOG_TraditionalQuality", "Selected quality_price: '" + quality_price + "'");
+                Log.w("LOG_TraditionalQuality", "Video access type: '" + videoAccessType + "'");
+                Log.w("LOG_TraditionalQuality", "User's owned PPV_Plan: '" + (currentVideoDetails.getPPV_Plan() != null ? currentVideoDetails.getPPV_Plan() : "NULL") + "'");
+                Log.w("LOG_TraditionalQuality", "Price is effectively zero: " + selectedPriceIsEffectivelyZero);
+                
+                // ✅ DETAILED OWNERSHIP COMPARISON DEBUG
+                String userOwnedPlan = currentVideoDetails.getPPV_Plan();
+                Log.w("LOG_TraditionalQuality", "=== Ownership Comparison Details ===");
+                Log.w("LOG_TraditionalQuality", "quality_resolution: '" + quality_resolution + "' (length: " + (quality_resolution != null ? quality_resolution.length() : "null") + ")");
+                Log.w("LOG_TraditionalQuality", "userOwnedPlan: '" + userOwnedPlan + "' (length: " + (userOwnedPlan != null ? userOwnedPlan.length() : "null") + ")");
+                
+                if (quality_resolution != null && userOwnedPlan != null) {
+                    Log.w("LOG_TraditionalQuality", "Case-sensitive equals: " + quality_resolution.equals(userOwnedPlan));
+                    Log.w("LOG_TraditionalQuality", "Case-insensitive equals: " + quality_resolution.equalsIgnoreCase(userOwnedPlan));
+                    Log.w("LOG_TraditionalQuality", "Trimmed case-insensitive equals: " + quality_resolution.trim().equalsIgnoreCase(userOwnedPlan.trim()));
+                    
+                    // Check for any hidden characters
+                    Log.w("LOG_TraditionalQuality", "quality_resolution bytes: " + java.util.Arrays.toString(quality_resolution.getBytes()));
+                    Log.w("LOG_TraditionalQuality", "userOwnedPlan bytes: " + java.util.Arrays.toString(userOwnedPlan.getBytes()));
+                } else {
+                    Log.w("LOG_TraditionalQuality", "One or both values are null - cannot compare");
+                }
+    
                 if (videoAccessType.equalsIgnoreCase("ppv")) {
-                    // Check if this PPV quality is already owned by the user
-                    // currentVideoDetails.getPPV_Plan() should return the RESOLUTION of the owned plan (e.g., "720p")
-                    if (quality_resolution.equalsIgnoreCase(currentVideoDetails.getPPV_Plan())) {
+                    // ✅ ENHANCED OWNERSHIP CHECK with multiple fallback attempts
+                    boolean isOwned = false;
+                    String ownershipReason = "";
+                    
+                    if (userOwnedPlan != null && quality_resolution != null) {
+                        // ✅ NEW: Extract resolution from full quality name
+                        // The API returns "Medium Quality (720p)" but we need to match against "720p"
+                        String extractedResolution = extractResolutionFromQualityName(userOwnedPlan);
+                        
+                        Log.w("LOG_TraditionalQuality", "=== Resolution Extraction ===");
+                        Log.w("LOG_TraditionalQuality", "Original userOwnedPlan: '" + userOwnedPlan + "'");
+                        Log.w("LOG_TraditionalQuality", "Extracted resolution: '" + extractedResolution + "'");
+                        
+                        // Try multiple comparison methods
+                        if (quality_resolution.equalsIgnoreCase(extractedResolution)) {
+                            isOwned = true;
+                            ownershipReason = "Extracted resolution match: " + quality_resolution + " == " + extractedResolution;
+                        } else if (quality_resolution.equalsIgnoreCase(userOwnedPlan)) {
+                            isOwned = true;
+                            ownershipReason = "Direct case-insensitive match";
+                        } else if (quality_resolution.trim().equalsIgnoreCase(userOwnedPlan.trim())) {
+                            isOwned = true;
+                            ownershipReason = "Trimmed case-insensitive match";
+                        } else {
+                            // Try removing common suffixes/prefixes
+                            String cleanResolution = quality_resolution.toLowerCase().replace("p", "");
+                            String cleanOwned = userOwnedPlan.toLowerCase().replace("p", "");
+                            if (cleanResolution.equals(cleanOwned)) {
+                                isOwned = true;
+                                ownershipReason = "Clean comparison match (removed 'p')";
+                            }
+                        }
+                    }
+                    
+                    Log.w("LOG_TraditionalQuality", "=== Ownership Decision ===");
+                    Log.w("LOG_TraditionalQuality", "Is quality owned: " + isOwned);
+                    Log.w("LOG_TraditionalQuality", "Ownership reason: " + ownershipReason);
+                    
+                    if (isOwned) {
+                        Log.w("LOG_TraditionalQuality", "✅ OWNED: User owns this quality - showing Watch Free button");
                         watchFreeButton.setVisibility(View.VISIBLE);
                         payButton.setVisibility(View.GONE);
                     } 
                     // If not owned, but the selected quality tier itself is free (price is "0")
                     else if (selectedPriceIsEffectivelyZero) {
+                        Log.w("LOG_TraditionalQuality", "✅ FREE: Quality is free - showing Watch Free button");
                         watchFreeButton.setVisibility(View.VISIBLE);
                         payButton.setVisibility(View.GONE);
                     } 
                     // Otherwise, it's a PPV quality that needs to be purchased/upgraded
                     else {
+                        Log.w("LOG_TraditionalQuality", "❌ PURCHASE: User doesn't own this quality - showing Pay button");
                         watchFreeButton.setVisibility(View.GONE);
                         payButton.setVisibility(View.VISIBLE);
                         if (payButtonText != null) payButtonText.setText("Upgrade Now"); // Or "Pay"
@@ -3140,6 +3241,7 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
                 } else {
                     // For non-PPV access types (e.g., "registered", "guest") that show quality selection
                     // it's always free to watch once selected.
+                    Log.w("LOG_TraditionalQuality", "✅ NON-PPV: Always free for " + videoAccessType);
                     watchFreeButton.setVisibility(View.VISIBLE);
                     payButton.setVisibility(View.GONE);
                 }
@@ -3193,6 +3295,40 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onFailure(Call<JSONResponse> call, Throwable t) {}
         });
+    }
+
+    /**
+     * Extracts resolution (e.g., "720p") from full quality names like "Medium Quality (720p)"
+     * @param qualityName The full quality name from API
+     * @return The extracted resolution or the original string if no pattern found
+     */
+    private String extractResolutionFromQualityName(String qualityName) {
+        if (qualityName == null || qualityName.isEmpty()) {
+            return qualityName;
+        }
+        
+        // Pattern to match resolution in parentheses: "Medium Quality (720p)" -> "720p"
+        java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("\\((\\d+p)\\)");
+        java.util.regex.Matcher matcher = pattern.matcher(qualityName);
+        
+        if (matcher.find()) {
+            String extracted = matcher.group(1); // Get the first capturing group (720p)
+            Log.w("LOG_TraditionalQuality", "Pattern match found: " + extracted);
+            return extracted;
+        }
+        
+        // Fallback: Look for common resolution patterns without parentheses
+        java.util.regex.Pattern fallbackPattern = java.util.regex.Pattern.compile("(\\d+p)");
+        java.util.regex.Matcher fallbackMatcher = fallbackPattern.matcher(qualityName);
+        
+        if (fallbackMatcher.find()) {
+            String extracted = fallbackMatcher.group(1);
+            Log.w("LOG_TraditionalQuality", "Fallback pattern match found: " + extracted);
+            return extracted;
+        }
+        
+        Log.w("LOG_TraditionalQuality", "No resolution pattern found, returning original: " + qualityName);
+        return qualityName; // Return original if no pattern found
     }
 
     private void getDetails() {
@@ -5201,5 +5337,42 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
         }
     }
 
+    /**
+     * Finds the position of the purchased quality in the qualities list
+     * @param videoDetails The video details containing user's PPV plan
+     * @param qualitiesList The list of available qualities
+     * @return The position of purchased quality, or -1 if not found
+     */
+    private int findPurchasedQualityPosition(videodetail videoDetails, ArrayList<quality_free> qualitiesList) {
+        if (videoDetails == null || qualitiesList == null || qualitiesList.isEmpty()) {
+            return -1;
+        }
+        
+        String userOwnedPlan = videoDetails.getPPV_Plan();
+        if (userOwnedPlan == null || userOwnedPlan.isEmpty()) {
+            Log.w("LOG_TraditionalQuality", "User has no purchased quality");
+            return -1;
+        }
+        
+        // Extract resolution from user's plan (e.g., "720p" from "Medium Quality (720p)")
+        String ownedResolution = extractResolutionFromQualityName(userOwnedPlan);
+        Log.w("LOG_TraditionalQuality", "Looking for owned resolution: " + ownedResolution);
+        
+        // Find matching quality in the list
+        for (int i = 0; i < qualitiesList.size(); i++) {
+            quality_free quality = qualitiesList.get(i);
+            String qualityResolution = quality.getResolution();
+            
+            Log.w("LOG_TraditionalQuality", "Comparing: '" + ownedResolution + "' with '" + qualityResolution + "'");
+            
+            if (ownedResolution.equalsIgnoreCase(qualityResolution)) {
+                Log.w("LOG_TraditionalQuality", "Found purchased quality at position: " + i);
+                return i;
+            }
+        }
+        
+        Log.w("LOG_TraditionalQuality", "Purchased quality not found in list");
+        return -1;
+    }
 
 }
