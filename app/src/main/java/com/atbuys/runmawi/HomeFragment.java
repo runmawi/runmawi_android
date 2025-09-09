@@ -141,7 +141,7 @@ public class HomeFragment extends Fragment {
     String user_id, user_role, theme;
     LinearLayout userdetailsmenu;
     private ArrayList<Site_theme_setting> Site_theme_setting;
-    ImageView logo;
+    ImageView logo, game_img;
     ProgressBar bannerprogress;
     TextView continue_text;
     SwipeRefreshLayout swipeRefreshLayout;
@@ -180,6 +180,16 @@ public class HomeFragment extends Fragment {
         runmawi_name = (TextView) root.findViewById(R.id.runmawi_name);
         movie_name = (TextView) root.findViewById(R.id.movie_name);
         cate_name = (TextView) root.findViewById(R.id.cate_name);
+
+        game_img = root.findViewById(R.id.game_img);
+
+        game_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), GameWebviewActivity.class);
+                startActivity(i);
+            }
+        });
 
 
         pageslist = new ArrayList<pages>();
@@ -1065,7 +1075,7 @@ public class HomeFragment extends Fragment {
 
             sidemenuusername.setText("Login");
             sidemenuuseremail.setText("For Better Experience");
-            Picasso.get().load("https://runmawi.com/public/uploads/avatars/default.png").into(sidemenudp);
+            Picasso.get().load("https://exlhoster.com/public/uploads/avatars/default.png").into(sidemenudp);
 
         }
 

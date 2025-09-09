@@ -93,20 +93,47 @@ public class SplashScreenActivity extends AppCompatActivity implements InAppUpda
         call.enqueue(new Callback<JSONResponse>() {
             @Override
             public void onResponse(Call<JSONResponse> call, Response<JSONResponse> response) {
+                // 1. Check for successful HTTP status and a non-null response body
                 if (response.isSuccessful() && response.body() != null) {
                     JSONResponse jsonResponse = response.body();
-                    splashlist = new ArrayList<>(Arrays.asList(jsonResponse.getSplash_Screen()));
-                    /*Picasso.get()
-                            .load(splashlist.get(0).getSplash_url())
-                            .into(logo);*/
 
-                    Glide.with(getApplicationContext())
-                            .asGif()
-                            .load(splashlist.get(0).getSplash_url())
-                           // .load("https://runmawi.com/public/uploads/settings/andriod_splash_image_1734335082.gif")
-                            .into(logo);
+                    // Check if the splash screen data itself is available
+                    Splash_Screen[] splashScreens = jsonResponse.getSplash_Screen();
 
+                    if (splashScreens != null && splashScreens.length > 0) {
+                        splashlist = new ArrayList<>(Arrays.asList(splashScreens));
+
+                        // Extract the URL, ensuring the first element is valid
+                        String splashUrl = splashlist.get(0).getSplash_url();
+
+                        if (splashUrl != null && !splashUrl.trim().isEmpty()) {
+                            // Load the image using Glide
+                            Glide.with(getApplicationContext())
+                                    .asGif()
+                                    .load(splashUrl)
+                                    .error(R.drawable.splash_screen) // Fallback image if loading fails
+                                    .into(logo);
+                        } else {
+                            // Case: Data structure is present, but URL is empty/null
+                            Log.w("SplashScreen", "Splash URL is null or empty from API response.");
+                            // Optionally load a default image or log/proceed as needed
+                        }
+                    } else {
+                        // Case: Response is successful, but the splash data is empty or null
+                        Log.w("SplashScreen", "Splash screen list is empty or null in the response body.");
+                        // Proceed without displaying dynamic splash or wait for timeout
+                    }
+
+                } else {
+                    // 2. Case: Unsuccessful HTTP response (e.g., 404, 500) or null body
+                    Log.e("SplashScreen", "API call failed with response code: " + response.code() + " or body is null.");
+                    // Proceed without displaying dynamic splash or wait for timeout
                 }
+
+                // Note: The original logic relies on the global splash timeout (SPLASH_TIME_OUT)
+                // to eventually call proceedToMainAppInternal() even if the API call is slow
+                // or fails here in onResponse/onFailure. We don't need to explicitly call
+                // scheduleMainAppStart() here unless we want to bypass the timeout on failure.
             }
 
             @Override

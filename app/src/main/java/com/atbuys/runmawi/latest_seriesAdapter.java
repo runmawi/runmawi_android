@@ -83,7 +83,7 @@ class latest_seriesAdapter extends RecyclerView.Adapter<latest_seriesAdapter.MyV
 
 
         Picasso.get().
-                load( "https://runmawi.com/public/uploads/images/"+latestvideoslist.get(position).getImage())
+                load( "https://exlhoster.com/public/uploads/images/"+latestvideoslist.get(position).getImage())
                 .into(holder.image);
 
 

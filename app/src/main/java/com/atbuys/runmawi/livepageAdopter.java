@@ -109,7 +109,7 @@ class livepageAdopter extends RecyclerView.Adapter<livepageAdopter.MyViewHolder>
             
             // Load image using Picasso with error handling
             if (image != null && !image.isEmpty()) {
-                String imageUrl = "https://runmawi.com/public/uploads/images/" + image;
+                String imageUrl = "hhttps://exlhoster.com/public/uploads/images/" + image;
                 android.util.Log.d("ADAPTER_DEBUG", "Loading image from: " + imageUrl);
                 
                 Picasso.get()

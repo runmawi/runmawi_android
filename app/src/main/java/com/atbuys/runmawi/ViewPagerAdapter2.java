@@ -95,7 +95,7 @@ public class ViewPagerAdapter2 extends PagerAdapter implements Adapter {
 
        imageLoader = CustomVolleyRequest.getInstance(context).getImageLoader();
 
-        imageLoader.get("https://runmawi.com/public/uploads/images/"+utils.getSlider(), ImageLoader.getImageListener(imageView, R.drawable.lands, android.R.drawable.ic_dialog_alert));
+        imageLoader.get("https://exlhoster.com/public/uploads/images/"+utils.getSlider(), ImageLoader.getImageListener(imageView, R.drawable.lands, android.R.drawable.ic_dialog_alert));
 
 
 /*

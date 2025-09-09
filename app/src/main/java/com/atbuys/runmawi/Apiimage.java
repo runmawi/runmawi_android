@@ -9,7 +9,7 @@ import retrofit2.http.Part;
 
 public interface Apiimage {
 
-    String BASE_URL = "https://runmawi.com/api/auth/";
+    String BASE_URL = "https://exlhoster.com/api/auth/";
 
     //this is our multipart request
     //we have two parameters on is name and other one is description

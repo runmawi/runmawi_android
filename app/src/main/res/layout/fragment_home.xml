@@ -156,17 +156,22 @@
                     </FrameLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
+
+
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/genrerecyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:visibility="gone"/>
-                        <FrameLayout
+                 <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <androidx.recyclerview.widget.RecyclerView
+
+                   <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/movieRecyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -186,7 +191,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
-                        
+
+                        <ImageView
+                            android:id="@+id/game_img"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/ic_game"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"/>
+
+
                         <!-- Banner for Runmawi TV tab -->
                         <RelativeLayout
                             android:id="@+id/runmawi_tv_banner_container"

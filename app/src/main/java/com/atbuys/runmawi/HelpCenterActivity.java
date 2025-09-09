@@ -301,7 +301,7 @@ public class HelpCenterActivity extends AppCompatActivity {
 
     private void loadJSON() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://runmawi.com/api/auth/")
+                .baseUrl(getString(R.string.base_url)+"/api/auth/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RequestInterface request = retrofit.create(RequestInterface.class);

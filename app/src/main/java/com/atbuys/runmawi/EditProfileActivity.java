@@ -104,7 +104,7 @@ public class EditProfileActivity extends AppCompatActivity {
     int PICK_IMAGE_REQUEST = 111;
     int click_count;
     String xx;
-    String URL = "https://runmawi.com/api/auth/updateProfile";
+    String URL = "https://exlhoster.com/api/auth/updateProfile";
     ProgressDialog progressDialog;
     List<Countrycode> movieList;
 
@@ -549,7 +549,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
         Retrofit retrofit1 = new Retrofit.Builder()
-                .baseUrl("https://runmawi.com/assets/")
+                .baseUrl("https://exlhoster.com/assets/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

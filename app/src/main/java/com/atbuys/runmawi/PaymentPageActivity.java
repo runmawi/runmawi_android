@@ -125,7 +125,7 @@ public class PaymentPageActivity extends AppCompatActivity {
         imgpayment=(ImageView)findViewById(R.id.imgpayment12);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://runmawi.com/api/auth/")
+                .baseUrl("https://exlhoster.com/api/auth/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RequestInterface request = retrofit.create(RequestInterface.class);
@@ -177,7 +177,7 @@ public class PaymentPageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse("https://runmawi.com/page/terms-and-conditions"));
+                    i.setData(Uri.parse("https://exlhoster.com/page/terms-and-conditions"));
                     startActivity(i);
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "unable to open website", Toast.LENGTH_SHORT).show();
@@ -326,7 +326,7 @@ public class PaymentPageActivity extends AppCompatActivity {
         alert.setTitle("Title here");
 
         WebView wv = new WebView(getApplicationContext());
-        wv.loadUrl("https://runmawi.com/page/terms-and-conditions");
+        wv.loadUrl("https://exlhoster.com/page/terms-and-conditions");
         wv.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {

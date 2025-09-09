@@ -76,7 +76,7 @@ class SubuserAdapter extends RecyclerView.Adapter<SubuserAdapter.MyViewHolder> {
         holder.name.setText(latestvideoslist.get(position).getUser_name());
 
         Picasso.get()
-                .load("https://runmawi.com/public/uploads/avatars/"+latestvideoslist.get(position).getAvatar())
+                .load("https://exlhoster.com/public/uploads/avatars/"+latestvideoslist.get(position).getAvatar())
                 .fit()
                 .placeholder(R.drawable.avatar)
                 .transform(new CircleTransform())

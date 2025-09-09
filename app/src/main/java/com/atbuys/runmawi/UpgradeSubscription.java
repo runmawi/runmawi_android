@@ -187,7 +187,7 @@ public class UpgradeSubscription extends AppCompatActivity {
 
     private void loadJSON() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://runmawi.com/api/auth/")
+                .baseUrl("https://exlhoster.com/api/auth/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RequestInterface request = retrofit.create(RequestInterface.class);

@@ -65,7 +65,7 @@ class CommentsAdopter extends RecyclerView.Adapter<CommentsAdopter.MyViewHolder>
         holder.usercomment.setText(usercommentlist.get(position).getComment());
 
 
-        if(usercommentlist.get(position).getUser_image_url().equalsIgnoreCase("https://runmawi.com/public/uploads/avatars/default.png"))
+        if(usercommentlist.get(position).getUser_image_url().equalsIgnoreCase("https://exlhoster.com/public/uploads/avatars/default.png"))
         {
             Picasso.get().load(R.drawable.profileicon);
         }

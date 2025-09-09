@@ -567,6 +567,10 @@ public interface RequestInterface {
     Call<JSONResponse> getSubscriptionDeatails(@Field("plan_id") String audio_id);
 
     @FormUrlEncoded
+    @POST("RazorpaySubscription")
+    Call<JSONResponse> RazorpaySubscription(@Field("plan_id") String audio_id);
+
+    @FormUrlEncoded
     @POST("album_audios")
     Call<JSONResponse> getAudioAlbum(@Field("album_id") String audio_id);
 

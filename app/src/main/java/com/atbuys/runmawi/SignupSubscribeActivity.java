@@ -394,7 +394,7 @@ public class SignupSubscribeActivity extends AppCompatActivity implements Paymen
 
     private void loadJSON() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://runmawi.com/api/auth/")
+                .baseUrl("https://exlhoster.com/api/auth/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RequestInterface request = retrofit.create(RequestInterface.class);
@@ -1093,7 +1093,7 @@ public class SignupSubscribeActivity extends AppCompatActivity implements Paymen
             options.put("name", "Runmawi");
             options.put("description", "Runmawi Subscription");
             //You can omit the image option to fetch the image from dashboard
-            options.put("image", "https://runmawi.com/content/uploads/settings/5f8d4d2f932bf-c-l.png");
+            options.put("image", "https://exlhoster.com/content/uploads/settings/5f8d4d2f932bf-c-l.png");
             options.put("currency", "INR");
             options.put("subscription_id", price);
 

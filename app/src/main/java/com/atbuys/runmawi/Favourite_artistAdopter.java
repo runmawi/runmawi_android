@@ -63,7 +63,7 @@ class Favourite_artistAdopter extends RecyclerView.Adapter<Favourite_artistAdopt
         holder.name.setText(favoriteslists.get(position).getArtist_name());
 
         Picasso.get()
-                .load("https://runmawi.com/public/uploads/artists/"+favoriteslists.get(position).getImage())
+                .load("https://exlhoster.com/public/uploads/artists/"+favoriteslists.get(position).getImage())
                 .placeholder(R.drawable.avatar)
                 .transform(new CircleTransform())
                 .into(holder.image);

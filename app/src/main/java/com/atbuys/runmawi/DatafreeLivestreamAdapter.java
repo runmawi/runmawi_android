@@ -75,7 +75,7 @@ class DatafreeLivestreamAdapter extends RecyclerView.Adapter<DatafreeLivestreamA
 
 
         Picasso.get().
-                load("https://runmawi.com/public/uploads/images/"+ latestvideoslist.get(position).getMobile_image())
+                load("https://exlhoster.com/public/uploads/images/"+ latestvideoslist.get(position).getMobile_image())
                 .fit()
                 .into(holder.image);
 

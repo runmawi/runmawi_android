@@ -83,7 +83,7 @@ class DatafreeSeriesAdapter extends RecyclerView.Adapter<DatafreeSeriesAdapter.M
 
 
         Picasso.get().
-                load("https://runmawi.com/public/uploads/images/"+ latestvideoslist.get(position).getImage())
+                load("https://exlhoster.com/public/uploads/images/"+ latestvideoslist.get(position).getImage())
                 .into(holder.image);
 
 

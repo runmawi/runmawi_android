@@ -14,7 +14,7 @@ public class RemoteConfigManager {
     private static final String TAG = "RemoteConfigManager";
     private static RemoteConfigManager instance;
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
-    
+
     // Remote Config Keys
     public static final String MIN_SUPPORTED_VERSION = "min_supported_version";
     public static final String FORCE_UPDATE_ENABLED = "force_update_enabled";
@@ -33,69 +33,69 @@ public class RemoteConfigManager {
     public static final String MAX_CONCURRENT_DOWNLOADS = "max_concurrent_downloads";
     public static final String SHOW_ADS = "show_ads";
     public static final String AD_FREQUENCY = "ad_frequency";
-    
+
     private RemoteConfigManager() {
         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
         setupRemoteConfig();
     }
-    
+
     public static synchronized RemoteConfigManager getInstance() {
         if (instance == null) {
             instance = new RemoteConfigManager();
         }
         return instance;
     }
-    
+
     private void setupRemoteConfig() {
         // Configure Remote Config settings
         FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
                 .setMinimumFetchIntervalInSeconds(BuildConfig.DEBUG ? 0 : 3600) // 0 for debug, 1 hour for release
                 .build();
-        
+
         mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
-        
+
         // Set default values
         Map<String, Object> defaults = getDefaultValues();
         mFirebaseRemoteConfig.setDefaultsAsync(defaults);
     }
-    
+
     private Map<String, Object> getDefaultValues() {
         Map<String, Object> defaults = new HashMap<>();
-        
+
         // App Version Control
         defaults.put(MIN_SUPPORTED_VERSION, BuildConfig.VERSION_CODE);
         defaults.put(FORCE_UPDATE_ENABLED, false);
         defaults.put(UPDATE_MESSAGE, "Please update the app to continue using the latest features.");
-        
+
         // Maintenance Mode
         defaults.put(MAINTENANCE_MODE, false);
         defaults.put(MAINTENANCE_MESSAGE, "The app is currently under maintenance. Please try again later.");
-        
+
         // API Configuration
-        defaults.put(API_BASE_URL, "https://runmawi.com/api/");
-        
+        defaults.put(API_BASE_URL, "https://exlhoster.com/api/");
+
         // Login Options
         defaults.put(ENABLE_GOOGLE_LOGIN, true);
         defaults.put(ENABLE_FACEBOOK_LOGIN, true);
         defaults.put(SOCIAL_LOGIN_ENABLED, true);
         defaults.put(OTP_LOGIN_ENABLED, true);
-        
+
         // Video Settings
         defaults.put(DEFAULT_VIDEO_QUALITY, "720p");
         defaults.put(STREAMING_QUALITY_OPTIONS, "[\"480p\", \"720p\", \"1080p\"]");
         defaults.put(PPV_ENABLED, true);
-        
+
         // Download Settings
         defaults.put(ENABLE_OFFLINE_DOWNLOAD, true);
         defaults.put(MAX_CONCURRENT_DOWNLOADS, 3);
-        
+
         // Ad Settings
         defaults.put(SHOW_ADS, true);
         defaults.put(AD_FREQUENCY, 300); // seconds
-        
+
         return defaults;
     }
-    
+
     public void fetchAndActivate(OnCompleteListener<Boolean> listener) {
         Log.d(TAG, "Fetching remote config...");
         mFirebaseRemoteConfig.fetchAndActivate()
@@ -107,93 +107,93 @@ public class RemoteConfigManager {
                     } else {
                         Log.e(TAG, "Remote config fetch failed", task.getException());
                     }
-                    
+
                     if (listener != null) {
                         listener.onComplete(task);
                     }
                 });
     }
-    
+
     // Version Control Methods
     public long getMinSupportedVersion() {
         return mFirebaseRemoteConfig.getLong(MIN_SUPPORTED_VERSION);
     }
-    
+
     public boolean isForceUpdateEnabled() {
         return mFirebaseRemoteConfig.getBoolean(FORCE_UPDATE_ENABLED);
     }
-    
+
     public String getUpdateMessage() {
         return mFirebaseRemoteConfig.getString(UPDATE_MESSAGE);
     }
-    
+
     // Maintenance Mode Methods
     public boolean isMaintenanceMode() {
         return mFirebaseRemoteConfig.getBoolean(MAINTENANCE_MODE);
     }
-    
+
     public String getMaintenanceMessage() {
         return mFirebaseRemoteConfig.getString(MAINTENANCE_MESSAGE);
     }
-    
+
     // API Configuration Methods
     public String getApiBaseUrl() {
         return mFirebaseRemoteConfig.getString(API_BASE_URL);
     }
-    
+
     // Login Configuration Methods
     public boolean isGoogleLoginEnabled() {
         return mFirebaseRemoteConfig.getBoolean(ENABLE_GOOGLE_LOGIN);
     }
-    
+
     public boolean isFacebookLoginEnabled() {
         return mFirebaseRemoteConfig.getBoolean(ENABLE_FACEBOOK_LOGIN);
     }
-    
+
     public boolean isSocialLoginEnabled() {
         return mFirebaseRemoteConfig.getBoolean(SOCIAL_LOGIN_ENABLED);
     }
-    
+
     public boolean isOtpLoginEnabled() {
         return mFirebaseRemoteConfig.getBoolean(OTP_LOGIN_ENABLED);
     }
-    
+
     // Video Configuration Methods
     public String getDefaultVideoQuality() {
         return mFirebaseRemoteConfig.getString(DEFAULT_VIDEO_QUALITY);
     }
-    
+
     public String getStreamingQualityOptions() {
         return mFirebaseRemoteConfig.getString(STREAMING_QUALITY_OPTIONS);
     }
-    
+
     public boolean isPpvEnabled() {
         return mFirebaseRemoteConfig.getBoolean(PPV_ENABLED);
     }
-    
+
     // Download Configuration Methods
     public boolean isOfflineDownloadEnabled() {
         return mFirebaseRemoteConfig.getBoolean(ENABLE_OFFLINE_DOWNLOAD);
     }
-    
+
     public long getMaxConcurrentDownloads() {
         return mFirebaseRemoteConfig.getLong(MAX_CONCURRENT_DOWNLOADS);
     }
-    
+
     // Ad Configuration Methods
     public boolean shouldShowAds() {
         return mFirebaseRemoteConfig.getBoolean(SHOW_ADS);
     }
-    
+
     public long getAdFrequency() {
         return mFirebaseRemoteConfig.getLong(AD_FREQUENCY);
     }
-    
+
     // Utility Methods
     public boolean isAppVersionSupported(int currentVersionCode) {
         return currentVersionCode >= getMinSupportedVersion();
     }
-    
+
     public void logAllValues() {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "=== Remote Config Values ===");
@@ -209,4 +209,4 @@ public class RemoteConfigManager {
             Log.d(TAG, "============================");
         }
     }
-} 
+}

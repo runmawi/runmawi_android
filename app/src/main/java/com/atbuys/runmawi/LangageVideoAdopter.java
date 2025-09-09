@@ -72,7 +72,7 @@ class LangageVideoAdopter extends RecyclerView.Adapter<LangageVideoAdopter.MyVie
 
 
         Picasso.get().
-                load( "https://runmawi.com/public/uploads/images/"+thismaylikelilst.get(position).getImage())
+                load( "https://exlhoster.com/public/uploads/images/"+thismaylikelilst.get(position).getImage())
                 .into(holder.image);
 
 

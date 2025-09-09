@@ -44,7 +44,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             if (remoteMessage.getData() != null) {
                 String title = remoteMessage.getNotification().getTitle();
                 String messageBody = remoteMessage.getNotification().getBody();
-                String imageUrl = "https://runmawi.com/public/uploads/settings/ROD%20TV%20V5%20200x133.png";
+                String imageUrl = "https://exlhoster.com/public/uploads/settings/ROD%20TV%20V5%20200x133.png";
                 String name = String.valueOf(remoteMessage.getNotification().getTag());
                 String smallIcon = String.valueOf(remoteMessage.getNotification().getLink());
                 sendNotification(title, messageBody, imageUrl,name,smallIcon);

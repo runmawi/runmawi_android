@@ -701,7 +701,7 @@ public class HomePageEpisodeActivity extends AppCompatActivity implements View.O
         });
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://runmawi.com/api/auth/")
+                .baseUrl("https://exlhoster.com/api/auth/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RequestInterface request = retrofit.create(RequestInterface.class);

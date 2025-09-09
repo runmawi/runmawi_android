@@ -339,7 +339,7 @@ public class SubscribeActivity extends AppCompatActivity implements PaymentResul
 
     private void loadJSON() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://runmawi.com/api/auth/")
+                .baseUrl("https://exlhoster.com/api/auth/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -593,10 +593,10 @@ public class SubscribeActivity extends AppCompatActivity implements PaymentResul
 
                                                 JSONResponse jsonResponse1 = response.body();
                                                 plan_id_list = new ArrayList<>(Arrays.asList(jsonResponse1.getPlan()));
-                                                planidd = plan_id_list.get(0).getPlan_id();
+                                                planidd = plan_id_list.get(0).getId();
 
                                                 Log.w("Runmawi_test","planid: "+planidd+" plan: "+planname);
-                                                Call<JSONResponse> callaudio = ApiClient.getInstance1().getApi().getSubscriptionDeatails(planidd);
+                                                Call<JSONResponse> callaudio = ApiClient.getInstance1().getApi().RazorpaySubscription(planidd);
                                                 callaudio.enqueue(new retrofit2.Callback<JSONResponse>() {
                                                     @Override
                                                     public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
@@ -604,7 +604,7 @@ public class SubscribeActivity extends AppCompatActivity implements PaymentResul
                                                         JSONResponse jsonResponse = response.body();
                                                         subresponse = new ArrayList<>(Arrays.asList(jsonResponse.getRespond()));
                                                         subscriptionid = subresponse.get(0).getSubscriptionid();
-                                                        startPayment(subscriptionid, "", plan);
+                                                        startPayment(subscriptionid, "xxxx", plan);
 
                                                     }
 
@@ -1044,7 +1044,7 @@ public class SubscribeActivity extends AppCompatActivity implements PaymentResul
             options.put("name", "Runmawi");
             options.put("description", price);
             //You can omit the image option to fetch the image from dashboard
-            options.put("image", "https://runmawi.com/content/uploads/settings/5f8d4d2f932bf-c-l.png");
+            options.put("image", "https://exlhoster.com/content/uploads/settings/5f8d4d2f932bf-c-l.png");
             options.put("currency", "INR");
             options.put("subscription_id", price);
 

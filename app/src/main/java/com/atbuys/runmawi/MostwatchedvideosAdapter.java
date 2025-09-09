@@ -76,7 +76,7 @@ class MostwatchedvideosAdapter extends RecyclerView.Adapter<MostwatchedvideosAda
 
 
         Picasso.get().
-                load( "https://runmawi.com/public/uploads/images/"+latestvideoslist.get(position).getImage_url())
+                load( "https://exlhoster.com/public/uploads/images/"+latestvideoslist.get(position).getImage_url())
                 .fit()
                 .into(holder.image);
 
