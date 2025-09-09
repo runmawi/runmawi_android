@@ -9,6 +9,7 @@ public class sharedpreferences  {
     public static final String payment="payment";
     public static final String role="role";
     public static final String email="email";
+    public static final String mobile="mobile";
     public static final String username="username";
     public static final String status="status";
     public static final String profile ="profile";

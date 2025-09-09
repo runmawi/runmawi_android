@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "../../../../../../../../../../../Users/remruata/projects"
+		},
+		{
+			"path": "../../../../../../../../../../../Users/remruata/Downloads/runmawi_ios"
+		},
+		{
+			"path": "../../../../../../.."
+		},
+		{
+			"path": "../../../../../../../../../../../Users/remruata/Sites/runmawi"
+		}
+	],
+	"settings": {
+		"java.compile.nullAnalysis.mode": "automatic"
+	}
+}

@@ -690,4 +690,25 @@ public interface RequestInterface {
                                                          @Field("amount") String amount,
                                                          @Field("ppv_plan") String ppv_plan,
                                                          @Field("platform") String platform);
+
+    @FormUrlEncoded
+    @POST("create_livestream_razorpay_order")
+    Call<CreateRazorpayOrderResponse> createLivestreamRazorpayOrder(@Field("user_id") String user_id,
+                                                                   @Field("live_id") String live_id,
+                                                                   @Field("amount") String amount,
+                                                                   @Field("ppv_plan") String ppv_plan,
+                                                                   @Field("platform") String platform);
+
+
+
+    @FormUrlEncoded
+    @POST("add_payperview")
+    Call<JSONResponse> addPayperViewWithQualityStore(@Field("user_id") String user_id,
+                                                     @Field("video_id") String video_id,
+                                                     @Field("py_id") String py_id,
+                                                     @Field("py_status") String py_status,
+                                                     @Field("payment_type") String payment_type,
+                                                     @Field("ppv_plan") String ppv_plan,
+                                                     @Field("amount") String amount,
+                                                     @Field("platform") String platform);
 }

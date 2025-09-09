@@ -1,6 +1,8 @@
 package com.atbuys.runmawi;
 
 import org.json.JSONObject;
+import org.json.JSONException;
+import java.io.IOException;
 
 import static androidx.media3.exoplayer.offline.Download.STATE_COMPLETED;
 import static androidx.media3.exoplayer.offline.Download.STATE_DOWNLOADING;
@@ -2993,36 +2995,63 @@ public class HomePageLiveActivity extends AppCompatActivity implements View.OnCl
 
     private void createOrder() {
         transactionLog();
-        String credentials = RAZORPAY_KEY_ID + ":" + RAZORPAY_KEY_SECRET;
-        String authHeader = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
-
-        int amt = Integer.parseInt(ppv_price);
-        String priceTotal = String.valueOf(amt * 100);
-
-        Order order = new Order(priceTotal, "INR", "order_rcptid_12", "1", new JSONObject());
-        Call<JSONResponse> list = ApiClient.getInstance1().getApi2().createOrder("Authorization" + authHeader, order);
-        list.enqueue(new retrofit2.Callback<JSONResponse>() {
+        
+        // Send original amount (not in paise) to backend
+        // Backend will handle conversion to paise
+        String priceTotal = ppv_price;
+        
+        // Debug logging
+        Log.w("runmawii", "Creating order for livestream PPV");
+        Log.w("runmawii", "user_id: " + user_id);
+        Log.w("runmawii", "live_id: " + idd.getText().toString());
+        Log.w("runmawii", "amount: " + priceTotal);
+        
+        // Use the dedicated livestream PPV endpoint
+        Call<CreateRazorpayOrderResponse> call = ApiClient.getInstance1().getApi().createLivestreamRazorpayOrder(
+            user_id, 
+            idd.getText().toString(), // live_id (the actual live_event_id)
+            priceTotal, // amount in rupees (backend will convert to paise)
+            "basic", // ppv_plan
+            "android" // platform
+        );
+        
+        call.enqueue(new retrofit2.Callback<CreateRazorpayOrderResponse>() {
             @Override
-            public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
-                if (response.code() == 200) {
-                    orderId = response.body().getId();
-                    startPaymentWithQuality(response.body().getId());
+            public void onResponse(Call<CreateRazorpayOrderResponse> call, retrofit2.Response<CreateRazorpayOrderResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    CreateRazorpayOrderResponse orderResponse = response.body();
+                    orderId = orderResponse.getOrder_id();
+                    startPaymentWithQuality(orderResponse.getOrder_id());
                     Log.w("runmawii", "amt: " + ppv_price);
-                    Log.w("runmawii", "id: " + response.body().getId());
+                    Log.w("runmawii", "id: " + orderResponse.getOrder_id());
                 } else {
-                    Toast.makeText(getApplicationContext(), "Error: " + response.message(), Toast.LENGTH_SHORT).show();
-                    Log.w("runmawii", "Error: " + response.message());
+                    String errorMessage = "HTTP " + response.code();
+                    if (response.message() != null && !response.message().isEmpty()) {
+                        errorMessage += ": " + response.message();
+                    }
+                    if (response.errorBody() != null) {
+                        try {
+                            String errorBody = response.errorBody().string();
+                            Log.w("runmawii", "Error body: " + errorBody);
+                            errorMessage += " - " + errorBody;
+                        } catch (IOException e) {
+                            Log.e("runmawii", "Error reading error body", e);
+                        }
+                    }
+                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                    Log.w("runmawii", errorMessage);
                 }
-
             }
-
+            
             @Override
-            public void onFailure(Call<JSONResponse> call, Throwable throwable) {
-                Log.w("runmawii", "api failed: " + throwable.getMessage());
+            public void onFailure(Call<CreateRazorpayOrderResponse> call, Throwable t) {
+                Log.e("runmawii", "Network error: " + t.getMessage());
+                Toast.makeText(getApplicationContext(), "Network error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
     }
+
+
 
     private void startPaymentWithQuality(String id) {
 
@@ -3094,99 +3123,45 @@ public class HomePageLiveActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onPaymentSuccess(String s) {
         Log.w("runmawii", "success: " + s);
-        fetchPaymentDetails(s);
-
-        /*Api.getClient().getAddPayperViewLive(user_id, idd.getText().toString(), "", "razorpay",ppv_price,"Android", new Callback<Addpayperview>() {
-
-            @Override
-            public void success(Addpayperview addpayperview1, Response response) {
-
-                addpayperview = addpayperview1;
-                if (addpayperview.getStatus().equalsIgnoreCase("true")) {
-                    Toast.makeText(getApplicationContext(), addpayperview.getMessage(), Toast.LENGTH_LONG).show();
-
-                    changeAccess();
-
-                } else if (addpayperview.getStatus().equalsIgnoreCase("false")) {
-                    Toast.makeText(getApplicationContext(), addpayperview.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-
-            }
-        });*/
-
+        
+        String paymentId = "";
+        String orderId = "";
+        String signature = "";
+        
+        try {
+            // Try to parse as JSON first (for complete response)
+            JSONObject paymentResponse = new JSONObject(s);
+            paymentId = paymentResponse.getString("razorpay_payment_id");
+            orderId = paymentResponse.getString("razorpay_order_id");
+            signature = paymentResponse.getString("razorpay_signature");
+            Log.w("runmawii", "Parsed JSON response - paymentId: " + paymentId + ", orderId: " + orderId);
+        } catch (JSONException e) {
+            // If JSON parsing fails, treat the response as payment ID
+            Log.w("runmawii", "Response is not JSON, treating as payment ID: " + s);
+            paymentId = s;
+            orderId = this.orderId; // Use the orderId we stored earlier
+            Log.w("runmawii", "Using stored orderId: " + orderId);
+        }
+        
+        // Payment successful - webhook will handle database insertion
+        // No need to manually call endpoint as webhook will create the purchase record
+        Log.w("runmawii", "Payment successful - webhook will handle database insertion");
+        Toast.makeText(getApplicationContext(), "Payment successful! Access granted.", Toast.LENGTH_LONG).show();
+        changeAccess();
     }
 
     @Override
     public void onPaymentError(int i, String s) {
-        try {
-            Api.getClient().getAddPayperViewLiveNew(user_id, idd.getText().toString(), orderId, "failed", "razorpay",ppv_price,"Android", new Callback<Addpayperview>() {
-
-                @Override
-                public void success(Addpayperview addpayperview1, Response response) {
-
-                    addpayperview = addpayperview1;
-                    if (addpayperview.getStatus().equalsIgnoreCase("true")) {
-                        changeAccess();
-                    } else if (addpayperview.getStatus().equalsIgnoreCase("false")) {
-                    }
-                }
-                @Override
-                public void failure(RetrofitError error) {
-
-                }
-            });
-        } catch (Exception e) {
-            Log.e("OnPaymentError", "Exception in onPaymentError", e);
-        }
+        Log.w("runmawii", "payment error: " + s + " code: " + i);
+        
+        // Payment failed - webhook will handle failure logging
+        // No need to manually call endpoint as webhook will handle failure cases
+        Log.w("runmawii", "Payment failed - webhook will handle failure logging");
+        Toast.makeText(getApplicationContext(), "Payment failed. Please try again.", Toast.LENGTH_LONG).show();
     }
 
-    private void fetchPaymentDetails(String paymentId) {
-
-        //Generate Basic Auth header
-        String credentials = RAZORPAY_KEY_ID + ":" + RAZORPAY_KEY_SECRET;
-        String authHeader = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
-
-        Call<JSONResponse> list = ApiClient.getInstance1().getApi1().dynamicGetRequest("Authorization" + authHeader, paymentId);
-        list.enqueue(new retrofit2.Callback<JSONResponse>() {
-            @Override
-            public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
-                Log.w("runmawii", "api success: " + response);
-                Log.w("runmawii", "api success: " + response.body().getStatus() + " daa: " + response.body().getAmount());
-
-                Api.getClient().getAddPayperViewLiveNew(user_id, idd.getText().toString(), orderId, response.body().getStatus(), "razorpay",ppv_price,"Android", new Callback<Addpayperview>() {
-
-                    @Override
-                    public void success(Addpayperview addpayperview1, Response response) {
-
-                        addpayperview = addpayperview1;
-                        if (addpayperview.getStatus().equalsIgnoreCase("true")) {
-                            Toast.makeText(getApplicationContext(), addpayperview.getMessage(), Toast.LENGTH_LONG).show();
-
-                            changeAccess();
-
-                        } else if (addpayperview.getStatus().equalsIgnoreCase("false")) {
-                            Toast.makeText(getApplicationContext(), addpayperview.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-
-                    }
-                });
-
-            }
-
-            @Override
-            public void onFailure(Call<JSONResponse> call, Throwable throwable) {
-                Log.w("runmawii", "api failed: " + throwable.getMessage());
-            }
-        });
-    }
+    // Removed fetchPaymentDetails method - webhook will handle database operations
+    // No need to manually fetch payment details or update database
 
 
     private MediaSource buildMediaSource1(Uri urlll) {

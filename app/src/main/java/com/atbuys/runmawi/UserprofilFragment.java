@@ -251,13 +251,15 @@ public class UserprofilFragment extends Fragment implements GoogleApiClient.OnCo
             }
 
         };
-        Timer swipeTimerr = new Timer();
-        swipeTimerr.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                handler1.post(Update1);
-            }
-        }, 1000, 1000);
+        // Timer swipeTimerr = new Timer();
+        // swipeTimerr.schedule(new TimerTask() {
+        //     @Override
+        //     public void run() {
+        //         handler1.post(Update1);
+        //     }
+        // }, 1000, 1000);
+
+        handler1.post(Update1);
 
         subserRecyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {

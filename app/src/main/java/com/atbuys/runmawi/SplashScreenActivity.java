@@ -24,24 +24,19 @@ import androidx.core.content.ContextCompat;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.play.core.appupdate.AppUpdateInfo;
-import com.google.android.play.core.appupdate.AppUpdateManager;
-import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
-import com.google.android.play.core.install.InstallStateUpdatedListener;
-import com.google.android.play.core.install.model.AppUpdateType;
-import com.google.android.play.core.install.model.InstallStatus;
-import com.google.android.play.core.install.model.UpdateAvailability;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SplashScreenActivity extends AppCompatActivity {
+public class SplashScreenActivity extends AppCompatActivity implements InAppUpdateManager.UpdateListener {
 
     private static int SPLASH_TIME_OUT = 8000;
     ImageView   logo;
@@ -49,9 +44,10 @@ public class SplashScreenActivity extends AppCompatActivity {
     String theme, fingerprint;
     private ArrayList<Splash_Screen> splashlist;
     String user_id;
-    private final int APP_UPDATE_REQUEST_CODE = 1230;
-    private AppUpdateManager appUpdateManager;
-    private InstallStateUpdatedListener installStateUpdatedListener;
+    private InAppUpdateManager inAppUpdateManager;
+    private Handler splashHandler;
+    private boolean updateCheckCompleted = false;
+    private boolean proceedToMainApp = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,194 +115,228 @@ public class SplashScreenActivity extends AppCompatActivity {
             }
         });
 
+        // Initialize In-App Update Manager
+        setupInAppUpdate();
+        
+        // TEMPORARY: Add direct update tester for debugging
+        InAppUpdateTester tester = new InAppUpdateTester(this);
+        tester.testUpdateAvailability();
+        
+        // Start update check immediately
+        startUpdateCheck();
     }
 
-    private void checkUpdate(){
-
-        FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
-        firebaseRemoteConfig.fetchAndActivate()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        int minAllowedVersion = (int) firebaseRemoteConfig.getLong("min_supported_version");
-                        int currentVersion = BuildConfig.VERSION_CODE;
-
-                        if (currentVersion < minAllowedVersion) {//39<38
-                            // Block access
-                            showForceUpdateDialog();
-                        }else{
-                            checkInternetConenction();
-                        }
-                    }
-                });
+    private void setupInAppUpdate() {
+        inAppUpdateManager = new InAppUpdateManager(this);
+        inAppUpdateManager.setUpdateListener(this);
+        Log.d("SplashScreen", "InAppUpdateManager setup complete");
     }
-
+    
+    private void startUpdateCheck() {
+        Log.d("SplashScreen", "Starting update check...");
+        
+        // Check internet connection first
+        ConnectivityManager connec = (ConnectivityManager) getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
+        
+        if (isNetworkConnected(connec)) {
+            // Start the update check
+            inAppUpdateManager.checkForUpdates();
+            
+            // Set a timeout to proceed even if update check takes too long
+            splashHandler = new Handler();
+            splashHandler.postDelayed(() -> {
+                if (!updateCheckCompleted) {
+                    Log.w("SplashScreen", "Update check timeout, proceeding to main app");
+                    proceedToMainAppInternal();
+                }
+            }, SPLASH_TIME_OUT);
+        } else {
+            // No internet connection
+            new Handler().postDelayed(() -> {
+                Intent in = new Intent(SplashScreenActivity.this, InternetConnectionActivity.class);
+                startActivity(in);
+                finish();
+            }, SPLASH_TIME_OUT);
+        }
+         }
+     
+    // ==================== UpdateListener Implementation ====================
+    
+    @Override
+    public void onUpdateCheckComplete(boolean updateRequired, boolean forceUpdate) {
+        updateCheckCompleted = true;
+        
+        Log.d("SplashScreen", "Update check complete - Required: " + updateRequired + ", Force: " + forceUpdate);
+        
+        // Add debug logging
+        if (inAppUpdateManager != null) {
+            RemoteConfigManager remoteConfig = RemoteConfigManager.getInstance();
+            remoteConfig.logAllValues();
+        }
+        
+        if (forceUpdate) {
+            Log.d("SplashScreen", "Critical update required - blocking app");
+            // Don't proceed to main app - wait for update
+        } else if (updateRequired) {
+            Log.d("SplashScreen", "Update available but optional - proceeding to app");
+            // Optional update available, but can proceed
+            scheduleMainAppStart();
+        } else {
+            Log.d("SplashScreen", "App is up to date - proceeding to app");
+            scheduleMainAppStart();
+        }
+    }
+    
+    @Override
+    public void onUpdateDownloadStarted() {
+        Log.d("SplashScreen", "Update download started");
+        // You can show a progress indicator here if needed
+    }
+    
+    @Override
+    public void onUpdateDownloadCompleted() {
+        Log.d("SplashScreen", "Update download completed");
+        // Show snackbar to complete update
+        showUpdateCompleteSnackbar();
+    }
+    
+    @Override
+    public void onUpdateFailed(String error) {
+        Log.e("SplashScreen", "Update failed: " + error);
+        
+        // Show user-friendly error message
+        if (error.contains("Google Play Services")) {
+            Toast.makeText(this, "Please update Google Play Services and try again", Toast.LENGTH_LONG).show();
+        } else if (error.contains("signed into Google Play Store")) {
+            Toast.makeText(this, "Please sign into Google Play Store", Toast.LENGTH_LONG).show();
+        } else if (error.contains("only work for apps installed from Google Play Store")) {
+            Toast.makeText(this, "App installed via USB. In-app updates require Play Store installation.", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "Update check failed. Using current version.", Toast.LENGTH_SHORT).show();
+        }
+        
+        scheduleMainAppStart();
+    }
+    
+    @Override
+    public void onUpdateCancelled() {
+        Log.d("SplashScreen", "Update cancelled by user");
+        
+        // Check if this was a force update
+        if (inAppUpdateManager.isForceUpdateRequired()) {
+            showForceUpdateDialog();
+        } else {
+            // Optional update cancelled, proceed to main app
+            scheduleMainAppStart();
+        }
+    }
+    
+    // ==================== Helper Methods ====================
+    
+    private void scheduleMainAppStart() {
+        if (!proceedToMainApp) {
+            proceedToMainApp = true;
+            
+            // Cancel any existing handler
+            if (splashHandler != null) {
+                splashHandler.removeCallbacksAndMessages(null);
+            }
+            
+            // Start main app after a short delay (or immediately if timeout already passed)
+            splashHandler = new Handler();
+            splashHandler.postDelayed(this::proceedToMainAppInternal, 1000);
+        }
+    }
+    
+    private void proceedToMainAppInternal() {
+        if (!isFinishing()) {
+            Log.d("SplashScreen", "Proceeding to main app");
+            
+            // Use your existing navigation logic
+            if (user_id == null) {
+                Intent homeIntent1 = new Intent(SplashScreenActivity.this, WelcomeActivity.class);
+                startActivity(homeIntent1);
+            } else {
+                Intent homeIntent1 = new Intent(SplashScreenActivity.this, HomePageActivitywithFragments.class);
+                startActivity(homeIntent1);
+            }
+            finish();
+        }
+    }
+    
+    private void showUpdateCompleteSnackbar() {
+        Snackbar snackbar = Snackbar.make(
+            findViewById(android.R.id.content),
+            "Update downloaded",
+            Snackbar.LENGTH_INDEFINITE
+        );
+        
+        snackbar.setAction("RESTART", v -> {
+            if (inAppUpdateManager != null) {
+                inAppUpdateManager.completeUpdate();
+            }
+        });
+        
+        snackbar.setActionTextColor(getResources().getColor(R.color.colorAccent));
+        snackbar.show();
+    }
+    
     private void showForceUpdateDialog() {
+        String message = inAppUpdateManager.getUpdateMessage();
+        
         new AlertDialog.Builder(this)
                 .setTitle("Update Required")
-                .setMessage("Please update the app to continue.")
+                .setMessage(message)
                 .setCancelable(false)
                 .setPositiveButton("Update", (dialog, which) -> {
-                    // Open Play Store
-                    final String appPackageName = getPackageName();
-                    try {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
-                    } catch (android.content.ActivityNotFoundException anfe) {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
-                    }
-                }).show();
+                    inAppUpdateManager.startImmediateUpdate();
+                })
+                .setNegativeButton("Exit", (dialog, which) -> {
+                    finish();
+                })
+                .show();
     }
-
-
-
-    private boolean checkInternetConenction() {
-        ConnectivityManager connec = (ConnectivityManager) getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
-
-        // Check for network connections
-        if (connec.getNetworkInfo(0).getState() ==
-                android.net.NetworkInfo.State.CONNECTED ||
-                connec.getNetworkInfo(0).getState() ==
-                        android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() ==
-                        android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED) {
-
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-
-                    appUpdateManager = AppUpdateManagerFactory.create(getApplicationContext());
-                    Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
-
-                    appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
-                        if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
-                            try {
-                                appUpdateManager.startUpdateFlowForResult(
-                                        appUpdateInfo,
-                                        AppUpdateType.IMMEDIATE,
-                                        SplashScreenActivity.this,
-                                        APP_UPDATE_REQUEST_CODE
-                                );
-                            } catch (IntentSender.SendIntentException e) {
-                            }
-                        } else {
-                            if (user_id == null) {
-                                Intent homeIntent1 = new Intent(SplashScreenActivity.this, WelcomeActivity.class);
-                                startActivity(homeIntent1);
-                            } else {
-                                Intent homeIntent1 = new Intent(SplashScreenActivity.this, HomePageActivitywithFragments.class);
-                                startActivity(homeIntent1);
-                            }
-                            finish();
-                        }
-                    });
-                    appUpdateInfoTask.addOnFailureListener(command -> {
-                        if (user_id == null) {
-                            Intent homeIntent1 = new Intent(SplashScreenActivity.this, WelcomeActivity.class);
-                            startActivity(homeIntent1);
-                        } else {
-                            Intent homeIntent1 = new Intent(SplashScreenActivity.this, HomePageActivitywithFragments.class);
-                            startActivity(homeIntent1);
-                        }
-                        finish();
-                    });
-
-                    installStateUpdatedListener = state -> {
-                        Log.w("inAppUpdates", String.valueOf(state.installStatus()));
-                        if (state.installStatus() == InstallStatus.DOWNLOADING) {
-                            long bytesDownloaded = state.bytesDownloaded();
-                            long totalBytesToDownload = state.totalBytesToDownload();
-                            Log.w("inAppUpdates", "bytesDownloaded " + bytesDownloaded + " / " + totalBytesToDownload);
-                            // Update UI to show download progress.
-                        } else if (state.installStatus() == InstallStatus.DOWNLOADED) {
-                            Log.w("inAppUpdates", "Update is downloaded and ready to install ");
-                            popupSnackbarForCompleteUpdate();
-                            // Notify the user and request installation.
-                        } else if (state.installStatus() == InstallStatus.INSTALLING) {
-                            Log.w("inAppUpdates", "Update is being installed");
-                            // Update UI to show installation progress.
-                        } else if (state.installStatus() == InstallStatus.INSTALLED) {
-                            Log.w("inAppUpdates", "Update is installed");
-                            // Notify the user and perform any necessary actions.
-                        } else if (state.installStatus() == InstallStatus.FAILED) {
-                            Log.w("inAppUpdates", "Update failed to install");
-                            // Notify the user and handle the error.
-                        }
-                    };
-                    appUpdateManager.registerListener(installStateUpdatedListener);
-
-
-                }
-            }, SPLASH_TIME_OUT);
-
-            return true;
-        } else if (
-                connec.getNetworkInfo(0).getState() ==
-                        android.net.NetworkInfo.State.DISCONNECTED ||
-                        connec.getNetworkInfo(1).getState() ==
-                                android.net.NetworkInfo.State.DISCONNECTED) {
-
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent in = new Intent(SplashScreenActivity.this, InternetConnectionActivity.class);
-                    startActivity(in);
-                }
-            }, SPLASH_TIME_OUT);
-            return false;
-        }
-        return false;
+    
+    private boolean isNetworkConnected(ConnectivityManager connec) {
+        return connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
+               connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTING ||
+               connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
+               connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED;
     }
-
-    private void popupSnackbarForCompleteUpdate() {
-        Snackbar.make(findViewById(android.R.id.content), "An update has just been downloaded.", Snackbar.LENGTH_INDEFINITE
-        ).setAction("INSTALL", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appUpdateManager.completeUpdate();
-            }
-        }).setActionTextColor(getResources().getColor(R.color.colorAccent)).show();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == APP_UPDATE_REQUEST_CODE) {
-            if (resultCode != RESULT_OK) {
-                if (user_id == null) {
-                    Intent homeIntent1 = new Intent(SplashScreenActivity.this, WelcomeActivity.class);
-                    startActivity(homeIntent1);
-                } else {
-                    Intent homeIntent1 = new Intent(SplashScreenActivity.this, HomePageActivitywithFragments.class);
-                    startActivity(homeIntent1);
-                }
-                finish();
-            }
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        if (appUpdateManager != null) {
-            appUpdateManager.unregisterListener(installStateUpdatedListener);
-        }
-        super.onDestroy();
-    }
-
+    
+    // ==================== Activity Lifecycle Methods ====================
+    
     @Override
     protected void onResume() {
         super.onResume();
-        appUpdateManager = AppUpdateManagerFactory.create(this);
-        appUpdateManager.getAppUpdateInfo().addOnSuccessListener(appUpdateInfo -> {
-            // If the update is downloaded but not installed,
-            // notify the user to complete the update.
-            if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
-                popupSnackbarForCompleteUpdate();
-            }
-        });
-        checkInternetConenction();
-        //checkUpdate();
-
+        
+        // Check for resumable updates (in case immediate update was interrupted)
+        if (inAppUpdateManager != null) {
+            inAppUpdateManager.checkForResumableUpdate();
+        }
     }
-
-
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        
+        // Handle update result
+        if (inAppUpdateManager != null) {
+            inAppUpdateManager.onActivityResult(requestCode, resultCode);
+        }
+    }
+    
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        
+        // Cleanup
+        if (splashHandler != null) {
+            splashHandler.removeCallbacksAndMessages(null);
+        }
+        
+        if (inAppUpdateManager != null) {
+            inAppUpdateManager.cleanup();
+        }
+    }
 }

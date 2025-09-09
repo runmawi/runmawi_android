@@ -779,6 +779,7 @@ public class SignupActivity extends AppCompatActivity implements GoogleApiClient
                             editor.putString(sharedpreferences.user_id, userdata.get(0).getId());
                             editor.putString(sharedpreferences.role, userdata.get(0).getRole());
                             editor.putString(sharedpreferences.email, userdata.get(0).getEmail());
+                            editor.putString(sharedpreferences.mobile, userdata.get(0).getMobile());
                             editor.putString(sharedpreferences.username, userdata.get(0).getUsername());
                             editor.putString(sharedpreferences.profile,xxVal);
                             editor.putString(sharedpreferences.fingerprint,"1");
@@ -849,6 +850,7 @@ public class SignupActivity extends AppCompatActivity implements GoogleApiClient
                                             editor.putString(sharedpreferences.user_id, userdata.get(0).getId());
                                             editor.putString(sharedpreferences.role, userdata.get(0).getRole());
                                             editor.putString(sharedpreferences.email, userdata.get(0).getEmail());
+                                            editor.putString(sharedpreferences.mobile, userdata.get(0).getMobile());
                                             editor.putString(sharedpreferences.username, userdata.get(0).getUsername());
                                             editor.putString(sharedpreferences.profile,xxVal);
                                             editor.putString(sharedpreferences.fingerprint,"1");

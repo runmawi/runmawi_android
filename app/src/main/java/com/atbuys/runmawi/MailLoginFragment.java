@@ -136,13 +136,13 @@ public class MailLoginFragment extends Fragment {
             @Override
             public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    JSONResponse jsonResponse = response.body();
+                JSONResponse jsonResponse = response.body();
                     if (jsonResponse.getSite_theme_setting() != null && jsonResponse.getSite_theme_setting().length > 0) {
-                        Site_theme_setting = new ArrayList<>(Arrays.asList(jsonResponse.getSite_theme_setting()));
+                Site_theme_setting = new ArrayList<>(Arrays.asList(jsonResponse.getSite_theme_setting()));
                         if (!Site_theme_setting.isEmpty() && Site_theme_setting.get(0) != null) {
-                            String x = Site_theme_setting.get(0).getImage_url();
+                String x = Site_theme_setting.get(0).getImage_url();
                             if (x != null) {
-                                Picasso.get().load(x).into(logo);
+                Picasso.get().load(x).into(logo);
                             } else {
                                 Log.e("MailLoginFragment", "Image URL is null in theme settings.");
                             }
@@ -175,27 +175,27 @@ public class MailLoginFragment extends Fragment {
             @Override
             public void onResponse(Call<JSONResponse> call, Response<JSONResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    JSONResponse jsonResponse = response.body();
-                    socialsettingList = new ArrayList<>(Arrays.asList(jsonResponse.getSocialsetting()));
+                JSONResponse jsonResponse = response.body();
+                socialsettingList = new ArrayList<>(Arrays.asList(jsonResponse.getSocialsetting()));
 
                     if (socialsettingList != null && !socialsettingList.isEmpty()) {
-                        if (socialsettingList.get(0).getFacebook().equalsIgnoreCase("0")) {
-                            facebook_layout.setVisibility(View.GONE);
-                        } else {
-                            facebook_layout.setVisibility(View.VISIBLE);
-                        }
+                if (socialsettingList.get(0).getFacebook().equalsIgnoreCase("0")) {
+                    facebook_layout.setVisibility(View.GONE);
+                } else {
+                    facebook_layout.setVisibility(View.VISIBLE);
+                }
 
-                        if (socialsettingList.get(0).getGoogle().equalsIgnoreCase("0")) {
-                            google_layout.setVisibility(View.GONE);
-                        } else {
-                            google_layout.setVisibility(View.VISIBLE);
-                        }
+                if (socialsettingList.get(0).getGoogle().equalsIgnoreCase("0")) {
+                    google_layout.setVisibility(View.GONE);
+                } else {
+                    google_layout.setVisibility(View.VISIBLE);
+                }
 
-                        if (socialsettingList.get(0).getGoogle().equalsIgnoreCase("0") && socialsettingList.get(0).getFacebook().equalsIgnoreCase("0")) {
-                            orContinue_layout.setVisibility(View.GONE);
-                        } else {
-                            orContinue_layout.setVisibility(View.VISIBLE);
-                        }
+                if (socialsettingList.get(0).getGoogle().equalsIgnoreCase("0") && socialsettingList.get(0).getFacebook().equalsIgnoreCase("0")) {
+                    orContinue_layout.setVisibility(View.GONE);
+                } else {
+                    orContinue_layout.setVisibility(View.VISIBLE);
+                }
                     } else {
                         // Handle the case where socialsettingList is null or empty, e.g., hide all social login buttons
                         facebook_layout.setVisibility(View.GONE);

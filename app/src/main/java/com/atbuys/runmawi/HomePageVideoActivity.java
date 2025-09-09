@@ -341,6 +341,7 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
     LinearLayout yearlayout;
     TextView videotitle1, language1, genre2, duration, year, getCast1;
     String shareurl, user_id, autoplay, subtitles_text, subchecked1, subchecked2, subchecked3, subchecked4;
+    String currentUserEmail, currentUserPhone; // Added for Razorpay prefill
     String video_like, video_dislike;
 
     LinearLayout trailerLayout, thismayalsolike_layout, share1;
@@ -515,6 +516,8 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
 
         SharedPreferences prefs = getSharedPreferences(sharedpreferences.My_preference_name, MODE_PRIVATE);
         user_id = prefs.getString(sharedpreferences.user_id, null);
+        currentUserEmail = prefs.getString(sharedpreferences.email, "user@example.com"); // Use correct key
+        currentUserPhone = prefs.getString(sharedpreferences.mobile, "");    // Use correct key, empty default
         user_role = prefs.getString(sharedpreferences.role, null);
         auto_play = prefs.getString(sharedpreferences.autoplay, null);
 
@@ -3549,17 +3552,69 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
     public void onPaymentSuccess(String razorpayPaymentId) {
         Log.w("LOG_Runmawi_Payment", "Payment successful. Payment ID: " + razorpayPaymentId);
         
-        // Don't call add_payperview anymore - webhook handles it!
-        // Just show success and refresh access
-        Toast.makeText(this, "Payment successful! Processing...", Toast.LENGTH_SHORT).show();
+        // Call add_payperview to ensure database entry is created immediately
+        // This provides reliability in case webhook fails or is delayed
+        Call<JSONResponse> addPayperviewCall = ApiClient.getInstance1().getApi().addPayperViewWithQualityStore(
+            user_id, 
+            idd.getText().toString(), // video_id
+            orderId, // py_id (Razorpay order ID)
+            "captured", // py_status
+            "razorpay", // payment_type
+            quality_resolution, // ppv_plan
+            quality_price, // amount
+            "Android" // platform
+        );
         
-        // Wait a moment for webhook to process, then refresh access
-        new Handler().postDelayed(new Runnable() {
+        addPayperviewCall.enqueue(new retrofit2.Callback<JSONResponse>() {
             @Override
-            public void run() {
-                changeAccess(); // This will refresh the video access
+            public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
+                Log.w("LOG_Runmawi_Payment", "add_payperview call successful after payment");
+                if (response.isSuccessful() && response.body() != null) {
+                    JSONResponse jsonResponse = response.body();
+                    if (jsonResponse.getStatus().equalsIgnoreCase("success")) {
+                        Toast.makeText(HomePageVideoActivity.this, "Payment successful! Access granted.", Toast.LENGTH_SHORT).show();
+                        changeAccess(); // Refresh video access
+                    } else {
+                        Log.e("LOG_Runmawi_Payment", "add_payperview returned error: " + jsonResponse.getMessage());
+                        Toast.makeText(HomePageVideoActivity.this, "Payment successful! Processing...", Toast.LENGTH_SHORT).show();
+                        
+                        // Wait for webhook to process, then refresh access
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                changeAccess();
+                            }
+                        }, 3000);
+                    }
+                } else {
+                    Log.e("LOG_Runmawi_Payment", "add_payperview HTTP error: " + response.code());
+                    Toast.makeText(HomePageVideoActivity.this, "Payment successful! Processing...", Toast.LENGTH_SHORT).show();
+                    
+                    // Wait for webhook to process, then refresh access
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            changeAccess();
+                        }
+                    }, 3000);
+                }
             }
-        }, 3000); // 3 second delay
+
+            @Override
+            public void onFailure(Call<JSONResponse> call, Throwable t) {
+                Log.e("LOG_Runmawi_Payment", "add_payperview call failed: " + t.getMessage());
+                // Still show success since payment went through, webhook might handle it
+                Toast.makeText(HomePageVideoActivity.this, "Payment successful! Processing...", Toast.LENGTH_SHORT).show();
+                
+                // Wait for webhook to process, then refresh access
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        changeAccess();
+                    }
+                }, 3000);
+            }
+        });
     }
 
     @Override
@@ -3593,7 +3648,7 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
             user_id, 
             idd.getText().toString(), // video_id
             quality_price,           // amount
-            quality_name,            // ppv_plan (quality plan name)
+            quality_resolution,      // ppv_plan (resolution only, e.g. "480p")
             "Android"               // platform
         );
 
@@ -3609,7 +3664,7 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
                     Log.w("LOG_Runmawi_Payment", "Laravel order created successfully. Order ID: " + orderId);
                     
                     // Now start Razorpay payment with Laravel-created order
-                    startRazorpayPayment(orderId, quality_price, RAZORPAY_KEY_ID);
+                    startRazorpayPayment(orderId, quality_price, RAZORPAY_KEY_ID, currentUserEmail, currentUserPhone);
                 } else {
                     Log.e("LOG_Runmawi_Payment", "Failed to create order: " + (responseBody != null ? responseBody.getMessage() : "No response"));
                     Toast.makeText(HomePageVideoActivity.this, "Failed to create payment order", Toast.LENGTH_SHORT).show();
@@ -3624,7 +3679,7 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
         });
     }
 
-    private void startRazorpayPayment(String orderId, String amount, String keyId) {
+    private void startRazorpayPayment(String orderId, String amount, String keyId, String userEmail, String userPhone) {
         try {
             Checkout checkout = new Checkout();
             checkout.setKeyID(keyId);
@@ -3637,8 +3692,8 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
             options.put("amount", Integer.parseInt(amount) * 100); // Convert to paise
             
             JSONObject prefill = new JSONObject();
-            prefill.put("email", "user@example.com");
-            prefill.put("contact", "9999999999");
+            prefill.put("email", userEmail);
+            prefill.put("contact", userPhone);
             options.put("prefill", prefill);
             
             checkout.open(HomePageVideoActivity.this, options);

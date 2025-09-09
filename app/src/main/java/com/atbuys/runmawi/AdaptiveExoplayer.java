@@ -23,10 +23,15 @@ import androidx.media3.exoplayer.offline.DefaultDownloadIndex;
 import androidx.media3.exoplayer.offline.DownloadNotificationHelper;
 
 import com.facebook.FacebookSdk;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import co.paystack.android.PaystackSdk;
 
@@ -51,6 +56,12 @@ public class AdaptiveExoplayer extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        // Initialize Firebase
+        FirebaseApp.initializeApp(this);
+        
+        // Initialize Remote Config Manager
+        RemoteConfigManager.getInstance();
 
         mInstance = this;
         userAgent = Util.getUserAgent(this, "AdaptiveExoplayer");
@@ -102,13 +113,6 @@ public class AdaptiveExoplayer extends Application {
     public void onTerminate() {
         super.onTerminate();
     }
-
-
-
-
-
-
-
 
 
 

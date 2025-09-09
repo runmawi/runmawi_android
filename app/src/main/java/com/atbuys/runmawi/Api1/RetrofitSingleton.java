@@ -6,12 +6,13 @@ import com.google.gson.GsonBuilder;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor; // Import the interceptor
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitSingleton {
 
-    private String BASE_URL = "https://gietfwdzfu.a.pinggy.link/api/auth/";//https://runmawi.com/
+    private String BASE_URL = "https://runmawi.com/api/auth/";//https://runmawi.com/
     private Retrofit retrofit;
     OkHttpClient.Builder okHttpClient;
     private static RetrofitSingleton retrofitSingletonInstance;
@@ -21,9 +22,19 @@ public class RetrofitSingleton {
 
         gson = new GsonBuilder().create();
 
-        okHttpClient = new OkHttpClient.Builder().readTimeout(3, TimeUnit.MINUTES);
+        // Create a logging interceptor
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY); // Log request and response lines and their respective headers and bodies (if present).
+
+        okHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor) // Add the interceptor
+                .readTimeout(30, TimeUnit.SECONDS)
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS);
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .client(okHttpClient.build()) // Attach the custom client
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
     }
