@@ -564,7 +564,7 @@ public interface RequestInterface {
 
     @FormUrlEncoded
     @POST("RazorpaySubscription")
-    Call<JSONResponse> getSubscriptionDeatails(@Field("plan_id") String audio_id);
+    Call<JSONResponse> getSubscriptionDeatails(@Field("plan_id") String audio_id, @Field("user_id") String user_id);
 
     @FormUrlEncoded
     @POST("RazorpaySubscription")

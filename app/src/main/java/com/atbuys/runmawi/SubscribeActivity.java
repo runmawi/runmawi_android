@@ -596,15 +596,27 @@ public class SubscribeActivity extends AppCompatActivity implements PaymentResul
                                                 planidd = plan_id_list.get(0).getId();
 
                                                 Log.w("Runmawi_test","planid: "+planidd+" plan: "+planname);
-                                                Call<JSONResponse> callaudio = ApiClient.getInstance1().getApi().RazorpaySubscription(planidd);
+                                                // Fetch subscription details from the new endpoint using RequestInterface
+                                                Retrofit retrofit = new Retrofit.Builder()
+                                                        .baseUrl("https://exlhoster.com/api/auth/")
+                                                        .addConverterFactory(GsonConverterFactory.create())
+                                                        .build();
+                                                RequestInterface requestInterface = retrofit.create(RequestInterface.class);
+                                                Call<JSONResponse> callaudio = requestInterface.getSubscriptionDeatails(planidd, user_id);
                                                 callaudio.enqueue(new retrofit2.Callback<JSONResponse>() {
                                                     @Override
                                                     public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
 
                                                         JSONResponse jsonResponse = response.body();
-                                                        subresponse = new ArrayList<>(Arrays.asList(jsonResponse.getRespond()));
-                                                        subscriptionid = subresponse.get(0).getSubscriptionid();
-                                                        startPayment(subscriptionid, "xxxx", plan);
+                                                        if (jsonResponse != null && jsonResponse.getRespond() != null && jsonResponse.getRespond().length > 0) {
+                                                            subresponse = new ArrayList<>(Arrays.asList(jsonResponse.getRespond()));
+                                                            subscriptionid = subresponse.get(0).getSubscriptionid();
+                                                            String razorpayKey = subresponse.get(0).getRazorpaykeyId();
+                                                            startPayment(subscriptionid, "xxxx", plan, razorpayKey);
+                                                        } else {
+                                                            Log.d("Error", "Invalid response from subscription API");
+                                                            Toast.makeText(getApplicationContext(), "Error: Invalid response from subscription API", Toast.LENGTH_LONG).show();
+                                                        }
 
                                                     }
 
@@ -1028,7 +1040,7 @@ public class SubscribeActivity extends AppCompatActivity implements PaymentResul
         finish();
     }
 
-    private void startPayment(String price, String displayName, String plan) {
+    private void startPayment(String price, String displayName, String plan, String razorpayKey) {
         Intent in = getIntent();
         final String username = in.getStringExtra("username");
         //final String email = in.getStringExtra("email");
@@ -1040,6 +1052,9 @@ public class SubscribeActivity extends AppCompatActivity implements PaymentResul
         final Checkout co = new Checkout();
 
         try {
+            // Set the key for the Razorpay checkout
+            co.setKeyID(razorpayKey);
+
             JSONObject options = new JSONObject();
             options.put("name", "Runmawi");
             options.put("description", price);

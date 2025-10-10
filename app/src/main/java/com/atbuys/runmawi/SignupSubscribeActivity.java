@@ -736,7 +736,7 @@ public class SignupSubscribeActivity extends AppCompatActivity implements Paymen
                                                 planidd = plan_id_list.get(0).getPlan_id();
 
 
-                                                Call<JSONResponse> callaudio = ApiClient.getInstance1().getApi().getSubscriptionDeatails(planidd);
+                                                Call<JSONResponse> callaudio = ApiClient.getInstance1().getApi().getSubscriptionDeatails(planidd, user_id);
                                                 callaudio.enqueue(new retrofit2.Callback<JSONResponse>() {
                                                     @Override
                                                     public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
@@ -746,7 +746,8 @@ public class SignupSubscribeActivity extends AppCompatActivity implements Paymen
                                                         razordata = new ArrayList<>(Arrays.asList(jsonResponse1.getRespond()));
                                                         subscribeid = razordata.get(0).getSubscriptionid();
                                                         String displayName = razordata.get(0).getName();
-                                                        startPayment(subscribeid, displayName, plan);
+                                                        String razorpayKey = razordata.get(0).getRazorpaykeyId();
+                                                        startPayment(subscribeid, displayName, plan, razorpayKey);
                                                         progressDialog.hide();
 
                                                     }
@@ -1075,7 +1076,7 @@ public class SignupSubscribeActivity extends AppCompatActivity implements Paymen
         }
     }
 
-    private void startPayment(String price, String displayName, String plan) {
+    private void startPayment(String price, String displayName, String plan, String razorpayKey) {
 
 
         Intent in = getIntent();
@@ -1089,6 +1090,9 @@ public class SignupSubscribeActivity extends AppCompatActivity implements Paymen
         final Checkout co = new Checkout();
 
         try {
+            // Set the key for the Razorpay checkout
+            co.setKeyID(razorpayKey);
+
             JSONObject options = new JSONObject();
             options.put("name", "Runmawi");
             options.put("description", "Runmawi Subscription");

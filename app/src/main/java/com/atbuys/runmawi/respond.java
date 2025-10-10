@@ -9,6 +9,7 @@ public class respond {
     private String status;
     private String subscriptionId;
     private String name;
+    private String razorpaykeyId;
 
 
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
@@ -37,6 +38,14 @@ public class respond {
 
     public void setSubscriptionid(String subscriptionId) {
         this.subscriptionId = subscriptionId;
+    }
+
+    public String getRazorpaykeyId() {
+        return razorpaykeyId;
+    }
+
+    public void setRazorpaykeyId(String razorpaykeyId) {
+        this.razorpaykeyId = razorpaykeyId;
     }
 
 
