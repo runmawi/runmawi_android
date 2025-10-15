@@ -75,6 +75,10 @@ import com.atbuys.runmawi.Remote.IpService;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -1084,21 +1088,46 @@ public class SubscribeActivity extends AppCompatActivity implements PaymentResul
 
                 becomesub = becomesub1;
 
-                Toast.makeText(getApplicationContext(), "" + becomesub1.getMessage(), Toast.LENGTH_LONG).show();
+                if (becomesub1.getStatus().equalsIgnoreCase("true")) {
+                    // Create a custom toast that doesn't disappear automatically
+                    Toast toast = Toast.makeText(getApplicationContext(), "Success! Razorpay Subscription ID: " + subscriptionid + ", User ID: " + user_id + " - " + becomesub1.getMessage(), Toast.LENGTH_LONG);
+                    toast.show();
 
-                SharedPreferences.Editor editor = getSharedPreferences(sharedpreferences.My_preference_name, MODE_PRIVATE).edit();
-                editor.putBoolean(sharedpreferences.login, true);
-                editor.putString(sharedpreferences.user_id, user_id);
-                editor.putString(sharedpreferences.role, "subscriber");
-                editor.apply();
-                editor.commit();
-                Intent in = new Intent(getApplicationContext(), HomePageActivitywithFragments.class);
-                startActivity(in);
+                    SharedPreferences.Editor editor = getSharedPreferences(sharedpreferences.My_preference_name, MODE_PRIVATE).edit();
+                    editor.putBoolean(sharedpreferences.login, true);
+                    editor.putString(sharedpreferences.user_id, user_id);
+                    editor.putString(sharedpreferences.role, "subscriber");
+                    editor.apply();
+                    editor.commit();
+                    Intent in = new Intent(getApplicationContext(), HomePageActivitywithFragments.class);
+                    startActivity(in);
+                } else {
+                    // Handle case where status is not true
+                    // Create a custom toast that doesn't disappear automatically
+                    Toast toast = Toast.makeText(getApplicationContext(), "Payment failed! Razorpay Subscription ID: " + subscriptionid + ", User ID: " + user_id + " - " + becomesub1.getMessage(), Toast.LENGTH_LONG);
+                    toast.show();
+                }
             }
 
             @Override
             public void failure(RetrofitError error) {
-                Toast.makeText(getApplicationContext(), "Payment Store Issue: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                // Check if it's a 500 server error specifically
+                if (error.getResponse() != null) {
+                    int statusCode = error.getResponse().getStatus();
+                    if (statusCode == 500) {
+                        // Create a custom toast that doesn't disappear automatically
+                        Toast toast = Toast.makeText(getApplicationContext(), "Server error (500)! Razorpay Subscription ID: " + subscriptionid + ", User ID: " + user_id + " - " + error.getMessage(), Toast.LENGTH_LONG);
+                        toast.show();
+                    } else {
+                        // Create a custom toast that doesn't disappear automatically
+                        Toast toast = Toast.makeText(getApplicationContext(), "Payment Store Issue (Status " + statusCode + ")! Razorpay Subscription ID: " + subscriptionid + ", User ID: " + user_id + " - " + error.getMessage(), Toast.LENGTH_LONG);
+                        toast.show();
+                    }
+                } else {
+                    // Create a custom toast that doesn't disappear automatically
+                    Toast toast = Toast.makeText(getApplicationContext(), "Payment Store Issue! Razorpay Subscription ID: " + subscriptionid + ", User ID: " + user_id + " - " + error.getMessage(), Toast.LENGTH_LONG);
+                    toast.show();
+                }
             }
         });
 

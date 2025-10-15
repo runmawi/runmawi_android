@@ -1163,26 +1163,34 @@ public class SignupSubscribeActivity extends AppCompatActivity implements Paymen
 
                     progressDialog.hide();
 
-                    Toast.makeText(getApplicationContext(), "Your Payment Is Complete. You Can Login Using Your Credentials", Toast.LENGTH_LONG).show();
+                    // Create a custom toast that doesn't disappear automatically
+                    Toast toast = Toast.makeText(getApplicationContext(), "Success! Razorpay Subscription ID: " + subscribeid + ", User ID: " + user_id + " - Your Payment Is Complete. You Can Login Using Your Credentials", Toast.LENGTH_LONG);
+                    toast.show();
                     Intent in = new Intent(getApplicationContext(), SigninActivity.class);
                     startActivity(in);
 
                 } else if (regresponse.getStatus().equalsIgnoreCase("false")) {
                     if (regresponse.getMessage().equalsIgnoreCase("Email id Already Exists")) {
                         progressDialog.hide();
-                        Toast.makeText(getApplicationContext(), "Email Id already Exists", Toast.LENGTH_LONG).show();
+                        // Create a custom toast that doesn't disappear automatically
+                        Toast toast = Toast.makeText(getApplicationContext(), "Error! Razorpay Subscription ID: " + subscribeid + ", User ID: " + user_id + " - Email Id already Exists", Toast.LENGTH_LONG);
+                        toast.show();
                     }
                 } else {
 
                     progressDialog.hide();
-                    Toast.makeText(getApplicationContext(), "You are already registered user", Toast.LENGTH_SHORT).show();
+                    // Create a custom toast that doesn't disappear automatically
+                    Toast toast = Toast.makeText(getApplicationContext(), "Info! Razorpay Subscription ID: " + subscribeid + ", User ID: " + user_id + " - You are already registered user", Toast.LENGTH_LONG);
+                    toast.show();
                 }
             }
 
             @Override
             public void failure(RetrofitError error) {
 
-                Toast.makeText(getApplicationContext(), "" + error.getMessage(), Toast.LENGTH_LONG).show();
+                // Create a custom toast that doesn't disappear automatically
+                Toast toast = Toast.makeText(getApplicationContext(), "Error! Razorpay Subscription ID: " + subscribeid + ", User ID: " + user_id + " - " + error.getMessage(), Toast.LENGTH_LONG);
+                toast.show();
                 progressDialog.hide();
             }
         });

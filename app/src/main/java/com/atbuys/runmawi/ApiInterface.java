@@ -594,7 +594,7 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("/RazorpayStore")
     public void getSub(@Field("razorpay_subscription_id") String name,
-                       @Field("userId") String email,
+                       @Field("user_id") String email,
                        Callback<becomesub> callback);
 
     @FormUrlEncoded
