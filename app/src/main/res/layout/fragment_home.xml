@@ -94,6 +94,7 @@
                     </FrameLayout>
                 </androidx.cardview.widget.CardView>
 
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/movie_page"
                     android:layout_width="0dp"
@@ -166,12 +167,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:visibility="gone"/>
-                 <FrameLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
 
-                   <androidx.recyclerview.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/movieRecyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -179,25 +180,19 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="60dp"
                     android:visibility="gone" />
-                
+
                 <!-- Scrollable container for Runmawi TV tab -->
                 <androidx.core.widget.NestedScrollView
                     android:id="@+id/runmawi_tv_content_container"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:visibility="gone">
-                    
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/game_img"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/ic_game"
-                            android:layout_width="match_parent"
-                            android:layout_height="100dp"/>
 
 
                         <!-- Banner for Runmawi TV tab -->
@@ -223,6 +218,14 @@
                                 android:visibility="visible" />
                         </RelativeLayout>
 
+                        <ImageView
+                            android:id="@+id/game_img"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/ic_game"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"/>
+
+
                         <!-- Content list for Runmawi TV tab -->
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/liveCateRecyclerview"
@@ -233,7 +236,7 @@
                             android:layout_marginBottom="10dp"
                             android:visibility="visible"
                             android:nestedScrollingEnabled="false" />
-                            
+
                         <!-- Dedicated RecyclerView for filtered LiveTV content -->
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/filteredLiveTvRecyclerview"
@@ -294,6 +297,15 @@
                                         android:visibility="visible" />
 
                                 </RelativeLayout>
+
+                                <ImageView
+                                    android:layout_marginTop="5dp"
+                                    android:id="@+id/game_img2"
+                                    android:scaleType="fitXY"
+                                    android:src="@drawable/ic_game"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"/>
+
 
                                 <LinearLayout
                                     android:id="@+id/continue_watching_layour"
