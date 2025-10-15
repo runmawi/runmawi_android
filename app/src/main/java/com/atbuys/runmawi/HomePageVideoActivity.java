@@ -994,7 +994,7 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
                     nextvidurl = jsonResponse.getNext_url();
                     videoads = jsonResponse.getVideoads();
 
-                    String userprofile = "https://exlhoster.com/public/uploads/images/" + movie_detaildata.get(0).getPlayer_image();
+                    String userprofile = "https://runmawi.com/public/uploads/images/" + movie_detaildata.get(0).getPlayer_image();
                     Picasso.get().load(userprofile).into(videoThumb);
                     Picasso.get().load(userprofile).into(trailerImage);
                     Picasso.get().load(userprofile).into(reels_image);
@@ -1793,7 +1793,7 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
                 }
             }
         });
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://exlhoster.com/api/auth/").addConverterFactory(GsonConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://runmawi.com/api/auth/").addConverterFactory(GsonConverterFactory.create()).build();
         RequestInterface request = retrofit.create(RequestInterface.class);
         Call<JSONResponse> call = request.getStripeOnetime();
         call.enqueue(new retrofit2.Callback<JSONResponse>() {
@@ -1946,7 +1946,7 @@ public class HomePageVideoActivity extends AppCompatActivity implements View.OnC
                                         public void onClick(View v) {
                                             try {
                                                 Intent i = new Intent(Intent.ACTION_VIEW);
-                                                i.setData(Uri.parse("https://exlhoster.com/page/terms-and-conditions"));
+                                                i.setData(Uri.parse("https://runmawi.com/page/terms-and-conditions"));
                                                 startActivity(i);
                                             } catch (Exception e) {
                                                 Toast.makeText(getApplicationContext(), "unable to open website", Toast.LENGTH_SHORT).show();

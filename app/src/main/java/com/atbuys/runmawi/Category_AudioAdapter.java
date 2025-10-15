@@ -67,7 +67,7 @@ class Category_AudioAdapter extends RecyclerView.Adapter<Category_AudioAdapter.M
         holder.name.setText(trendng_audioslist.get(position).getTitle());
 
         Picasso.get().
-                load( "https://exlhoster.com/public/uploads/images/"+trendng_audioslist.get(position).getImage())
+                load( "https://runmawi.com/public/uploads/images/"+trendng_audioslist.get(position).getImage())
                 .into(holder.image);
 
     }

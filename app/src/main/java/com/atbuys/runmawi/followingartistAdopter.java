@@ -67,7 +67,7 @@ class followingartistAdopter extends RecyclerView.Adapter<followingartistAdopter
         holder.name.setText(followinglists.get(position).getArtist_name());
 
         Picasso.get()
-                .load("https://exlhoster.com/public/uploads/artists/"+followinglists.get(position).getImage())
+                .load("https://runmawi.com/public/uploads/artists/"+followinglists.get(position).getImage())
                 .placeholder(R.drawable.avatar)
                 .transform(new CircleTransform())
                 .into(holder.image);

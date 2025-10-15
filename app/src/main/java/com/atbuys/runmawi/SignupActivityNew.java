@@ -394,7 +394,7 @@ public class SignupActivityNew extends AppCompatActivity {
             options.put("name", "Runmawi");
             options.put("description", "Runmawi Subscription");
             //You can omit the image option to fetch the image from dashboard
-            options.put("image", "http://exlhoster.com/content/uploads/settings/5f8d4d2f932bf-c-l.png");
+            options.put("image", "http://runmawi.com/content/uploads/settings/5f8d4d2f932bf-c-l.png");
             options.put("currency", "INR");
             options.put("subscription_id", subscribeid);
 
@@ -436,7 +436,7 @@ public class SignupActivityNew extends AppCompatActivity {
 
 
         Retrofit retrofit1 = new Retrofit.Builder()
-                .baseUrl("https://exlhoster.com/assets/")
+                .baseUrl("https://runmawi.com/assets/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -494,7 +494,7 @@ public class SignupActivityNew extends AppCompatActivity {
     public void terms(View view) {
         AlertDialog.Builder alert = new AlertDialog.Builder(SignupActivityNew.this);
         WebView wv = new WebView(SignupActivityNew.this);
-        wv.loadUrl("https://exlhoster.com/page/terms-and-conditions");
+        wv.loadUrl("https://runmawi.com/page/terms-and-conditions");
         wv.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {

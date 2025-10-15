@@ -1075,7 +1075,7 @@ public class HomeFragment extends Fragment {
 
             sidemenuusername.setText("Login");
             sidemenuuseremail.setText("For Better Experience");
-            Picasso.get().load("https://exlhoster.com/public/uploads/avatars/default.png").into(sidemenudp);
+            Picasso.get().load("https://runmawi.com/public/uploads/avatars/default.png").into(sidemenudp);
 
         }
 

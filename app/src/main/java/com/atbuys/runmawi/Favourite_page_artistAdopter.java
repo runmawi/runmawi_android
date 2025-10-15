@@ -67,7 +67,7 @@ class Favourite_page_artistAdopter extends RecyclerView.Adapter<Favourite_page_a
         holder.name.setText(favoriteslists.get(position).getArtist_name());
 
         Picasso.get()
-                .load("https://exlhoster.com/public/uploads/images/"+favoriteslists.get(position).getImage())
+                .load("https://runmawi.com/public/uploads/images/"+favoriteslists.get(position).getImage())
                 .fit()
                 .placeholder(R.drawable.avatar)
                 .transform(new CircleTransform())

@@ -85,7 +85,7 @@ class latest_channal_videosAdapter extends RecyclerView.Adapter<latest_channal_v
         }
 
         Picasso.get().
-                load("https://exlhoster.com/public/uploads/images/"+ latestvideoslist.get(position).getMobile_image())
+                load("https://runmawi.com/public/uploads/images/"+ latestvideoslist.get(position).getMobile_image())
                 .fit()
                 .into(holder.image);
 

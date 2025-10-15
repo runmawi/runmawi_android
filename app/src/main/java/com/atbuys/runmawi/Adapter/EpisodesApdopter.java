@@ -81,7 +81,7 @@ public class EpisodesApdopter extends RecyclerView.Adapter<EpisodesApdopter.Movi
      // holder.textViewGenre.setText(movie1.getVideo_url()+movie1.getPath());
 
         Picasso.get().
-                load("https://exlhoster.com/public/uploads/images/"+movie1.getPlayer_image())
+                load("https://runmawi.com/public/uploads/images/"+movie1.getPlayer_image())
                 .into(holder.imageViewMovie);
 
     }

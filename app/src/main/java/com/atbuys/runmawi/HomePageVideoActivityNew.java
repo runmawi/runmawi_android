@@ -824,7 +824,7 @@ public class HomePageVideoActivityNew extends AppCompatActivity implements View.
         });
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://exlhoster.com/api/auth/")
+                .baseUrl("https://runmawi.com/api/auth/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RequestInterface request = retrofit.create(RequestInterface.class);
@@ -970,7 +970,7 @@ public class HomePageVideoActivityNew extends AppCompatActivity implements View.
                                         public void onClick(View v) {
                                             try {
                                                 Intent i = new Intent(Intent.ACTION_VIEW);
-                                                i.setData(Uri.parse("https://exlhoster.com/page/terms-and-conditions"));
+                                                i.setData(Uri.parse("https://runmawi.com/page/terms-and-conditions"));
                                                 startActivity(i);
                                             } catch (Exception e) {
                                                 Toast.makeText(getApplicationContext(), "unable to open website", Toast.LENGTH_SHORT).show();

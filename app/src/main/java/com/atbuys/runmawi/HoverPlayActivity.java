@@ -148,7 +148,7 @@ DefaultTrackSelector.Parameters qualityParams;
 
 
 
-    private String videoUrl = "https://exlhoster.com/public/uploads/videos/VENOM - Official Trailer (HD).mp4";
+    private String videoUrl = "https://runmawi.com/public/uploads/videos/VENOM - Official Trailer (HD).mp4";
 
     private static boolean isBehindLiveWindow(ExoPlaybackException e) {
         if (e.type != ExoPlaybackException.TYPE_SOURCE) {

@@ -67,7 +67,7 @@ class RecentAudioAdapter extends RecyclerView.Adapter<RecentAudioAdapter.MyViewH
         holder.name.setText(recent_audioslist.get(position).getTitle());
 
         Picasso.get().
-                load( "https://exlhoster.com/public/uploads/images/"+recent_audioslist.get(position).getImage())
+                load( "https://runmawi.com/public/uploads/images/"+recent_audioslist.get(position).getImage())
                 .into(holder.image);
 
     }

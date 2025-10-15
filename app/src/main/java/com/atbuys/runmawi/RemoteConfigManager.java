@@ -72,7 +72,7 @@ public class RemoteConfigManager {
         defaults.put(MAINTENANCE_MESSAGE, "The app is currently under maintenance. Please try again later.");
 
         // API Configuration
-        defaults.put(API_BASE_URL, "https://exlhoster.com/api/");
+        defaults.put(API_BASE_URL, "https://runmawi.com/api/");
 
         // Login Options
         defaults.put(ENABLE_GOOGLE_LOGIN, true);

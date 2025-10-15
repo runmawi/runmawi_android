@@ -285,7 +285,7 @@ public class UserprofilFragment extends Fragment implements GoogleApiClient.OnCo
                                 //        Toast.makeText(getActivity(),""+subuserlist.get(position).getId(),Toast.LENGTH_LONG).show();
                                 child_namee.setText(subuserlist.get(position).getUser_name());
                                 chilt_typee.setText(subuserlist.get(position).getUser_type());
-                                Picasso.get().load("https://exlhoster.com/public/uploads/avatars/" + subuserlist.get(position).getAvatar()).into(imgg);
+                                Picasso.get().load("https://runmawi.com/public/uploads/avatars/" + subuserlist.get(position).getAvatar()).into(imgg);
 
                                 child_namee.setInputType(InputType.TYPE_NULL);
                                 chilt_typee.setInputType(InputType.TYPE_NULL);

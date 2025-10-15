@@ -55,8 +55,8 @@ public class ExoPlayerActivity{
     private static final UUID DRM_SCHEME_UUID = C.WIDEVINE_UUID;
 
     // Example subtitle URLs
-    private static final Uri ENGLISH_SUBTITLE_URL = Uri.parse("https://exlhoster.com/web/movie_details/subtitles/the_sky_is_ours_pg_en.vtt");
-    private static final Uri SPANISH_SUBTITLE_URL = Uri.parse("https://exlhoster.com/web/movie_details/subtitles/the_sky_is_ours_pg_es.vtt");
+    private static final Uri ENGLISH_SUBTITLE_URL = Uri.parse("https://runmawi.com/web/movie_details/subtitles/the_sky_is_ours_pg_en.vtt");
+    private static final Uri SPANISH_SUBTITLE_URL = Uri.parse("https://runmawi.com/web/movie_details/subtitles/the_sky_is_ours_pg_es.vtt");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,7 +159,7 @@ public class ExoPlayerActivity{
                 .setTransferListener(new DefaultBandwidthMeter.Builder(this).build());
 
         Map<String, String> drmHeaders = new HashMap<>();
-        drmHeaders.put("Referer", "https://exlhoster.com");
+        drmHeaders.put("Referer", "https://runmawi.com");
 
         // Create subtitle configurations
         MediaItem.SubtitleConfiguration englishSubtitle =

@@ -9,7 +9,7 @@ public class Api {
 
 
         RestAdapter adapter = new RestAdapter.Builder()
-                .setEndpoint("https://exlhoster.com/api/auth/")
+                .setEndpoint("https://runmawi.com/api/auth/")
                 .build();
 
         ApiInterface api = adapter.create(ApiInterface.class);

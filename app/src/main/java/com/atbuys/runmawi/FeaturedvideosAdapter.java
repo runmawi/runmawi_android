@@ -75,7 +75,7 @@ class FeaturedvideosAdapter extends RecyclerView.Adapter<FeaturedvideosAdapter.M
 
 
         Picasso.get().
-                load("https://exlhoster.com/public/uploads/images/"+ latestvideoslist.get(position).getImage())
+                load("https://runmawi.com/public/uploads/images/"+ latestvideoslist.get(position).getImage())
                 .fit()
                 .into(holder.image);
 

@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitSingleton {
 
-    private String BASE_URL = "https://exlhoster.com/api/auth/";//https://exlhoster.com/
+    private String BASE_URL = "https://runmawi.com/api/auth/";//https://runmawi.com/
     private Retrofit retrofit;
     OkHttpClient.Builder okHttpClient;
     private static RetrofitSingleton retrofitSingletonInstance;

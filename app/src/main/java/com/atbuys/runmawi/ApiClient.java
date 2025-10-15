@@ -11,7 +11,7 @@ public class ApiClient {
 
 
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://exlhoster.com/api/auth/")
+            .baseUrl("https://runmawi.com/api/auth/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
     RequestInterface request = retrofit.create(RequestInterface.class);

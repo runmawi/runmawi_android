@@ -107,7 +107,7 @@ public class BecomeSubscriberPaymentActivity extends AppCompatActivity {
         back_arrow = (ImageView) findViewById(R.id.back_arrow);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://exlhoster.com/api/auth/")
+                .baseUrl("https://runmawi.com/api/auth/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RequestInterface request = retrofit.create(RequestInterface.class);
@@ -165,7 +165,7 @@ public class BecomeSubscriberPaymentActivity extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse("https://exlhoster.com/page/terms-and-conditions"));
+                    i.setData(Uri.parse("https://runmawi.com/page/terms-and-conditions"));
                     startActivity(i);
                 } catch (Exception e) {
                 }
@@ -301,7 +301,7 @@ public class BecomeSubscriberPaymentActivity extends AppCompatActivity {
         alert.setTitle("Title here");
 
         WebView wv = new WebView(getApplicationContext());
-        wv.loadUrl("https://exlhoster.com/page/terms-and-conditions");
+        wv.loadUrl("https://runmawi.com/page/terms-and-conditions");
         wv.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {

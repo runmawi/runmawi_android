@@ -79,7 +79,7 @@ public class VideoLibraryPageAdapter extends RecyclerView.Adapter<VideoLibraryPa
       holder.textViewGenre.setText(movie1.getMp4_url());
 
         Picasso.get().
-                load("https://exlhoster.com/public/uploads/images/"+movie1.getImage())
+                load("https://runmawi.com/public/uploads/images/"+movie1.getImage())
                 .into(holder.imageViewMovie);
 
     }

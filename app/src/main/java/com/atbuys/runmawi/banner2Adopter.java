@@ -72,7 +72,7 @@ class banner2Adopter extends RecyclerView.Adapter<banner2Adopter.MyViewHolder> {
         holder.id.setText(latestvideoslist.get(position).getId());
 
         Picasso.get().
-                load( "https://exlhoster.com/public/uploads/images/"+latestvideoslist.get(position).getPlayer_image())
+                load( "https://runmawi.com/public/uploads/images/"+latestvideoslist.get(position).getPlayer_image())
                 .fit()
                 .into(holder.image);
 

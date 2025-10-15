@@ -1,6 +1,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Runmawi</string>
-    <string name="base_url">https://exlhoster.com</string>
+    <string name="base_url">https://runmawi.com</string>
     <string name="app_id">com.atbuys.runmawi</string>
     <string name="app_id_cast">04772689</string>
     <string name="username"><font size="11">UserName</font></string>

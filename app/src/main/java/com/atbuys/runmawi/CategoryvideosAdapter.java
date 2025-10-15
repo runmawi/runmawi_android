@@ -70,7 +70,7 @@ class CategoryvideosAdapter extends RecyclerView.Adapter<CategoryvideosAdapter.M
 
 
         Picasso.get().
-                load( "https://exlhoster.com/public/uploads/images/"+thismaylikelilst.get(position).getImage())
+                load( "https://runmawi.com/public/uploads/images/"+thismaylikelilst.get(position).getImage())
                 .fit()
                 .into(holder.image);
 

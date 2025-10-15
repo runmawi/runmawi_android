@@ -343,7 +343,7 @@ public class SubscribeActivity extends AppCompatActivity implements PaymentResul
 
     private void loadJSON() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://exlhoster.com/api/auth/")
+                .baseUrl("https://runmawi.com/api/auth/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -602,7 +602,7 @@ public class SubscribeActivity extends AppCompatActivity implements PaymentResul
                                                 Log.w("Runmawi_test","planid: "+planidd+" plan: "+planname);
                                                 // Fetch subscription details from the new endpoint using RequestInterface
                                                 Retrofit retrofit = new Retrofit.Builder()
-                                                        .baseUrl("https://exlhoster.com/api/auth/")
+                                                        .baseUrl("https://runmawi.com/api/auth/")
                                                         .addConverterFactory(GsonConverterFactory.create())
                                                         .build();
                                                 RequestInterface requestInterface = retrofit.create(RequestInterface.class);
@@ -1063,7 +1063,7 @@ public class SubscribeActivity extends AppCompatActivity implements PaymentResul
             options.put("name", "Runmawi");
             options.put("description", price);
             //You can omit the image option to fetch the image from dashboard
-            options.put("image", "https://exlhoster.com/content/uploads/settings/5f8d4d2f932bf-c-l.png");
+            options.put("image", "https://runmawi.com/content/uploads/settings/5f8d4d2f932bf-c-l.png");
             options.put("currency", "INR");
             options.put("subscription_id", price);
 

@@ -79,7 +79,7 @@ public class HomePagecatVideoAdapter extends RecyclerView.Adapter<HomePagecatVid
       holder.textViewGenre.setText(movie1.getMobile_image());
 
         Picasso.get().
-                load("https://exlhoster.com/public/uploads/settings/webnexs-250.png")
+                load("https://runmawi.com/public/uploads/settings/webnexs-250.png")
                 .into(holder.imageViewMovie);
 
     }

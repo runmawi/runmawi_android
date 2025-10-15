@@ -65,7 +65,7 @@ class PPV_videos_Adapter extends RecyclerView.Adapter<PPV_videos_Adapter.MyViewH
 
 
         Picasso.get().
-                load("https://exlhoster.com/dev/public/uploads/videocategory/" + channellistdata.get(position).getImage())
+                load("https://runmawi.com/dev/public/uploads/videocategory/" + channellistdata.get(position).getImage())
                 .into(holder.image);
 
     }

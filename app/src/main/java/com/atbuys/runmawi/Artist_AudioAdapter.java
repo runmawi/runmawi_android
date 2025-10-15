@@ -66,7 +66,7 @@ class Artist_AudioAdapter extends RecyclerView.Adapter<Artist_AudioAdapter.MyVie
         holder.name.setText(artist_audioslist.get(position).getTitle());
 
         Picasso.get().
-                load( "https://exlhoster.com/public/uploads/images/"+artist_audioslist.get(position).getImage())
+                load( "https://runmawi.com/public/uploads/images/"+artist_audioslist.get(position).getImage())
                 .into(holder.image);
 
     }
