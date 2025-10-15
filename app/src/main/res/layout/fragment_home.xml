@@ -186,7 +186,7 @@
                     android:id="@+id/runmawi_tv_content_container"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="gone">
+                    android:visibility='gone'>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -218,12 +218,32 @@
                                 android:visibility="visible" />
                         </RelativeLayout>
 
+
+                        <TextView
+
+                            android:layout_marginStart="17dp"
+                            android:layout_marginTop="20dp"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            android:text="Games"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
                         <ImageView
                             android:id="@+id/game_img"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/ic_game"
                             android:layout_width="match_parent"
-                            android:layout_height="60dp"/>
+                            android:layout_height="67dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginBottom="10dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_game"
+                            android:background="@drawable/rounded_image_bg"
+                            android:clipToOutline="true"
+                            android:visibility="visible" />
+
 
 
                         <!-- Content list for Runmawi TV tab -->
@@ -298,13 +318,30 @@
 
                                 </RelativeLayout>
 
+                                <TextView
+
+                                    android:layout_marginStart="17dp"
+                                    android:layout_marginTop="20dp"
+                                    android:textSize="20dp"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/white"
+                                    android:text="Games"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
                                 <ImageView
-                                    android:layout_marginTop="5dp"
                                     android:id="@+id/game_img2"
-                                    android:scaleType="fitXY"
-                                    android:src="@drawable/ic_game"
                                     android:layout_width="match_parent"
-                                    android:layout_height="60dp"/>
+                                    android:layout_height="67dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginEnd="20dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/ic_game"
+                                    android:background="@drawable/rounded_image_bg"
+                                    android:clipToOutline="true"
+                                    android:visibility="visible" />
 
 
                                 <LinearLayout
