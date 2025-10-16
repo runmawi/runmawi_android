@@ -6,6 +6,7 @@ import android.content.pm.ResolveInfo;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem; // Import for onOptionsItemSelected
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.WebSettings;
@@ -14,6 +15,7 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.ActionBar; // Import for ActionBar
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -29,6 +31,8 @@ public class GameWebviewActivity extends AppCompatActivity {
 
     private WebView myWebView;
     private static final String GAME_URL = "https://10869.play.gamezop.com/";
+    // Define a constant for the title
+    private static final String ACTION_BAR_TITLE = "Runmawi Games";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,17 @@ public class GameWebviewActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         // Assuming R.layout.activity_game_webview is the correct name for your layout
         setContentView(R.layout.activity_game_webview);
+
+        // --- Action Bar Setup ---
+        // Get a reference to the Action Bar
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            // 1. Set the Title
+            actionBar.setTitle(ACTION_BAR_TITLE);
+            // 2. Enable the Up button (back arrow)
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        // -------------------------
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -88,12 +103,30 @@ public class GameWebviewActivity extends AppCompatActivity {
         myWebView.loadUrl(GAME_URL);
     }
 
+    // --- Action Bar Back Arrow Handler ---
+    /**
+     * This method is called whenever an item in your options menu is selected.
+     * We use it to handle the press of the Up (back) button.
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Check if the selected item is the Up button (home as up)
+        if (item.getItemId() == android.R.id.home) {
+            // Perform the same action as a regular back press
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    // -------------------------------------
+
     // Handle back button press for WebView navigation
     @Override
     public void onBackPressed() {
         if (myWebView != null && myWebView.canGoBack()) {
             myWebView.goBack();
         } else {
+            // The default behavior when the WebView can't go back is to finish the activity
             super.onBackPressed();
         }
     }
