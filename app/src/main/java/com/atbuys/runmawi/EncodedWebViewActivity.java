@@ -48,7 +48,7 @@ public class EncodedWebViewActivity extends AppCompatActivity {
         }
 
         if (isYouTubeUrl) {
-            url="https://runmawi.com/yt_embed.php?url="+embed_url;
+            url="https://runmawi.tv/yt_embed.php?url="+embed_url;
         } else {
             url=embed_url;
         }
