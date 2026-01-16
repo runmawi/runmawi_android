@@ -1,5 +1,6 @@
 <resources>
     <style name="darktheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:fitsSystemWindows">true</item>
         <item name="android:windowBackground">@drawable/logo</item>
         <item name="colorPrimary">@color/buttonred</item>
         <item name="colorPrimaryDark">@color/buttonred</item>
@@ -43,6 +44,7 @@
     </style>
 
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:fitsSystemWindows">true</item>
         <item name="android:windowBackground">@drawable/logo</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="cardStyle">@style/CardView.Dark</item>

@@ -2,17 +2,14 @@ package com.atbuys.runmawi;
 
 import static android.content.Context.MODE_PRIVATE;
 
-import static com.atbuys.runmawi.UserHomeFragment.mediaplayer;
-
 import android.Manifest;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -28,7 +25,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
@@ -43,42 +39,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
+import com.atbuys.runmawi.Adapter.CategoryhomepageAdopter;
 import com.atbuys.runmawi.Adapter.GenreAdapter;
 import com.atbuys.runmawi.Adapter.GenreCategoriesAdapter;
 import com.atbuys.runmawi.Adapter.LiveCategoriesSimpleAdapter;
-import com.atbuys.runmawi.adapter.RunmawiTvBannerAdapter;
-import com.atbuys.runmawi.channelvideos;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Timer;
-import com.atbuys.runmawi.Model.data;
-import com.facebook.login.LoginManager;
-import com.squareup.picasso.Picasso;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
-import android.graphics.Color;
-import android.view.Gravity;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.view.ViewGroup;
-import android.app.Activity;
-import com.atbuys.runmawi.Adapter.CategoryhomepageAdopter;
 import com.atbuys.runmawi.Api1.RetrofitSingleton;
 import com.atbuys.runmawi.Model.HomeBodyResponse;
 import com.atbuys.runmawi.Model.HomeCategoryData;
-import com.atbuys.runmawi.LiveCategory;
-import com.atbuys.runmawi.livepageAdopter;
+import com.atbuys.runmawi.Model.data;
+import com.facebook.login.LoginManager;
+import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.lang.reflect.Field;
 import java.util.Timer;
 import java.util.TimerTask;
-import com.google.gson.Gson;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -93,7 +71,7 @@ public class HomeFragment extends Fragment {
     ViewPager runmawiTvViewPager;
     ViewPagerAdapter1 runmawiTvViewPagerAdapter;
     RelativeLayout runmawiTvBannerContainer;
-    androidx.core.widget.NestedScrollView runmawiTvContentContainer;
+    NestedScrollView runmawiTvContentContainer;
     private ArrayList<series_banner> bannersdata;
     private ArrayList<video_banner> videobanner;
     private ArrayList<live_banner> livebannerdata;
@@ -102,7 +80,7 @@ public class HomeFragment extends Fragment {
     private ArrayList<pages> genreList;
     private ArrayList<categorylist> cateList;
     private ArrayList<categorylist> allCateList; // Store all categories
-    private String activeTabType = "runmawi_tv"; // Default is Runmawi TV
+    private String activeTabType = "movies";
     private boolean isInFilteredCategoryView = false; // Track if we're in a filtered category view
     private boolean forceRefreshViewPager = false; // Flag to indicate we need to force refresh the ViewPager
     private ArrayList<categoryVideos> movieCategoryList;
@@ -208,7 +186,7 @@ public class HomeFragment extends Fragment {
         viewPager = (ViewPager) root.findViewById(R.id.viewPager);
         runmawiTvViewPager = (ViewPager) root.findViewById(R.id.runmawi_tv_viewPager);
         runmawiTvBannerContainer = (RelativeLayout) root.findViewById(R.id.runmawi_tv_banner_container);
-        runmawiTvContentContainer = (androidx.core.widget.NestedScrollView) root.findViewById(R.id.runmawi_tv_content_container);
+        runmawiTvContentContainer = (NestedScrollView) root.findViewById(R.id.runmawi_tv_content_container);
         activity_main = root.findViewById(R.id.activity_main);
         bannerprogress = root.findViewById(R.id.bannerprogress);
         filteredLiveTvRecyclerview = root.findViewById(R.id.filteredLiveTvRecyclerview);
@@ -224,15 +202,15 @@ public class HomeFragment extends Fragment {
 
         version.setText("Version:  " + BuildConfig.VERSION_NAME);
 
-        if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new
                     String[]{Manifest.permission.POST_NOTIFICATIONS}, 1);
         }
 
         Call<JSONResponse> callimg = ApiClient.getInstance1().getApi().getthemeSettings();
-        callimg.enqueue(new retrofit2.Callback<JSONResponse>() {
+        callimg.enqueue(new Callback<JSONResponse>() {
             @Override
-            public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
+            public void onResponse(Call<JSONResponse> call, Response<JSONResponse> response) {
 
                 JSONResponse jsonResponse = response.body();
                 Site_theme_setting = new ArrayList<>(Arrays.asList(jsonResponse.getSite_theme_setting()));
@@ -247,9 +225,9 @@ public class HomeFragment extends Fragment {
             }
         });
         Call<HomeBodyResponse> allChannel = RetrofitSingleton.getInstance().getApi().getHomeCategory(user_id, page);
-        allChannel.enqueue(new retrofit2.Callback<HomeBodyResponse>() {
+        allChannel.enqueue(new Callback<HomeBodyResponse>() {
             @Override
-            public void onResponse(Call<HomeBodyResponse> call, retrofit2.Response<HomeBodyResponse> response) {
+            public void onResponse(Call<HomeBodyResponse> call, Response<HomeBodyResponse> response) {
 
                 lists lists = response.body().getLists();
                 limit = lists.getLast_page();
@@ -277,13 +255,13 @@ public class HomeFragment extends Fragment {
         pages pages2 = new pages("Categories", false);
         genreList.add(pages2);
 
-        genrerecyclerview.setHasFixedSize(true);
+//         genrerecyclerview.setHasFixedSize(true);
         genrerecyclerview.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         //genrerecyclerview.setLayoutManager(new GridLayoutManager(getContext(),3));
         genreAdapter = new GenreAdapter(genreList, this.getContext());
         genrerecyclerview.setAdapter(genreAdapter);
 
-        cateRecyclerView.setHasFixedSize(true);
+//         cateRecyclerView.setHasFixedSize(true);
         cateRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         genreCategoriesAdapter = new GenreCategoriesAdapter(cateList, this.getContext());
         cateRecyclerView.setAdapter(genreCategoriesAdapter);
@@ -314,20 +292,20 @@ public class HomeFragment extends Fragment {
         });
 
 
-        movieRecyclerview.setHasFixedSize(true);
+//         movieRecyclerview.setHasFixedSize(true);
         movieRecyclerview.setLayoutManager(new GridLayoutManager(getContext(), 3));
         movieCategoryAdapter = new MovieCategoryAdapter(movieCategoryList, this.getContext());
         movieRecyclerview.setAdapter(movieCategoryAdapter);
 
-        liveCateRecyclerview.setHasFixedSize(true);
+//         liveCateRecyclerview.setHasFixedSize(true);
         liveCateRecyclerview.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         live_adapter = new LiveCategoryAdapter(liveCategoryList, getContext());
         liveCateRecyclerview.setAdapter(live_adapter);
 
         Call<HomeBodyResponse> channel = ApiClient.getInstance1().getApi().getLiveBasedCate();
-        channel.enqueue(new retrofit2.Callback<HomeBodyResponse>() {
+        channel.enqueue(new Callback<HomeBodyResponse>() {
             @Override
-            public void onResponse(Call<HomeBodyResponse> call, retrofit2.Response<HomeBodyResponse> response) {
+            public void onResponse(Call<HomeBodyResponse> call, Response<HomeBodyResponse> response) {
 
                 if (response.isSuccessful()) {
                     Log.d("LIVE_CATEGORIES_DEBUG", "Loaded " + response.body().getData().length + " live categories");
@@ -438,17 +416,17 @@ public class HomeFragment extends Fragment {
                 }));
 
         continueWatchingAdopter = new ContinueWatchingAdopter(continuwatchilinglist, this.getContext());
-        continueREcycler.setHasFixedSize(true);
+//         continueREcycler.setHasFixedSize(true);
         continueREcycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         continueREcycler.setAdapter(continueWatchingAdopter);
 
         all_adapter = new CategoryhomepageAdopter(categoryList, getContext());
-        allChannelRecycler.setHasFixedSize(true);
+//         allChannelRecycler.setHasFixedSize(true);
         allChannelRecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         allChannelRecycler.setAdapter(all_adapter);
 
         sidemennuAdopter1 = new sidemennuAdopter(menuslist, this.getContext());
-        sidemenu1recycler.setHasFixedSize(true);
+//         sidemenu1recycler.setHasFixedSize(true);
         sidemenu1recycler.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false));
         sidemenu1recycler.setAdapter(sidemennuAdopter1);
 
@@ -499,8 +477,11 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        // Set Runmawi TV tab as initially selected
-        runmawi_page.setCardBackgroundColor(Color.parseColor("#ff0000"));
+        // Set Movie tab as initially selected
+
+        movie_page.setCardBackgroundColor(Color.parseColor("#ff0000"));
+        runmawi_page.setCardBackgroundColor(Color.parseColor("#000000"));
+        categories_page.setCardBackgroundColor(Color.parseColor("#000000"));
         movie_page.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -561,12 +542,19 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
-        // Set initial visibility for Runmawi TV tab since it's the default
-        swipeRefreshLayout.setVisibility(View.GONE);
+        // Set initial visibility for Movie tab
+        swipeRefreshLayout.setVisibility(View.VISIBLE);
         movieRecyclerview.setVisibility(View.GONE);
         cateRecyclerView.setVisibility(View.GONE);
-        activity_main.setVisibility(View.GONE);
-        runmawiTvContentContainer.setVisibility(View.VISIBLE);
+        activity_main.setVisibility(View.VISIBLE);
+        runmawiTvContentContainer.setVisibility(View.GONE);
+
+
+
+// Ensure the movie slider (viewPager) is visible if data exists
+        if (viewPager != null) {
+            viewPager.setVisibility(View.VISIBLE);
+        }
 
         // activeTabType is already defined above with default value "runmawi_tv"
         // No need to set it again here
@@ -656,9 +644,9 @@ public class HomeFragment extends Fragment {
                 if (allChannelRecycler != null) {
                     // Request fresh content for Runmawi TV tab - using the same approach as in getDataFromAPI2 method
                     Call<JSONResponse> refreshLiveCall = ApiClient.getInstance1().getApi().gethomelink("live", user_id);
-                    refreshLiveCall.enqueue(new retrofit2.Callback<JSONResponse>() {
+                    refreshLiveCall.enqueue(new Callback<JSONResponse>() {
                         @Override
-                        public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
+                        public void onResponse(Call<JSONResponse> call, Response<JSONResponse> response) {
                             if (response.isSuccessful() && response.body() != null) {
                                 // Simply refresh the existing adapter if it exists
                                 if (all_adapter != null) {
@@ -882,9 +870,9 @@ public class HomeFragment extends Fragment {
 
 
         final Call<JSONResponse> bannerreq = ApiClient.getInstance1().getApi().getBanners();
-        bannerreq.enqueue(new retrofit2.Callback<JSONResponse>() {
+        bannerreq.enqueue(new Callback<JSONResponse>() {
             @Override
-            public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
+            public void onResponse(Call<JSONResponse> call, Response<JSONResponse> response) {
 
                 JSONResponse jsonResponse = response.body();
 
@@ -905,11 +893,13 @@ public class HomeFragment extends Fragment {
                     // Set up runmawi TV ViewPager with only livebannerdata
                     runmawiTvViewPagerAdapter = new ViewPagerAdapter1(null, null, livebannerdata, null, getContext());
                     runmawiTvViewPager.setAdapter(runmawiTvViewPagerAdapter);
+
                     runmawiTvBannerContainer.findViewById(R.id.runmawi_tv_bannerprogress).setVisibility(View.GONE);
 
+
                     // Make sure the Runmawi TV content is visible on initial load
-                    runmawiTvContentContainer.setVisibility(View.VISIBLE);
-                    activity_main.setVisibility(View.GONE);
+                    runmawiTvContentContainer.setVisibility(View.GONE);
+                    activity_main.setVisibility(View.VISIBLE);
                 }
 
 
@@ -929,9 +919,9 @@ public class HomeFragment extends Fragment {
                         continuwatchilinglist.clear();
                         categoryList.clear();
                         Call<JSONResponse> callelist = ApiClient.getInstance1().getApi().getContinelisting(user_id);
-                        callelist.enqueue(new retrofit2.Callback<JSONResponse>() {
+                        callelist.enqueue(new Callback<JSONResponse>() {
                             @Override
-                            public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
+                            public void onResponse(Call<JSONResponse> call, Response<JSONResponse> response) {
 
                                 JSONResponse jsonResponse = response.body();
 
@@ -966,9 +956,9 @@ public class HomeFragment extends Fragment {
             public void run() {
 
                 Call<JSONResponse> callelist = ApiClient.getInstance1().getApi().getContinelisting(user_id);
-                callelist.enqueue(new retrofit2.Callback<JSONResponse>() {
+                callelist.enqueue(new Callback<JSONResponse>() {
                     @Override
-                    public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
+                    public void onResponse(Call<JSONResponse> call, Response<JSONResponse> response) {
 
                         if (response.isSuccessful() && response.body() != null) {
 
@@ -1047,9 +1037,9 @@ public class HomeFragment extends Fragment {
         if (user_id != null) {
 
             Call<JSONResponse> profileres = ApiClient.getInstance1().getApi().getUserprofile(user_id);
-            profileres.enqueue(new retrofit2.Callback<JSONResponse>() {
+            profileres.enqueue(new Callback<JSONResponse>() {
                 @Override
-                public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
+                public void onResponse(Call<JSONResponse> call, Response<JSONResponse> response) {
 
 
                     if (response.body() != null) {
@@ -1089,9 +1079,9 @@ public class HomeFragment extends Fragment {
         }
 
         Call<JSONResponse> callser = ApiClient.getInstance1().getApi().getCmsPage();
-        callser.enqueue(new retrofit2.Callback<JSONResponse>() {
+        callser.enqueue(new Callback<JSONResponse>() {
             @Override
-            public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
+            public void onResponse(Call<JSONResponse> call, Response<JSONResponse> response) {
 
                 JSONResponse jsonResponse = response.body();
                 if (jsonResponse.getStatus().equalsIgnoreCase("true")) {
@@ -1205,9 +1195,9 @@ public class HomeFragment extends Fragment {
                 }));
 
         Call<JSONResponse> req = ApiClient.getInstance1().getApi().getMenu();
-        req.enqueue(new retrofit2.Callback<JSONResponse>() {
+        req.enqueue(new Callback<JSONResponse>() {
             @Override
-            public void onResponse(Call<JSONResponse> call, retrofit2.Response<JSONResponse> response) {
+            public void onResponse(Call<JSONResponse> call, Response<JSONResponse> response) {
 
                 JSONResponse jsonResponse = response.body();
                 menuslist = new ArrayList<>(Arrays.asList(jsonResponse.getMenus()));
@@ -1279,7 +1269,7 @@ public class HomeFragment extends Fragment {
             if (genreCategoriesAdapter != null) {
                 genreCategoriesAdapter = new GenreCategoriesAdapter(cateList, getContext());
                 cateRecyclerView.setAdapter(genreCategoriesAdapter);
-                cateRecyclerView.setVisibility(View.VISIBLE);
+                cateRecyclerView.setVisibility(View.GONE);
             }
         } else {
             // For Runmawi TV tab, we'll use liveCategoryList in showLiveCategories()
@@ -1494,7 +1484,7 @@ public class HomeFragment extends Fragment {
                                         JSONResponse jsonResponse = response.body();
                                         Log.d("LIVE_CATEGORY_DEBUG", "API response received for category: " + selectedCategory.getName());
                                         // Log the full parsed API response as JSON
-                                        Log.d("LIVE_CATEGORY_DEBUG", "Parsed API response: " + new com.google.gson.Gson().toJson(jsonResponse));
+                                        Log.d("LIVE_CATEGORY_DEBUG", "Parsed API response: " + new Gson().toJson(jsonResponse));
 
                                         // Log the response structure to help debug
                                         if (jsonResponse.getLiveCategory() != null) {
@@ -1585,7 +1575,7 @@ public class HomeFragment extends Fragment {
 
                                                 // Use our dedicated recycler view for filtered content, similar to movie implementation
                                                 // Set up the layout manager
-                                                filteredLiveTvRecyclerview.setLayoutManager(new androidx.recyclerview.widget.GridLayoutManager(getContext(), 3));
+                                                filteredLiveTvRecyclerview.setLayoutManager(new GridLayoutManager(getContext(), 3));
 
                                                 // Apply the adapter and ensure visibility
                                                 filteredLiveTvRecyclerview.setAdapter(filteredAdapter);
@@ -1658,7 +1648,7 @@ public class HomeFragment extends Fragment {
         cateRecyclerView.setLayoutManager(layoutManager);
 
         // Make sure the RecyclerView has the correct properties
-        cateRecyclerView.setHasFixedSize(true);
+//         cateRecyclerView.setHasFixedSize(true);
         cateRecyclerView.setNestedScrollingEnabled(true);
 
         // Set the adapter and make sure the RecyclerView is visible
@@ -1678,9 +1668,9 @@ public class HomeFragment extends Fragment {
 
     private void clearNotifications(String userId) {
         Call<ReadNotification> call = ApiClient.getInstance1().getApi().getClearAll(userId);
-        call.enqueue(new retrofit2.Callback<ReadNotification>() {
+        call.enqueue(new Callback<ReadNotification>() {
             @Override
-            public void onResponse(Call<ReadNotification> call, retrofit2.Response<ReadNotification> response) {
+            public void onResponse(Call<ReadNotification> call, Response<ReadNotification> response) {
                 ReadNotification jsonResponse = response.body();
             }
 
@@ -1703,9 +1693,9 @@ public class HomeFragment extends Fragment {
         // Log the request parameters before making the call
         Log.d("HomeFragmentData", "Making API call in getDataFromAPI2. User ID: " + user_id + ", Page: " + page);
 
-        allChannel.enqueue(new retrofit2.Callback<HomeBodyResponse>() {
+        allChannel.enqueue(new Callback<HomeBodyResponse>() {
             @Override
-            public void onResponse(Call<HomeBodyResponse> call, retrofit2.Response<HomeBodyResponse> response) {
+            public void onResponse(Call<HomeBodyResponse> call, Response<HomeBodyResponse> response) {
                 Log.d("HomeFragmentData", "Request URL (getDataFromAPI2): " + call.request().url().toString());
                 if (response.isSuccessful() && response.body() != null) {
                     try {
@@ -1732,7 +1722,7 @@ public class HomeFragment extends Fragment {
                     try {
                         String errorBody = response.errorBody() != null ? response.errorBody().string() : "null or empty error body";
                         Log.e("HomeFragmentData", "Response unsuccessful (getDataFromAPI2). Code: " + response.code() + " Error Body: " + errorBody);
-                    } catch (java.io.IOException e) {
+                    } catch (IOException e) {
                         Log.e("HomeFragmentData", "Error reading error body (getDataFromAPI2)", e);
                     }
                     swipeRefreshLayout.setRefreshing(false); // Also ensure this is called on error

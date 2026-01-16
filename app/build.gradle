@@ -5,14 +5,14 @@ plugins {
 
 android {
     namespace 'com.atbuys.runmawi'
-    compileSdk 34
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.atbuys.runmawi"
         minSdk 24
-        targetSdk 34
-        versionCode 46
-        versionName "1.1.46"
+        targetSdk 36
+        versionCode 48
+        versionName "1.1.48"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
